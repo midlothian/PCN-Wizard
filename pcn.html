@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PCN Wizard</title>
+    <link rel="stylesheet" href="include/css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="sidebarWrapper">
+    <div id="sidebar" class="sidebar sidebarShrunk">        
+        <h1>Visible Categories</h1>
+        <div id="sidebarColumnSelect">
+            <div id="sidebarColumnSelectStepType" class="sidebarColumnSelectItem">
+                <input type="checkbox" id="sidebarColumnSelectStepTypeCheckbox" data-column="tableColumnStepType">
+                <label for="sidebarColumnSelectStepTypeCheckbox">Step Type</label>
+            </div>
+            <div id="sidebarColumnSelectProcessRegion" class="sidebarColumnSelectItem">
+                <input type="checkbox" id="sidebarColumnSelectProcessRegionCheckbox" data-column="tableColumnProcessRegion">
+                <label for="sidebarColumnSelectProcessRegionCheckbox">Process Region</label>
+            </div>
+            <div id="sidebarColumnSelectCustomerValue" class="sidebarColumnSelectItem">
+                <input type="checkbox" id="sidebarColumnSelectCustomerValueCheckbox" data-column="tableColumnCustomerValue">
+                <label for="sidebarColumnSelectCustomerValueCheckbox">Customer Value</label>
+            </div>
+            <div id="sidebarColumnSelectPotentialProblems" class="sidebarColumnSelectItem">
+                <input type="checkbox" id="sidebarColumnSelectPotentialProblemsCheckbox" data-column="tableColumnPotentialProblems">
+                <label for="sidebarColumnSelectPotentialProblemsCheckbox">Potential Problems</label>
+            </div>
+            <div id="sidebarColumnSelectFollows" class="sidebarColumnSelectItem">
+                <input type="checkbox" id="sidebarColumnSelectFollowsCheckbox" data-column="tableColumnFollows">
+                <label for="sidebarColumnSelectFollowsCheckbox">Follows</label>
+            </div>
+            <div id="sidebarColumnSelectOnDiagram" class="sidebarColumnSelectItem">
+                <input type="checkbox" id="sidebarColumnSelectOnDiagramCheckbox" data-column="tableColumnOnDiagram">
+                <label for="sidebarColumnSelectOnDiagramCheckbox">On Diagram</label>
+            </div>
+        </div>   
+        <h1>Diagram</h1>
+        <div>
+            <div id="sidebarButtons">
+                <div class="buttonContainer" id="buttonEditDiagram">
+                    <div class="buttonImage"><img src="images/buttonEdit.png" width="80"></div>
+                    <div class="buttonLabel">Edit process details</div>
+                </div>
+                <div class="buttonContainer">
+                    <div class="buttonImage"><img src="images/buttonNew.png" width="80"></div>
+                    <div class="buttonLabel">Create new diagram</div>
+                </div>
+                <div class="buttonContainer" id="buttonImport">
+                    <div class="buttonImage"><img src="images/buttonImport.png" width="80"></div>
+                    <div class="buttonLabel">Import diagram data</div>
+                </div>
+                <div class="buttonContainer" id="buttonExport">
+                    <div class="buttonImage"><img src="images/buttonExport.png" width="80"></div>
+                    <div class="buttonLabel">Export diagram data</div>
+                </div>
+                <div class="buttonContainer">
+                    <div class="buttonImage"><img src="images/buttonPopout.png" width="80"></div>
+                    <div class="buttonLabel">Show diagram (popout)</div>
+                </div>
+                <div class="buttonContainer">
+                    <div class="buttonImage"><img src="images/buttonReset.png" width="80"></div>
+                    <div class="buttonLabel">Reset process steps</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebarControl sidebarControlShrunk">
+        <div id="sidebarHideShowLabelTop" class="sidebarHideShowLabel">&gt;</div>
+        <div id="sidebarHideShowLabelBottom" class="sidebarHideShowLabel">&gt;</div>
+    </div>
+</div>
+
+<div class="mainContent">   
+    <div id="processStepHeader">
+        <h1>Go to the Dentist: Process Steps</h1>
+        <h2>Provided for Seth Skousen by Brandyn Bennett</h2>
+    </div>
+    <div id="table">
+        <div class="tableHeader">
+            <div class="tableColumnDelete" id="tableHeaderDelete"></div>
+            <div class="tableColumnStepName" id="tableHeaderStepName">Step Name</div>
+            <div class="tableColumnStepType" id="tableHeaderStepType">Step Type</div>
+            <div class="tableColumnProcessRegion" id="tableHeaderProcessRegion">Process Region</div>
+            <div class="tableColumnCustomerValue" id="tableHeaderCustomerValue">Customer Value</div>
+            <div class="tableColumnPotentialProblems" id="tableHeaderPotentialProblems">Potential Problems</div>
+            <div class="tableColumnFollows" id="tableHeaderFollows">Follows</div>
+            <div class="tableColumnOnDiagram" id="tableHeaderOnDiagram">On Diagram</div>
+        </div>
+        
+        <div class="tableRow" id="rowStep1">
+            <div class="tableColumnDelete">
+                <div class="roundButton deleteButton">X</div>
+            </div>
+            <div class="tableColumnStepName">
+                <input class="tableColumnStepNameInput" id="">
+            </div>
+            <div class="tableColumnStepType">
+                <select class="tableColumnStepTypeSelect" id="">
+                    <option>Regular</option>
+                    <option>Wait</option>
+                    <option>Decision</option>
+                </select>
+            </div>
+            <div class="tableColumnProcessRegion">
+                <div class="sliderTable">
+                    <div class="sliderRow">
+                        <div class="sliderCell">IP</div>
+                        <div class="sliderCell">SI</div>
+                        <div class="sliderCell">DI</div>
+                        <div class="sliderCell">DI</div>
+                        <div class="sliderCell">DI</div>
+                        <div class="sliderCell">SI</div>
+                        <div class="sliderCell">IP</div>
+                    </div>
+                    <div class="sliderRow">
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                        <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tableColumnCustomerValue">
+                <select class="tableColumnCustomerValueSelect" id="">
+                    <option>:) :) Very valuable</option>
+                    <option>:) Somewhat Valuable</option>
+                    <option>Necessary but not valuable</option>
+                    <option>:( Not necessary nor valuable</option>
+                </select>
+            </div>
+            <div class="tableColumnPotentialProblems">
+                <select class="tableColumnPotentialProblemsSelect" id="">
+                    <option>:( Inconvenient</option>
+                    <option>:( Confusing</option>
+                    <option>:( Difficult</option>
+                    <option>(F) Likely to fail</option>
+                </select>
+            </div>
+            <div class="tableColumnFollows">
+                <select class="tableColumnFollowsSelect" id="">
+                    <option>Previous step</option>
+                    <option>Yes in step #:</option>
+                    <option>No in step #:</option>
+                    <option>Does not follow</option>
+                </select>
+                <input class="tableColumnFollowsInput" size="3" type="text" maxlength="3">
+            </div>
+            <div class="tableColumnOnDiagram">
+                <div class="tableColumnOnDiagramButton">
+                    <input type="button" class="editButton" value="Edit">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button" id="addStepButton" data-id="2">Add Step</div>
+</div>
+<div id="sidebarHint">&lt;-- Hover over the bar to show the menu</div>
+<div id="modalBackground"></div>
+<div class="modal" id="exportModal">
+    <div class="modalHeader">
+        <h1>Export Data</h1>
+        <p><em>Copy PCN data from the text area below and paste into your chosen text editor, or click "Download File"</em></p>
+    </div>
+    <div class="modalContent">
+        
+        <textarea></textarea>
+    </div>
+    <div class="modalFooter">
+        <div class="button">Download File</div><div class="button closeButton">Close</div>
+    </div>
+</div>
+<div class="modal" id="importModal">
+    <div class="modalHeader">
+        <h1>Import Data</h1>
+        <p><em>Paste PCN data from your saved PCN file into the text area below and click "Import"</em></p>
+    </div>
+    <div class="modalContent">
+        <textarea></textarea>
+    </div>
+    <div class="modalFooter">
+        <div class="button">Import</div><div class="button closeButton">Cancel</div>
+    </div>
+</div>
+<div class="modal" id="editOnDiagramModal">
+    <div class="modalHeader">
+        <h1>On-Diagram Option</h1>
+        <p><em>Choose options for how to display the process step on the diagram</em></p>
+    </div>
+    <div class="modalContent">
+        
+        <div>Step Box</div>
+        <div class="modalSection">
+            <div><label for="dash">Dashed line</label><input type="checkbox" name="dash" id="dash"></div>
+            <div><label for="thick">Thick line</label><input type="checkbox" name="thick" id="thick"></div>
+        </div>
+        <div>Skip Rows</div>
+        <div class="modalSection">
+            <div><label for="yes">Yes</label><input type="radio" name="skipYesNo" id="yes"></div>
+            <div><label for="no">No</label><input type="radio" name="skipYesNo" id="no"></div>
+            <div><label for="numberRows">Number of rows</label><input type="text" name="numberRows" id="numberRows" maxlength="3"></div>
+        </div>
+    </div>
+    <div class="modalFooter">
+        <div class="button">Save</div><div class="button closeButton">Cancel</div>
+    </div>
+</div>
+    <div class="modal" id="editDiagramModal">
+    <div class="modalHeader">
+        <h1>Diagram Settings</h1>
+        <p><em>Set the process name, provider, and customer details</em></p>
+    </div>
+    <div class="modalContent">
+        <div>Settings</div>
+        <div class="modalSection">
+            <div><label class="modalLabel" for="processName">Process Name:</label><input type="text" id="processName" name="processName"></div>
+            <div><label class="modalLabel" for="provider">Provider:</label><input type="text" id="provider" name="provider"></div>
+            <div><label class="modalLabel" for="customer">Customer:</label><input type="text" id="customer" name="customer"></div>
+        </div>
+    </div>
+    <div class="modalFooter">
+        <div class="button">Save</div><div class="button closeButton">Cancel</div>
+    </div>
+</div>
+<div id="appendContent">
+    <div class="tableColumnDelete">
+        <div class="roundButton deleteButton">X</div>
+    </div>
+    <div class="tableColumnStepName">
+        <input class="tableColumnStepNameInput" id="">
+    </div>
+    <div class="tableColumnStepType">
+        <select class="tableColumnStepTypeSelect" id="">
+            <option>Regular</option>
+            <option>Wait</option>
+            <option>Decision</option>
+        </select>
+    </div>
+    <div class="tableColumnProcessRegion">
+        <div class="sliderTable">
+            <div class="sliderRow">
+                <div class="sliderCell">IP</div>
+                <div class="sliderCell">SI</div>
+                <div class="sliderCell">DI</div>
+                <div class="sliderCell">DI</div>
+                <div class="sliderCell">DI</div>
+                <div class="sliderCell">SI</div>
+                <div class="sliderCell">IP</div>
+            </div>
+            <div class="sliderRow">
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+                <div class="sliderCell"><input type="radio" name="tableColumnProcessingRegionRadio1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tableColumnCustomerValue">
+        <select class="tableColumnCustomerValueSelect" id="">
+            <option>:) :) Very valuable</option>
+            <option>:) Somewhat Valuable</option>
+            <option>Necessary but not valuable</option>
+            <option>:( Not necessary nor valuable</option>
+        </select>
+    </div>
+    <div class="tableColumnPotentialProblems">
+        <select class="tableColumnPotentialProblemsSelect" id="">
+            <option>:( Inconvenient</option>
+            <option>:( Confusing</option>
+            <option>:( Difficult</option>
+            <option>(F) Likely to fail</option>
+        </select>
+    </div>
+    <div class="tableColumnFollows">
+        <select class="tableColumnFollowsSelect" id="">
+            <option>Previous step</option>
+            <option>Yes in step #:</option>
+            <option>No in step #:</option>
+            <option>Does not follow</option>
+        </select>
+        <input class="tableColumnFollowsInput" size="3" type="text" maxlength="3">
+    </div>
+    <div class="tableColumnOnDiagram">
+        <div class="tableColumnOnDiagramButton">
+            <input type="button" class="editButton" value="Edit">
+        </div>
+    </div>
+</div>
+</body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="include/js/script.js"></script>
+</html>

@@ -1,0 +1,631 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+    font-family: 'Open Sans', sans-serif;
+    color:#fff;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+    background:url(../../images/pcnBook.jpg) center center fixed;
+    background-size:cover;
+}
+
+h1 {
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: 200;
+}
+
+h2 {
+    padding-top:0.35em;
+    font-size: 0.9em;
+}
+
+em {
+    font-style: italic;
+    font-weight:200;
+}
+
+.sidebar {
+    background-color: rgba(255,255,255,0.3);
+    -webkit-transition: left .2s ease;
+    -moz-transition: left .2s ease;
+    -o-transition: left .2s ease;
+    transition: left .2s ease;
+    width: 230px;
+    padding:1em; 
+    position:fixed;
+    top:0;
+    bottom:0;
+    left: 0px;
+    z-index:1;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.sidebar h1 {
+    
+}
+
+.sidebarShrunk {
+    left:-230px;
+}
+
+.sidebarControl {
+    background-color: rgba(255,255,255,0.3);
+    -webkit-transition: left .2s ease-in;
+    -moz-transition: left .2s ease;
+    -o-transition: left .2s ease;
+    transition: left .2s ease;
+    position: fixed;
+    left:230px;
+    top:0px;
+    bottom:0px;
+    width:20px;
+    text-align: center;
+    z-index: 10;
+}
+
+.sidebarControlShrunk {
+    left:0px;
+}
+
+.sidebarHideShowLabel {
+    position: absolute;
+    width: 20px;    
+    height:60px;
+    line-height: 60px;
+    font-weight: 700;
+    color: #fff;
+}
+
+#sidebarHideShowLabelBottom {
+    bottom:0px;  
+}
+
+#sidebarHideShowLabelTop {
+    top:0px;
+}
+
+.mainContent {
+    position: relative;
+    -webkit-transition: left .2s ease-in, width .2s ease;
+    -moz-transition: left .2s ease, width .2s ease;
+    -o-transition: left .2s ease, width .2s ease;
+    transition: left .2s ease, width .2s ease;
+    padding:1em; 
+    display:inline-block;
+    width: calc(100% - 30px);
+    vertical-align: top;
+    left:30px;
+}
+
+.mainContentExpanded {
+    left: 260px;
+    width: calc(100% - 260px);
+}
+
+#sidebarColumnSelect {
+    margin-top: 1em;
+}
+
+#sidebar label {
+    position: relative;
+    top:0px;
+    font-size: .9em;
+}
+
+#sidebarColumnSelectItem {
+    
+}
+
+#sidebarColumnSelectStepType{
+    background-color: #cab270;
+    padding:0.5em;
+}
+
+#sidebarColumnSelectProcessRegion{
+    background-color: #575a8c;
+    padding:0.5em;
+}
+
+#sidebarColumnSelectCustomerValue{
+    background-color: #ca9770;
+    padding:0.5em;
+}
+
+#sidebarColumnSelectPotentialProblems{
+    background-color: #8fbeba;
+    padding:0.5em;
+}
+
+#sidebarColumnSelectFollows{
+    background-color: #e5d098;
+    padding:0.5em;
+}
+
+#sidebarColumnSelectOnDiagram{
+    background-color: #8d91c6;
+    padding:0.5em;
+}
+
+#processStepHeader {
+    cursor: pointer;
+}
+
+#table {
+    display: table;
+    width:100%;
+    margin:0px auto;
+    min-height:40px;
+    margin-top: 1em;
+    border-collapse: collapse;
+}
+
+.tableRow:nth-of-type(even) {
+    background-color:rgba(255,255,255,0.9);
+}
+
+.tableRow:nth-of-type(odd) {
+    background-color:rgba(240,240,240,0.9);
+}
+
+.tableRow {
+    display: table-row;
+}
+
+.tableRow>div {
+    display:table-cell;
+    text-align: center;
+    vertical-align: middle;
+    padding:2px 5px;
+}
+
+.tableHeader {
+    display: table-row;
+    text-align:center;
+    vertical-align: middle;
+    font-weight:600;
+    font-size:0.9em;
+    height:40px;
+}
+
+.tableHeader>div {
+    display: table-cell;
+    vertical-align: middle;
+    padding:3px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.tableColumnStepName {
+    background-color: rgba(69,124,120,0.2);
+}
+
+.tableColumnStepType {
+    background-color: rgba(202,178,112,0.2);
+}
+
+.tableColumnProcessRegion {
+    background-color: rgba(87,90,140,0.2);
+}
+
+.tableColumnCustomerValue {
+    background-color: rgba(202,151,112,0.2);
+}
+
+.tableColumnPotentialProblems {
+    background-color: rgba(143,190,186,0.2);
+}
+
+.tableColumnFollows {
+    background-color: rgba(229,208,152,0.2);
+    max-width:100px;
+}
+
+.tableColumnOnDiagram {
+    background-color: rgba(141,145,198,0.2);
+}
+
+#tableHeaderStepName{
+    background-color: #457c78;
+}
+
+#tableHeaderStepType{
+    background-color: #cab270;
+}
+
+#tableHeaderProcessRegion {
+    background-color: #575a8c;
+}
+
+#tableHeaderCustomerValue {
+    background-color: #ca9770;
+}
+
+#tableHeaderPotentialProblems {
+    background-color: #8fbeba;
+}
+
+#tableHeaderFollows {
+    background-color: #e5d098;
+    min-width: 65px;
+}
+
+#tableHeaderOnDiagram {
+    background-color: #8d91c6;
+}
+
+.tableColumnStepNameInput {
+    box-sizing: border-box;
+    width:100%;
+}
+.tableColumnStepTypeSelect {
+    box-sizing: border-box;
+    width:100%;
+}
+
+.tableColumnProcessRegionRange {
+    position:relative;
+    top:4px;
+}
+
+.tableColumnCustomerValueSelect {
+    box-sizing: border-box;
+    width:100%;
+}
+
+.tableColumnPotentialProblemsSelect {
+    box-sizing: border-box;
+    width:100%;
+}
+
+.tableColumnFollowsSelect {
+    width: 65%;
+}
+
+.tableColumnFollowsInput {
+    width: 20%;
+}
+
+.tableColumnOnDiagramButton {
+    width:100%;
+    color:#444;
+}
+
+input, select, option {
+    font-family: 'Open Sans', sans-serif;
+    border:1px solid #444;
+    margin:0px auto;
+    background: rgba(255,255,255,0.0);
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius: 0;
+    margin-top: 2px;
+    display:inline-block;
+}
+
+select {
+    background: url(../../images/arrowClear.png) right no-repeat;
+    background-size: contain;
+    padding-right:20px;
+    padding-left:3px;
+    height:19px;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance:checkbox;
+    -moz-appearance:checkbox;
+    appearance:checkbox;
+}
+
+input[type="radio"] {
+    -webkit-appearance:radio;
+    -moz-appearance:radio;
+    appearance:radio;
+}
+
+.sliderTable{
+    display: table;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0px auto;
+    padding: 0px 2px;
+    color: #444;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.sliderRow {
+    display:table-row;
+}
+
+.sliderCell {
+    display:table-cell;
+    font-size: 11px;
+    padding: 0px 3px;
+    height:20px;
+    line-height: 20px;
+}
+
+.sliderCell:nth-of-type(2) {
+    border-right: 1px solid #444;
+    border-left: 1px solid #444;
+}
+
+.sliderCell:nth-of-type(6) {
+    border-right: 1px solid #444;
+    border-left: 1px solid #444;
+}
+
+.roundButton {
+    display:inline-block;
+    border-radius: 50%;
+    width:20px;
+    height:20px;
+    line-height:18px;
+    border:1px solid #fff;
+    text-align: center;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.roundButton:hover {
+    background-color: #ddd;
+    color:#444;
+}
+
+#addStepButton {
+    position:relative;
+    top:20px;
+    
+}
+
+.deleteButton {
+    border:1px solid #444;
+    position:relative;
+    color: #444;
+    font-size:10px;
+    
+}
+
+.deleteButton:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+.editButton {
+    cursor: pointer;
+    width:60px;
+}
+
+.editButton:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+#sidebar>div {
+    margin-bottom:2em;
+    margin-top: 1em;
+}
+
+#sidebarButtons>div>div{
+    display:inline-block;
+}
+
+.buttonImage {
+    box-sizing: border-box;
+    width:80px;
+}
+
+.buttonLabel {
+    box-sizing: border-box;
+    width:110px;
+    position:relative;
+    top:-22px;
+}
+
+.buttonContainer {
+    background-color: rgba(69,124,120,1);
+    margin-bottom: 1em;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.buttonContainer:hover {
+    background-color: #325a57;
+}
+
+.buttonContainer:active {
+    background-color: #264543;
+}
+
+#modalBackground {
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    left:0px;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    display:none;
+}
+
+.modal {
+    width:500px;
+	height:400px;
+	margin-left:-250px;
+	margin-top: -200px;
+	position: fixed;
+	top:50%;
+	left: 50%;
+    background: rgba(255,255,255,0.9);
+    box-sizing: border-box;
+    padding:1em;
+    z-index: 201;
+    display: none;
+    color:#444;
+}
+
+.modal h1 {
+    color: #444;
+    padding-bottom: 0.2em;
+}
+
+.modal p {
+    
+}
+
+.modalHeader {
+    padding-bottom: 1.5em;
+    width:100%;
+}
+
+.modalFooter {
+    position:absolute;
+    bottom:0px;
+    padding-bottom:1em;
+    width: 1005;
+}
+
+.modal textarea {
+    width:100%;
+    max-width:100%;
+    height:235px;
+    max-height: 220px;
+}
+
+.modalSection {
+    border-top: 1px solid #444;
+    padding: 0.5em;
+    margin-bottom:1em;
+}
+
+#numberRows {
+    width:20px;
+}
+
+.modalSection>div{
+    display:inline-block;
+    padding:0.5em;
+    font-size:0.8em;
+    box-sizing: border-box;
+    
+}
+
+.modalSection input {
+    margin-left: 5px;
+    background-color: #fff;
+}
+
+.modalSection input[type="text"] {
+    width:300px;
+}
+
+.modalLabel {
+    width:100px;
+    display:inline-block;
+}
+
+.button {
+    font-size:.95em;
+    min-width:40px;
+    color:#fff;
+    line-height: 20px;
+    padding:10px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 1em;
+    background-color: rgba(69,124,120,1);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.button:hover {
+    background-color: #325a57;
+}
+
+.button:active {
+    background-color: #264543;
+}
+
+#sidebarHint {
+    position:fixed;
+    left: 30px;
+    top: 300px;
+    background-color: rgba(69,124,120,0.4);
+    width:200px;
+    color:#fff;
+    box-sizing: border-box;
+    padding: 1em;
+}
+
+#appendContent {
+    display:none;
+}
