@@ -1,127 +1,40 @@
-function deleteStep(id) {
-    $('#'+id)
-    .children('div')
-    .animate({ padding: 0 })
-    .wrapInner('<div />')
-    .children()
-    .slideUp("slow", function() { 
-        $("#rowStep"+id).remove();
-    });   
-}
+/////// Sampson's huge amount of global vars
+///////////////////////////////////// GLOBAL VARS
 
-$(document).ready(function () {
-    $(".sidebarColumnSelectItem > input[type='checkbox']").attr("checked", "true")
-    
-    $(".sidebarColumnSelectItem > input[type='checkbox']").change(function () {
-        if ($(this).is(':checked')) {
-            var column = $(this).data('column');
-            $("."+column).show();
-        } else {
-            var column = $(this).data('column');
-            $("."+column).hide();
-        }
-    });
-    
-    $(document).on('click', '.deleteButton', function() {
-        var confirmChoice = confirm("Are you sure you want to delete this step?"); 
-        if (confirmChoice == true) {
-            deleteStep($(this).parent().parent().attr("id"));
-        }
-    });
-    
-    $("#sidebarWrapper").mouseleave(function() {
-        toggleSidebar();
-    });
-    
-     $("#sidebarWrapper").mouseenter(function() {
-        toggleSidebar();
-    });
-    
-    $("#buttonExport").click(function() {
-        $("#modalBackground").show("fast");
-        $("#exportModal").show("fast");
-    });
-    
-    $("#buttonImport").click(function() {
-        $("#modalBackground").show("fast");
-        $("#importModal").show("fast");
-    });
-    
-    $("#buttonEditDiagram").click(function() {
-        $("#modalBackground").show("fast");
-        $("#editDiagramModal").show("fast");
-    });
+var svgEditWindow = false;
+var svg_diagram = null;
+var refreshTimer;
+var debug_i = 0;
+var thewin = null;
+var svgNS = "http://www.w3.org/2000/svg";
+var tspan_element = document.getElementById('debugtspan');
+var removeIntent = false;
+var always_showPCN = true;  
+var region_height = 444; //TODO: need to make this dynamic
 
-    $("#buttonSettings").click(function() {
-        $("#modalBackground").show("fast");
-        $("#settingsModal").show("fast");
-    });
-
-    $("#buttonShowPopup").click(function() {
-        //$("#modalBackground").show("fast");
-        //$("#settingsModal").show("fast");
-        popup()
-    });
-    
-    $(".closeButton").click(function() {
-        closeModals();
-    });
-    
-    $("#modalBackground").click(function() {
-        closeModals();
-    });
-    
-    $(document).on('click', '.editButton', function() {
-        $("#modalBackground").show("fast");
-        $("#editOnDiagramModal").show("fast");
-    });
-    
-    $("#processStepHeader").click(function() {
-        $("#modalBackground").show("fast");
-        $("#editDiagramModal").show("fast");
-    });
-    
-    $("#addStepButton").click(function() {
-        addStepRow();
-    });
-    
-});
-
-function toggleSidebar() {
-    $("#sidebar").toggleClass('sidebarShrunk');
-    $("#sidebarHint").hide(100);
-    $(".sidebarControl").toggleClass('sidebarControlShrunk');
-    $(".mainContent").toggleClass('mainContentExpanded');
-    if ($("#sidebar").hasClass('sidebarShrunk')) {
-        $(".sidebarHideShowLabel").html("&gt;");
-    } else {
-        $(".sidebarHideShowLabel").html("&lt;");
-    }   
-}
-
-function closeModals() {
-    $("#modalBackground").hide("fast");
-        $(".modal").hide("fast");
-}
-
-function addStepRow() {
-    var stepNum = $("#addStepButton").data('id');
-    $("#table").append('<div class="tableRow" id="rowStep'+stepNum+'"></div>');
-    $("#rowStep"+stepNum).append($("#appendContent").html());
-    $("#addStepButton").data('id', stepNum+1);
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////// OLD CODE (with modifications to work with new site) ///////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//from http://html5-demos.appspot.com/static/a.download.html
+var container = document.querySelector('#container');
+//var typer = container.querySelector('[contenteditable]');
+//var output = container.querySelector('output');
+//const MIME_TYPE = 'text/plain';
 
 
-$(function() {
-    $("#mainMenu").menu({position: {at: "left bottom"}});
-});
+var pcnbackground = '<defs>'
+    + '<marker refY="50" refX="50" markerHeight="10" markerWidth="10" viewBox="0 0 100 100" orient="auto" markerUnits="strokeWidth" id="markerArrow"><path stroke-width="10" stroke="#00007f" fill="#00007f" d="m100,50l-100,40l30,-40l-30,-40l100,40z" /></marker>'
+    + '<marker refY="50" refX="80" markerHeight="10" markerWidth="20" viewBox="0 0 100 100" orient="auto" id="markerYes"> <rect height="105" width="76" y="-3" x="-79" stroke-width="5" fill="#ffffff" opacity="0.9"/> <path stroke-width="10" stroke="#00007f" fill="#00007f" d="m100,50l-100,40l30,-40l-30,-40l100,40z" /> <text xml:space="preserve" text-anchor="center" font-family="serif" font-size="60" fill="#FF0000" y="70" x="-90" transform="rotate(-90 -45,47) ">yes</text></marker>'
+    + '<marker refY="50" refX="80" markerHeight="10" markerWidth="20" viewBox="0 0 100 100" orient="auto" id="markerNo"> <rect height="105" width="76" y="-3" x="-79" stroke-width="5" fill="#ffffff" opacity="0.7"/> <path stroke-width="10" stroke="#00007f" fill="#00007f" d="m100,50l-100,40l30,-40l-30,-40l100,40z" /> <text xml:space="preserve" text-anchor="center" font-family="serif" font-size="60" fill="#FF0000" y="70" x="-90" transform="rotate(-90 -45,47) ">no</text></marker>'
+    + '</defs>'
+    + '<title>PCN Diagram</title>'
+    + '<g><title>Background</title>'
+    + '<path stroke="#00007f" fill="none" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" opacity="0.5" d="m0,0l540,120l540,-120m0,120l-1080,0m180,0l0,' + region_height + 'm180,0l0,-' + region_height + 'm360,0l0,' + region_height + 'm180,0l0,-' + region_height + '" id="pcn_header"/>'
+    + '</g>';
 
-var regions = [1,2,3,4,5,6,7];
+//var svgStart = '<svg width="1080" height="1120" xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" id="diagram">';
+//http://stackoverflow.com/questions/19484707/how-can-i-make-an-svg-scale-with-its-parent-container
+var svgStart = '<svg width="100%" viewBox="0 0 1080 1120" xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" id="diagram">';
+var svgEnd = '</svg>';
 
+var regions = [1, 2, 3, 4, 5, 6, 7];
 var blank_spa = {
     "process": {
         "provider": "provider?",
@@ -258,19 +171,19 @@ var regionSelect = '<td xclass="p2"><svg height="20" width="180" id="regFor{_ind
     + '<tspan x="130" y="15" class="r6 value">[SI]</tspan>'
     + '<tspan x="155" y="15" class="r7 value">[IP]</tspan>'
     + '</text>'
-+'<line x1="28" y1="0" x2="28" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
-+'<line x1="53" y1="0" x2="53" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
-+'<line x1="128" y1="0" x2="128" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
-+'<line x1="153" y1="0" x2="153" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
++ '<line x1="28" y1="0" x2="28" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
++ '<line x1="53" y1="0" x2="53" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
++ '<line x1="128" y1="0" x2="128" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
++ '<line x1="153" y1="0" x2="153" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
     + '</svg></td>';
 
-var typeSelect = 
+var typeSelect =
     '<td class="type"><input type="radio" name="t{number}" class="regular value" /></td>'
     + '<td class="type"><input type="radio" name="t{number}" class="wait value" /></td>'
     + '<td class="type"><input type="radio" name="t{number}" class="decision value" /></td>';
 //	+ '<td class="domain_" bgcolor="yellow"><input type="checkbox" class="_other" xxonClick="store(this);" />{domain_other}</td>';
 
-var valueSelect = 
+var valueSelect =
       '<td class="value"><input type="radio" name="v{number}" class="very value" /></td>'
     + '<td class="value"><input type="radio" name="v{number}" class="somewhat value" /></td>'
     + '<td class="value"><input type="radio" name="v{number}" class="necessary value" /></td>'
@@ -278,7 +191,7 @@ var valueSelect =
 
 //TODO: I think this class p3,p4 stuff is useless, unless it is for setting color - not
 
-var problemSelect = 
+var problemSelect =
       '<td class="problem_"><input type="checkbox" class="_inconvenient valuelink" /></td>'
     + '<td class="problem_"><input type="checkbox" class="_confusing valuelink" /></td>'
     + '<td class="problem_"><input type="checkbox" class="_difficult valuelink" /></td>'
@@ -287,82 +200,224 @@ var problemSelect =
 
 
 var parts = [{
-    "part":"step",
-    "title":"Process steps",
-    "bgcolor":"",
-    "columns":2,
-    "header":"<td>add</td><td>Enter process steps below (follows)</td>",
-    "item":'<td><span class="change ui-icon ui-icon-close" title="delete step" onClick="removeStep(this);" style="float: left;">&times;</span><span class="change" title="insert step" onClick="insertstepat(this);">&rArr;</span></td><td nowrap align="left"><span class="itemno" title="reorder">{number}.</span><input type="text" size="40" value="{step}" onKeyUp="updatestep(this);" xonClick="show_properties(this);" tabindex="{number}" id="input_{number}"/><span onClick="show_properties(this);" class="ui-icon ui-icon-wrench" style="float:right; cursor:help;" title="this step follows {follows}">?</span><span class="itemfollows" title="click to change" onClick="stepfollows(this);">{follows}</span></td>',
-    "itemPlugs":["number","step","follows"]
+    "part": "step",
+    "title": "Process steps",
+    "bgcolor": "",
+    "columns": 2,
+    "header": "<td>add</td><td>Enter process steps below (follows)</td>",
+    "item": '<td><span class="change ui-icon ui-icon-close" title="delete step" onClick="removeStep(this);" style="float: left;">&times;</span><span class="change" title="insert step" onClick="insertstepat(this);">&rArr;</span></td><td nowrap align="left"><span class="itemno" title="reorder">{number}.</span><input type="text" size="40" value="{step}" onKeyUp="updatestep(this);" xonClick="show_properties(this);" tabindex="{number}" id="input_{number}"/><span onClick="show_properties(this);" class="ui-icon ui-icon-wrench" style="float:right; cursor:help;" title="this step follows {follows}">?</span><span class="itemfollows" title="click to change" onClick="stepfollows(this);">{follows}</span></td>',
+    "itemPlugs": ["number", "step", "follows"]
 },
 {
-    "part":"type",
-    "title":"Step type",
-    "bgcolor":"yellow",
-    "columns":3,
-    "header":"<td class='p1'>regular</td><td class='p1'>wait</td><td class='p1'>decision</td>",
+    "part": "type",
+    "title": "Step type",
+    "bgcolor": "yellow",
+    "columns": 3,
+    "header": "<td class='p1'>regular</td><td class='p1'>wait</td><td class='p1'>decision</td>",
     //<td class='p1'>other entity</td>",
-    "item":typeSelect,
-    "itemPlugs":["number","domain_other"],
-    "field":"type"
+    "item": typeSelect,
+    "itemPlugs": ["number", "domain_other"],
+    "field": "type"
 },
 {
-    "part":"region",
-    "title":"Process Region",
-    "bgcolor":"",
-    "columns":1,
-    "header":'<td class="p2">'
-            +'<svg height="20" width="180">'
-            +'<line x1="0" y1="0" x2="90" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
-            +'<line x1="90" y1="20" x2="180" y2="0" style="stroke:rgb(255,0,0);stroke-width:1" />'
-            +'<line x1="0" y1="20" x2="180" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
-            +'<text font-size="12" x="0" y="18">Provider</text>'
-            +'<text font-size="12" x="132" y="18">Customer</text>'
-            +'</svg></td>',
-    "item":regionSelect,
-    "itemPlugs":["_index"]
+    "part": "region",
+    "title": "Process Region",
+    "bgcolor": "",
+    "columns": 1,
+    "header": '<td class="p2">'
+            + '<svg height="20" width="180">'
+            + '<line x1="0" y1="0" x2="90" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
+            + '<line x1="90" y1="20" x2="180" y2="0" style="stroke:rgb(255,0,0);stroke-width:1" />'
+            + '<line x1="0" y1="20" x2="180" y2="20" style="stroke:rgb(255,0,0);stroke-width:1" />'
+            + '<text font-size="12" x="0" y="18">Provider</text>'
+            + '<text font-size="12" x="132" y="18">Customer</text>'
+            + '</svg></td>',
+    "item": regionSelect,
+    "itemPlugs": ["_index"]
 },
 {
-    "part":"value",
-    "title":"Customer value",
-    "bgcolor":"lightgreen",
-    "columns":4,
-    "header":"<td class='p3'>&#9786;&#9786;<br/>very<br/>valuable</td><td class='p3'>&#9786;<br/>somewhat<br/>valuable</td><td class='p3'>necessary<br/>but&nbsp;not<br/>valuable</td><td class='p3'>&#9785;&nbsp;not<br/>nec.&nbsp;nor<br/>valuable</td>",
-    "item":valueSelect,
-    "itemPlugs":["number"]
+    "part": "value",
+    "title": "Customer value",
+    "bgcolor": "lightgreen",
+    "columns": 4,
+    "header": "<td class='p3'>&#9786;&#9786;<br/>very<br/>valuable</td><td class='p3'>&#9786;<br/>somewhat<br/>valuable</td><td class='p3'>necessary<br/>but&nbsp;not<br/>valuable</td><td class='p3'>&#9785;&nbsp;not<br/>nec.&nbsp;nor<br/>valuable</td>",
+    "item": valueSelect,
+    "itemPlugs": ["number"]
 },
 {
-    "part":"problems",
-    "title":"Potential problems",
-    "bgcolor":"lightpink",
-    "columns":4,
-    "header":"<td class='p4'>&#9785;<br />incon-<br />venient</td><td class='p4'>&#9785;<br />confusing</td><td class='p4'>&#9785;<br />difficult</td><td class='p4'>(F)<br />likely<br />to fail</td>",
-    "item":problemSelect,
-    "itemPlugs":[]
+    "part": "problems",
+    "title": "Potential problems",
+    "bgcolor": "lightpink",
+    "columns": 4,
+    "header": "<td class='p4'>&#9785;<br />incon-<br />venient</td><td class='p4'>&#9785;<br />confusing</td><td class='p4'>&#9785;<br />difficult</td><td class='p4'>(F)<br />likely<br />to fail</td>",
+    "item": problemSelect,
+    "itemPlugs": []
 },
 {
-    "part":"follows",
-    "title":"Follows",
-    "bgcolor":"aqua",
-    "columns":3,
-    "header":"<td xclass='follows'>prior</td><td xclass='follows' title='start step'>none</td><td xclass='follows'>step#s<br />[:yes/no]</td>",
-    "item":'<td class="follows"><input type="radio" name="{number}f" class="prior value" /></td><td class="follows"><input type="radio" name="{number}f" class="start value" /></td><td class="follows"><input type="radio" name="{number}f" class="_follows{number} valuelink" /><input type="text" id="_follows{number}" class="valueinput" size="2" /></td>',
-    "itemPlugs":["number"]
+    "part": "follows",
+    "title": "Follows",
+    "bgcolor": "aqua",
+    "columns": 3,
+    "header": "<td xclass='follows'>prior</td><td xclass='follows' title='start step'>none</td><td xclass='follows'>step#s<br />[:yes/no]</td>",
+    "item": '<td class="follows"><input type="radio" name="{number}f" class="prior value" /></td><td class="follows"><input type="radio" name="{number}f" class="start value" /></td><td class="follows"><input type="radio" name="{number}f" class="_follows{number} valuelink" /><input type="text" id="_follows{number}" class="valueinput" size="2" /></td>',
+    "itemPlugs": ["number"]
 },
 {
-    "part":"diagram",
-    "title":"On Diagram",
-    "bgcolor":"lightgray",
-    "columns":3,
-    "header":"<td class='box_' colspan='2'>step-box<br />dash thick</td><td class='skip_rows'>skip<br />step<br />rows</td>",
-    "item":'<td class="box_"><input type="checkbox" class="dash value" /></td><td class="box_"><input type="checkbox" class="thick value" /></td><td class="skip_rows"><input type="text" class="valueinput" size="2" /></td>',
-    "itemPlugs":["number"]
+    "part": "diagram",
+    "title": "On Diagram",
+    "bgcolor": "lightgray",
+    "columns": 3,
+    "header": "<td class='box_' colspan='2'>step-box<br />dash thick</td><td class='skip_rows'>skip<br />step<br />rows</td>",
+    "item": '<td class="box_"><input type="checkbox" class="dash value" /></td><td class="box_"><input type="checkbox" class="thick value" /></td><td class="skip_rows"><input type="text" class="valueinput" size="2" /></td>',
+    "itemPlugs": ["number"]
 }
 
 
 ];
 
 
+// COLUMN MANAGEMENT FUNCTIONS
+var columnCount = parts.length;
+var showColumns = [0, parts.length - 1]; //ordered array of the columns to be displayed
+
+var regions = {
+    'provider-independent': 1,
+    'provider-surrogate': 2,
+    'provider-direct': 3,
+    'both-direct': 3.5,
+    'customer-direct': 4,
+    'customer-surrogate': 5,
+    'customer-independent': 6,
+    'r1': 1,
+    'r2': 2,
+    'r3': 3,
+    'r4': 3.5,
+    'r5': 4,
+    'r6': 5,
+    'r7': 6
+};
+
+//////////////// END GLOBAL VARS
+
+function deleteStep(id) {
+    $('#'+id)
+    .children('div')
+    .animate({ padding: 0 })
+    .wrapInner('<div />')
+    .children()
+    .slideUp("slow", function() { 
+        $("#rowStep"+id).remove();
+    });   
+}
+
+$(document).ready(function () {
+
+    $(".sidebarColumnSelectItem > input[type='checkbox']").attr("checked", "true")
+    
+    $(".sidebarColumnSelectItem > input[type='checkbox']").change(function () {
+        if ($(this).is(':checked')) {
+            var column = $(this).data('column');
+            $("."+column).show();
+        } else {
+            var column = $(this).data('column');
+            $("."+column).hide();
+        }
+    });
+    
+    $(document).on('click', '.deleteButton', function() {
+        var confirmChoice = confirm("Are you sure you want to delete this step?"); 
+        if (confirmChoice == true) {
+            deleteStep($(this).parent().parent().attr("id"));
+        }
+    });
+    
+    $("#sidebarWrapper").mouseleave(function() {
+        toggleSidebar();
+    });
+    
+     $("#sidebarWrapper").mouseenter(function() {
+        toggleSidebar();
+    });
+    
+    $("#buttonExport").click(function() {
+        $("#modalBackground").show("fast");
+        $("#exportModal").show("fast");
+    });
+    
+    $("#buttonImport").click(function() {
+        $("#modalBackground").show("fast");
+        $("#importModal").show("fast");
+    });
+    
+    $("#buttonEditDiagram").click(function() {
+        $("#modalBackground").show("fast");
+        $("#editDiagramModal").show("fast");
+    });
+
+    $("#buttonSettings").click(function() {
+        $("#modalBackground").show("fast");
+        $("#settingsModal").show("fast");
+    });
+
+    $("#buttonShowPopup").click(function() {
+        //$("#modalBackground").show("fast");
+        //$("#settingsModal").show("fast");
+        popup()
+    });
+    
+    $(".closeButton").click(function() {
+        closeModals();
+    });
+    
+    $("#modalBackground").click(function() {
+        closeModals();
+    });
+    
+    $(document).on('click', '.editButton', function() {
+        $("#modalBackground").show("fast");
+        $("#editOnDiagramModal").show("fast");
+    });
+    
+    $("#processStepHeader").click(function() {
+        $("#modalBackground").show("fast");
+        $("#editDiagramModal").show("fast");
+    });
+    
+    $("#addStepButton").click(function() {
+        addStepRow();
+    });
+
+    drSampsonsOldDocumentReady();
+});
+
+function toggleSidebar() {
+    $("#sidebar").toggleClass('sidebarShrunk');
+    $("#sidebarHint").hide(100);
+    $(".sidebarControl").toggleClass('sidebarControlShrunk');
+    $(".mainContent").toggleClass('mainContentExpanded');
+    if ($("#sidebar").hasClass('sidebarShrunk')) {
+        $(".sidebarHideShowLabel").html("&gt;");
+    } else {
+        $(".sidebarHideShowLabel").html("&lt;");
+    }   
+}
+
+function closeModals() {
+    $("#modalBackground").hide("fast");
+        $(".modal").hide("fast");
+}
+
+function addStepRow() {
+    var stepNum = $("#addStepButton").data('id');
+    $("#table").append('<div class="tableRow" id="rowStep'+stepNum+'"></div>');
+    $("#rowStep"+stepNum).append($("#appendContent").html());
+    $("#addStepButton").data('id', stepNum+1);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// OLD CODE (with modifications to work with new site) ///////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function XXsetProblem(item) {
     var number = item.parentElement.parentElement.id;
@@ -382,8 +437,6 @@ function XXsetProblem(item) {
     }
     alert("set "+number+" "+problem+" to "+what);
 }
-
-
 function XXsetValue(item) {
     var number = item.parentElement.parentElement.id;
     if (number == "dialog")
@@ -395,7 +448,6 @@ function XXsetValue(item) {
     spa.steps[number].value = value;
     //		alert("set "+number+" to "+spa.steps[number].type);
 }
-
 function XXsetType(item) {
     var number = item.parentElement.parentElement.id;
     if (number == "dialog")
@@ -411,8 +463,6 @@ function XXsetType(item) {
         spa.steps[number].type = "";
     }
 }
-
-
 function store(item) {
     //for step [id of grandparent]
     //sets step.[class of parent] or step.[class of parent_class of the item]
@@ -493,7 +543,6 @@ function store(item) {
         console.log('Stored step '+number+' '+property+'='+value);
     }
 }
-
 function setOther(item) {
     var number = item.parentElement.parentElement.id;
     //		alert(number);
@@ -509,7 +558,6 @@ function setOther(item) {
     //		alert("set "+number+" to "+spa.steps[number].type);
     doList();	//refresh this one
 }
-
 function XXsetRegion(regItem) {
     var number = regItem.parentElement.parentElement.parentElement.parentElement.id;
     var region = regItem.classList[0];
@@ -530,15 +578,6 @@ function XXsetRegion(regItem) {
     //no longer necessary		showPCN();
     //	refreshPCN();	//just in case
 }
-
-/////////// COLUMN MANAGEMENT FUNCTIONS /////////////
-
-var columnCount = parts.length;
-
-var showColumns = [0,parts.length-1]; //ordered array of parts
-
-
-	
 function setColumns(based_on,part2add,part2remove) {
     //sets showColumns based on sortable based_on
     showColumns = [];
@@ -589,9 +628,7 @@ function setColumns(based_on,part2add,part2remove) {
     doList();	//refresh
 }
 
-///////////////////////////////////////////////////////
 ////////////////// show list table ////////////////////
-
 function doList() {
     //		it=document.getElementById('mylist');
     //		dump=document.getElementById('dump');
@@ -853,9 +890,6 @@ function doList() {
 
 }
 
-var removeIntent = false; //used above
-
-
 //http://stackoverflow.com/questions/14911157/renumbering-input-tag-name-fields-after-using-jqueuy-sortable
 function reorderSteps($list,number) {
     //reorders spa.steps after a drag and drop
@@ -889,16 +923,6 @@ function reorderSteps($list,number) {
     });
 }
 
-
-//not called anywhere
-//	function addstep() {
-//		var newstep = $('#newstep').val();
-//		spa.steps.push({"step" : newstep, "domain": "patient"});
-//		doList();
-//	}
-
-var always_showPCN = true;
-
 //TODO: is it better to do this with store()...
 function updatestep(stepinput) {
     var number = stepinput.parentElement.parentElement.id;
@@ -925,12 +949,6 @@ function updatestep(stepinput) {
         showPCN();
     }
 }
-
-// not currently used... (had columns vertically)
-//	function showcols_dialog() {
-//		$("#showcols").dialog("open").dialog( "moveToTop" );
-//	}
-
 function setPropertyDialog(stepNumber) {
     //sets the property Dialog for spa.step[stepNumber]
 
@@ -975,8 +993,6 @@ function setPropertyDialog(stepNumber) {
         $('#dialog #type_regular').prop('checked',true); //default
     }
 }
-
-
 function showPropertyDialog(stepNumber) {
     if (! $("#dialog").dialog("isOpen"))
     {
@@ -986,14 +1002,11 @@ function showPropertyDialog(stepNumber) {
     }
     $("#dialog").dialog( "moveToTop" );
 }
-
 function show_properties(stepChild) {
     var stepNo = numberFrom(stepChild.parentElement.parentElement.id);
     setPropertyDialog(stepNo);
     showPropertyDialog(stepNo);
 }
-
-
 function OLD_show_properties(stepChild) {
     //		if (! $('#always_showPCN').is(":checked")) { return; } //HUH???TK
 
@@ -1064,8 +1077,6 @@ function OLD_show_properties(stepChild) {
     $("#dialog").dialog( "moveToTop" );
     $("#dialog").dialog({ title: stepinput.value } );
 }
-
-
 function blankstepatend() {
     //		alert(spa.steps.length);
     if (spa.steps[spa.steps.length-1].step != "")
@@ -1073,7 +1084,6 @@ function blankstepatend() {
         spa.steps.push({"step" : "", "domain": "patient"});
     }
 }
-
 function removeStep(item) {
     var number = item.parentElement.parentElement.id;
     //get confirmation unless blank
@@ -1098,7 +1108,6 @@ function upstep(item) {
         doList();
     }
 }
-
 function downstep(item) {
     var number = item.parentElement.parentElement.id*1;	//must convert to number so can add 1 below
     if (number > spa.steps.length-1)
@@ -1111,14 +1120,12 @@ function downstep(item) {
         doList();
     }
 }
-
 function insertstepat(item) {
     var number = item.parentElement.parentElement.id;
     var movedstep = spa.steps[number]; //save it
     spa.steps.splice(number,0,{"step" : "", "domain": "patient"});
     doList();
 }
-
 function stepfollows(item) {
     //determine what step follows this item
     var number = item.parentElement.parentElement.id;
@@ -1127,46 +1134,6 @@ function stepfollows(item) {
     spa.steps[number].follows = follows;
     doList();
 }
-
-var regions = {
-    'provider-independent' : 1,
-    'provider-surrogate' : 2,
-    'provider-direct' : 3,
-    'both-direct' : 3.5,
-    'customer-direct' : 4,
-    'customer-surrogate' : 5,
-    'customer-independent' : 6,
-    'r1' : 1,
-    'r2' : 2,
-    'r3' : 3,
-    'r4' : 3.5,
-    'r5' : 4,
-    'r6' : 5,
-    'r7' : 6
-};
-
-var region_height = 444; //TODO: need to make this dynamic
-
-//	+'<marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto"><path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" /></marker>'
-
-var pcnbackground = '<defs>'
-    +'<marker refY="50" refX="50" markerHeight="10" markerWidth="10" viewBox="0 0 100 100" orient="auto" markerUnits="strokeWidth" id="markerArrow"><path stroke-width="10" stroke="#00007f" fill="#00007f" d="m100,50l-100,40l30,-40l-30,-40l100,40z" /></marker>'
-    +'<marker refY="50" refX="80" markerHeight="10" markerWidth="20" viewBox="0 0 100 100" orient="auto" id="markerYes"> <rect height="105" width="76" y="-3" x="-79" stroke-width="5" fill="#ffffff" opacity="0.9"/> <path stroke-width="10" stroke="#00007f" fill="#00007f" d="m100,50l-100,40l30,-40l-30,-40l100,40z" /> <text xml:space="preserve" text-anchor="center" font-family="serif" font-size="60" fill="#FF0000" y="70" x="-90" transform="rotate(-90 -45,47) ">yes</text></marker>'
-    +'<marker refY="50" refX="80" markerHeight="10" markerWidth="20" viewBox="0 0 100 100" orient="auto" id="markerNo"> <rect height="105" width="76" y="-3" x="-79" stroke-width="5" fill="#ffffff" opacity="0.7"/> <path stroke-width="10" stroke="#00007f" fill="#00007f" d="m100,50l-100,40l30,-40l-30,-40l100,40z" /> <text xml:space="preserve" text-anchor="center" font-family="serif" font-size="60" fill="#FF0000" y="70" x="-90" transform="rotate(-90 -45,47) ">no</text></marker>'
-    +'</defs>'
-    +'<title>PCN Diagram</title>'
-    +'<g><title>Background</title>'
-    +'<path stroke="#00007f" fill="none" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" opacity="0.5" d="m0,0l540,120l540,-120m0,120l-1080,0m180,0l0,'+region_height+'m180,0l0,-'+region_height+'m360,0l0,'+region_height+'m180,0l0,-'+region_height+'" id="pcn_header"/>'
-    +'</g>';
-
-//var svgStart = '<svg width="1080" height="1120" xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" id="diagram">';
-//http://stackoverflow.com/questions/19484707/how-can-i-make-an-svg-scale-with-its-parent-container
-var svgStart = '<svg width="100%" viewBox="0 0 1080 1120" xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" id="diagram">';
-var svgEnd = '</svg>';
-
-////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////
-
 function generateDiagram() { //returns an SVG diagram jquery object
 
     var steps = spa.steps;
@@ -1360,10 +1327,6 @@ function generateDiagram() { //returns an SVG diagram jquery object
 
     return diagram;
 };
-
-var svgNS = "http://www.w3.org/2000/svg";
-var tspan_element = document.getElementById('debugtspan');
-
 function textWrapSVG(text,textx,texty,width) { //returns SVG text jQuery object
     //		textx += width/2;	//for centering
 
@@ -1442,34 +1405,14 @@ function textWrapSVG(text,textx,texty,width) { //returns SVG text jQuery object
 
 }
 
-//////////////////////////////////////////
-
-//DOES NOT WORK... (MIGHT AS WELL DELETE)
-$.fn.redraw = function(){
-    $(this).each(function(){
-        alert(this);
-        this.style.display = 'none';
-        var redraw = this.offsetHeight;
-        this.style.webkitTransform = 'scale(1)';
-        this.style.display='block';
-    });
-};
-
 //googled "jquery force redraw svg"
 //THANK YOU http://jcubic.wordpress.com/2013/06/19/working-with-svg-in-jquery/
-
 $.fn.xml = function() {
     return (new XMLSerializer()).serializeToString(this[0]);
 };
-
 $.fn.DOMRefresh = function() {
     return $($(this.xml()).replaceAll(this));
 };
-
-var debug_i = 0;
-
-var thewin = null;
-
 function showPCN() {
     var diag = generateDiagram();
 
@@ -1505,9 +1448,6 @@ function showPCN() {
     //		var diag = document.getElementById("diagram"); //go to provider field
     //		diag.style.webkitTransform = 'scale(1)';
 }
-
-var refreshTimer;
-
 function refreshPCN() {
     if (true || $('#always_showPCN').is(":checked"))	//TK hard-coded always
     {
@@ -1515,7 +1455,6 @@ function refreshPCN() {
         refreshTimer = setTimeout(showPCN(),1000);
     }
 }
-
 function pcnBelow() {
     //toggle whether show the PCN below the steps table
     if ($("#show_pcn_below").is(":checked"))
@@ -1528,11 +1467,6 @@ function pcnBelow() {
         $("#diagram").replaceWith('<svg width="1080" height="100" xmlns="http://www.w3.org/2000/svg" id="diagram"></svg>');
     }
 }
-
-//////////////////////////////////////////
-
-var svg_diagram = null;
-
 function popup() {
     var diag = generateDiagram();
     console.log("thewin="+thewin);
@@ -1568,9 +1502,6 @@ function popup() {
     }
     thewin.document.close();
 }
-
-var svgEditWindow = false;
-
 function svgEdit() {
     //		alert(svgEditWindow);
     //		if (!svgEditWindow || !svgEditWindow.svgCanvas) //not created, or not loaded
@@ -1606,8 +1537,6 @@ function svgEdit() {
         svgEditWindow.focus();
     }
 }
-
-
 function loadPCN() {
     var temp;
     try
@@ -1620,8 +1549,6 @@ function loadPCN() {
         alert("The Service Process Analsis data has errors so was NOT loaded.");	//+err.message
     }
 }
-
-
 function putSVG() {
     var diag = generateDiagram().html()
     .replace('markerheight=','markerHeight=')
@@ -1634,7 +1561,6 @@ function putSVG() {
 
     $("#svg2load").val(svgStart+diag+svgEnd);
 }
-
 function new_spa() {
     if (confirm("Clear all data and start anew?"))
     {
@@ -1650,7 +1576,6 @@ function new_spa() {
         }
     }
 }
-
 function numberFrom(idString) { //extracts number from an id string
     if (/\d+/.test(idString))
     {
@@ -1661,15 +1586,11 @@ function numberFrom(idString) { //extracts number from an id string
         return null;
     }
 }
-
-
 function hideColumn(headingChild) {
     //		alert("DO NOT HIDE");
     var partNo = numberFrom(headingChild.parentElement.id);	//must convert to number so can add 1 below
     setColumns("#header_row1",null,partNo);
 }
-
-
 function firstColumn(headingChild) {
     var partno = numberFrom(headingChild.parentElement.id);	//must convert to number so can add 1 below
     //moves that item to the first
@@ -1683,10 +1604,7 @@ function firstColumn(headingChild) {
         doList();	//refresh
     }
 }
-
-
-
-$(function() {
+function drSampsonsOldDocumentReady() {
     $( "#dialog" ).dialog({
         autoOpen: false,
         show: {
@@ -1733,20 +1651,16 @@ $(function() {
         update: function( event, ui ) { setColumns("#header_row1"); }	
     }).disableSelection();
 
-});
 
-//  $(function() {
-//    $( "#mytable tbody" ).sortable();
-//    $( "#sortable" ).disableSelection();
-//  });
+    //This line was in his "other" on document ready function.  I consolidated the two functions. --Brian
+    $("#mainMenu").menu({position: {at: "left bottom"}});
 
-//from http://html5-demos.appspot.com/static/a.download.html
-var container = document.querySelector('#container');
-//var typer = container.querySelector('[contenteditable]');
-var output = container.querySelector('output');
+    setColumns("#header_row1",columnCount-1); //has	doList();	//this needs to be at the bottom or in onLoad
+    $("#dataMenu").hide();
+    $("#svgMenu").hide();
+    $("#serverData").hide();
 
-const MIME_TYPE = 'text/plain';
-
+};
 var cleanUp = function(a) {
     a.textContent = ''; //'Downloaded';
     a.dataset.disabled = true;
@@ -1756,7 +1670,6 @@ var cleanUp = function(a) {
         window.URL.revokeObjectURL(a.href);
     }, 1500);
 };
-
 var downloadFile = function() {
     window.URL = window.webkitURL || window.URL;
 
@@ -1810,13 +1723,6 @@ var downloadFile = function() {
         cleanUp(this);
     };
 };
-
-setColumns("#header_row1",columnCount-1); //has	doList();	//this needs to be at the bottom or in onLoad
-$("#dataMenu").hide();
-$("#svgMenu").hide();
-$("#serverData").hide();
-
-
 function loadSPAdata() {
     var temp;
     var filename = $("#server_data_files").val();
@@ -1844,7 +1750,6 @@ function loadSPAdata() {
         alert("The Service Process Analsis data has errors so was NOT loaded.");	//+err.message
     }
 }
-
 function getDataFilenames() {
     //		console.log("About to ajax.");
     //NOTE that this assumes that the file list shows up as a bunch of hot links - Apache dependent
@@ -1868,4 +1773,3 @@ function getDataFilenames() {
     });
     //		console.log("Done ajax.");
 }
-
