@@ -56,6 +56,12 @@ $(document).ready(function () {
         $("#modalBackground").show("fast");
         $("#settingsModal").show("fast");
     });
+
+    $("#buttonShowPopup").click(function() {
+        //$("#modalBackground").show("fast");
+        //$("#settingsModal").show("fast");
+        popup()
+    });
     
     $(".closeButton").click(function() {
         closeModals();
