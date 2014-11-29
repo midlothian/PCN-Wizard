@@ -418,7 +418,13 @@ function closeModals() {
 function addStepRow() {
     var stepNum = $("#addStepButton").data('id');
     $("#table").append('<div class="tableRow" id="rowStep' + stepNum + '"></div>');
-    $("#rowStep" + stepNum).append($("#appendContent").html());
+    $("#rowStep"+stepNum).append($("#appendContent").html());
+    var x = document.getElementById("rowStep"+stepNum).getElementsByTagName("*");
+    for (var i = 0; i < x.length; ++i) {
+        if (x[i].type == 'radio') {
+            x[i].setAttribute("name","tableColumnProcessingRegionRadio" + stepNum);
+        }
+    }
     $("#addStepButton").data('id', stepNum + 1);
 }
 
