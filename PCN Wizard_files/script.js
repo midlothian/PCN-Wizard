@@ -9,7 +9,7 @@ var thewin = null;
 var svgNS = "http://www.w3.org/2000/svg";
 var tspan_element = document.getElementById('debugtspan');
 var removeIntent = false;
-var always_showPCN = true;
+var always_showPCN = true;  
 var region_height = 444; //TODO: need to make this dynamic
 
 //from http://html5-demos.appspot.com/static/a.download.html
@@ -162,14 +162,6 @@ var spa = {
 };
 
 
-var valueLevels = {
-    'very': ':) :) Very valuable',
-    'somewhat': ':) Somewhat Valuable',
-    'necessary': 'Necessary but not valuable',
-    'not': ':( Not necessary nor valuable'
-};
-
-
 var regionSelect = '<td xclass="p2"><svg height="20" width="180" id="regFor{_index}"><text font-size="12" fill="#CCCCCC" class="region">'
     + '<tspan x="5" y="15" class="r1 value">[IP]</tspan>'
     + '<tspan x="30" y="15" class="r2 value">[SI]</tspan>'
@@ -308,90 +300,90 @@ var regions = {
 //////////////// END GLOBAL VARS
 
 function deleteStep(id) {
-    $('#' + id)
+    $('#'+id)
     .children('div')
     .animate({ padding: 0 })
     .wrapInner('<div />')
     .children()
-    .slideUp("slow", function () {
-        $("#rowStep" + id).remove();
-    });
+    .slideUp("slow", function() { 
+        $("#rowStep"+id).remove();
+    });   
 }
 
 $(document).ready(function () {
 
     $(".sidebarColumnSelectItem > input[type='checkbox']").attr("checked", "true")
-
+    
     $(".sidebarColumnSelectItem > input[type='checkbox']").change(function () {
         if ($(this).is(':checked')) {
             var column = $(this).data('column');
-            $("." + column).show();
+            $("."+column).show();
         } else {
             var column = $(this).data('column');
-            $("." + column).hide();
+            $("."+column).hide();
         }
     });
-
-    $(document).on('click', '.deleteButton', function () {
-        var confirmChoice = confirm("Are you sure you want to delete this step?");
+    
+    $(document).on('click', '.deleteButton', function() {
+        var confirmChoice = confirm("Are you sure you want to delete this step?"); 
         if (confirmChoice == true) {
             deleteStep($(this).parent().parent().attr("id"));
         }
     });
-
-    $("#sidebarWrapper").mouseleave(function () {
+    
+    $("#sidebarWrapper").mouseleave(function() {
         toggleSidebar();
     });
-
-    $("#sidebarWrapper").mouseenter(function () {
+    
+     $("#sidebarWrapper").mouseenter(function() {
         toggleSidebar();
     });
-
-    $("#buttonExport").click(function () {
+    
+    $("#buttonExport").click(function() {
         $("#modalBackground").show("fast");
         $("#exportModal").show("fast");
     });
-
-    $("#buttonImport").click(function () {
+    
+    $("#buttonImport").click(function() {
         $("#modalBackground").show("fast");
         $("#importModal").show("fast");
     });
-
-    $("#buttonEditDiagram").click(function () {
+    
+    $("#buttonEditDiagram").click(function() {
         $("#modalBackground").show("fast");
         $("#editDiagramModal").show("fast");
     });
 
-    $("#buttonSettings").click(function () {
+    $("#buttonSettings").click(function() {
         $("#modalBackground").show("fast");
         $("#settingsModal").show("fast");
     });
 
-    $("#buttonShowPopup").click(function () {
+    $("#buttonShowPopup").click(function() {
         //$("#modalBackground").show("fast");
         //$("#settingsModal").show("fast");
         popup()
     });
-
-    $(".closeButton").click(function () {
+    
+    $(".closeButton").click(function() {
         closeModals();
     });
-
-    $("#modalBackground").click(function () {
+    
+    $("#modalBackground").click(function() {
         closeModals();
     });
-
-    $(document).on('click', '.editButton', function () {
+    
+    $(document).on('click', '.editButton', function() {
         $("#modalBackground").show("fast");
         $("#editOnDiagramModal").show("fast");
     });
-
-    $("#processStepHeader").click(function () {
+    
+    $("#processStepHeader").click(function() {
         $("#modalBackground").show("fast");
         $("#editDiagramModal").show("fast");
     });
-
-    $("#addStepButton").click(function () {
+    
+    $("#addStepButton").click(function() {
         addStepRow();
     });
 
@@ -407,19 +399,19 @@ function toggleSidebar() {
         $(".sidebarHideShowLabel").html("&gt;");
     } else {
         $(".sidebarHideShowLabel").html("&lt;");
-    }
+    }   
 }
 
 function closeModals() {
     $("#modalBackground").hide("fast");
-    $(".modal").hide("fast");
+        $(".modal").hide("fast");
 }
 
 function addStepRow() {
     var stepNum = $("#addStepButton").data('id');
-    $("#table").append('<div class="tableRow" id="rowStep' + stepNum + '"></div>');
-    $("#rowStep" + stepNum).append($("#appendContent").html());
-    $("#addStepButton").data('id', stepNum + 1);
+    $("#table").append('<div class="tableRow" id="rowStep'+stepNum+'"></div>');
+    $("#rowStep"+stepNum).append($("#appendContent").html());
+    $("#addStepButton").data('id', stepNum+1);
 }
 
 
@@ -437,27 +429,29 @@ function XXsetProblem(item) {
     }
     if (check) {
         var step = spa.steps[number].step;
-        var what = window.prompt("What is " + problem + " about the '" + step + "' step?");
+        var what = window.prompt("What is "+problem+" about the '"+step+"' step?");
         //TODO: let them edit what
         spa.steps[number].problems[problem] = what;
     } else {
         spa.steps[number].problems[problem] = "";
     }
-    alert("set " + number + " " + problem + " to " + what);
+    alert("set "+number+" "+problem+" to "+what);
 }
 function XXsetValue(item) {
     var number = item.parentElement.parentElement.id;
-    if (number == "dialog") {
+    if (number == "dialog")
+    {
         number = $("#dialog_stepno").val();
     }
     var value = item.classList[0];
-    console.log("setValue(" + number + ") to " + value);
+    console.log("setValue("+number+") to "+value);
     spa.steps[number].value = value;
     //		alert("set "+number+" to "+spa.steps[number].type);
 }
 function XXsetType(item) {
     var number = item.parentElement.parentElement.id;
-    if (number == "dialog") {
+    if (number == "dialog")
+    {
         number = $("#dialog_stepno").val();
     }
     var type = item.classList[0];
@@ -475,28 +469,33 @@ function store(item) {
     //to the class of the item, or to field #_class
     var number = item.parentElement.parentElement.id;
     var property = item.parentElement.classList[0];
-    if (number == "dialog") {
+    if (number == "dialog")
+    {
         number = $("#dialog_stepno").val();
     } else {
         number = numberFrom(number);
     }
     var value = item.classList[0];
-    if (/_$/.test(property)) {
+    if (/_$/.test(property))
+    {
         property = property + value;	//tack value on the end, eg box_thick = thick
     }
-    if (/^_/.test(value)) {
+    if (/^_/.test(value))
+    {
         //			console.log($('#'+value,item.parentElement).length);
-        if ($('#' + value, item.parentElement).length > 0) // if that other field exists
+        if ($('#'+value,item.parentElement).length > 0) // if that other field exists
         {
-            $('#' + value, item.parentElement).focus();	//set focus on other item
-            ans = $('#' + value, item.parentElement).val();	//get the value from another item
+            $('#'+value,item.parentElement).focus();	//set focus on other item
+            ans = $('#'+value,item.parentElement).val();	//get the value from another item
             if (ans) value = ans;
         } else {
-            var ans = window.prompt("What is " + value.replace('_', '') + "?");
-            if (ans) {
+            var ans = window.prompt("What is "+value.replace('_','')+"?");
+            if (ans)
+            {
                 value = ans;
-                if (!item.title) {
-                    item.title = ans;
+                if (! item.title)
+                {
+                    item.title=ans;
                     //						console.log("Set title="+ans);
                 }
             }
@@ -504,11 +503,12 @@ function store(item) {
     }
 
     //get rid of double __ in property
-    if (/__/.test(property)) {
-        property = property.replace('__', '_');
+    if (/__/.test(property))
+    {
+        property = property.replace('__','_');
     }
 
-    console.log('For step ' + number + ' [' + Object.prototype.toString.call(item).slice(8, -1) + '] storing ' + property + ' = ' + value);
+    console.log('For step '+number+' ['+Object.prototype.toString.call(item).slice(8,-1)+'] storing '+property+' = '+value);
     //		var itemIsA = Object.prototype.toString.call(item).slice(8,-1); //HTMLInputElement or SVGTSpanElement
 
     if (property == "region")			//need to change highlighting
@@ -518,27 +518,29 @@ function store(item) {
         //		alert(rowRegion.children);
         for (var ts in rowRegion.children) {
             if (rowRegion.children[ts].nodeName == "tspan") {
-                rowRegion.children[ts].style.fill = "#CCCCCC";
+                rowRegion.children[ts].style.fill="#CCCCCC";
             }
         }
-        item.style.fill = "#0000FF";
+        item.style.fill="#0000FF";
     }
 
-    if (item.type == 'checkbox' && !item.checked) {
+    if (item.type == 'checkbox' && ! item.checked)
+    {
         //clear property, http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
         //was			spa.steps[number][property] = "";
         delete spa.steps[number][property];	//actually delete it
-        console.log('Removed ' + property + ' for step ' + number);
+        console.log('Removed '+property+' for step '+number);
     } else if (item.type == 'text') {
-        if (item.value) {
+        if (item.value)
+        {
             value = item.value;
         }
         //keep what have			else {}
         spa.steps[number][property] = value;
-        console.log('Stored step ' + number + ' ' + property + '=' + value);
+        console.log('Stored step '+number+' '+property+'='+value);
     } else {
         spa.steps[number][property] = value;
-        console.log('Stored step ' + number + ' ' + property + '=' + value);
+        console.log('Stored step '+number+' '+property+'='+value);
     }
 }
 function setOther(item) {
@@ -548,7 +550,7 @@ function setOther(item) {
 
     if (check) {
         var step = spa.steps[number].step;
-        var who = window.prompt("What other entity is involved in the '" + step + "' step?");
+        var who = window.prompt("What other entity is involved in the '"+step+"' step?");
         spa.steps[number].other = who;
     } else {
         spa.steps[number].other = "";
@@ -565,56 +567,59 @@ function XXsetRegion(regItem) {
     //		alert(rowRegion.children);
     for (var ts in rowRegion.children) {
         if (rowRegion.children[ts].nodeName == "tspan") {
-            rowRegion.children[ts].style.fill = "#CCCCCC";
+            rowRegion.children[ts].style.fill="#CCCCCC";
         }
     }
 
-    regItem.style.fill = "#0000FF";
+    regItem.style.fill="#0000FF";
 
     spa.steps[number].region = region;
     //		alert("set "+number+" to "+region);
     //no longer necessary		showPCN();
     //	refreshPCN();	//just in case
 }
-function setColumns(based_on, part2add, part2remove) {
+function setColumns(based_on,part2add,part2remove) {
     //sets showColumns based on sortable based_on
     showColumns = [];
-    $(based_on).children().each(function (index, element) {
-        var id = $('input', this).attr('id');
+    $(based_on).children().each(function(index,element) {
+        var id = $('input',this).attr('id');
         var part = numberFrom(id);	// was /\d/.exec(id)[0];
         if (part == part2remove) // && $(this).has('input').length && ! $('input',this).is(":checked"))
         {
             //skip it
         } else {
-            showColumns.push(part * 1);
+            showColumns.push(part*1);
         }
         //			console.log(based_on+" child "+index+" has parts "+showColumns);
 
     });
 
     //make sure showColumns has 0 in it
-    if (showColumns.indexOf(0) == -1) {
+    if (showColumns.indexOf(0)==-1)
+    {
         showColumns.unshift(0);	//tack on beginning
     }
     // add new part if specified
-    if (part2add && part2add >= 0 && part2add < columnCount) {
+    if (part2add && part2add >= 0 && part2add < columnCount)
+    {
         if (showColumns[0] == 0) //if steps is first
         {
-            showColumns.splice(1, 0, part2add); //add it after steps
+            showColumns.splice(1,0,part2add); //add it after steps
         } else {
-            showColumns.splice(showColumns.indexOf(0) + 1, 0, part2add); //add it after steps
+            showColumns.splice(showColumns.indexOf(0)+1,0,part2add); //add it after steps
         }
     }
 
-    console.log(based_on + " has parts " + showColumns);
+    console.log(based_on+" has parts "+showColumns);
 
     //populate hidden parts
     $("#hiddenParts").empty().append("<td>Columns:</td>");
 
-    for (var i = 1; i < columnCount; i++) {
-        if (showColumns.indexOf(i) == -1) //not showing
+    for(var i=1; i<columnCount; i++)
+    {
+        if (showColumns.indexOf(i)==-1) //not showing
         {
-            $("#hiddenParts").append("<td bgcolor=\"" + (parts[i].bgcolor || 'white') + "\" onClick=\"setColumns('#header_row1'," + i + ");\">" + i + ". " + parts[i].title + "<span class='ui-icon ui-icon-arrowthickstop-1-s' style='float:right; cursor: pointer;' title='click to show'></span></td>");
+            $("#hiddenParts").append("<td bgcolor=\""+(parts[i].bgcolor || 'white')+"\" onClick=\"setColumns('#header_row1',"+i+");\">"+i+". "+parts[i].title+"<span class='ui-icon ui-icon-arrowthickstop-1-s' style='float:right; cursor: pointer;' title='click to show'></span></td>");
             //not setColumns('#header_row1');
             //not showColumns.splice(1,0,"+i+");doList();
         }
@@ -626,34 +631,125 @@ function setColumns(based_on, part2add, part2remove) {
 ////////////////// show list table ////////////////////
 function doList() {
 
-    //this should be changed based on the UI input, but hard-coding it for now.
-    showColumns = [0, 1, 2, 3, 4, 5, 6]
+    //Brian
+    showColumns = [0,1,2,3,4,5,6]
+
 
     //set the some of the attributes for the overall process
     $('#set_process').val(spa.process.process);
     $('#set_provider').val(spa.process.provider);
     $('#set_customer').val(spa.process.customer);
 
+    //adds another step at the end
+    blankstepatend();
+
+
     var steps = spa.steps;
+
+    $('#mytable').empty();
 
     //make sure showColumns has 0 in it (redundant from setColumns() but better safe than sorry)
     //aka, there should always be at least one column; the step name column
-    if (showColumns.indexOf(0) == -1) {
+    if (showColumns.indexOf(0)==-1)
+    {
         showColumns.unshift(0);	//tack on beginning
     }
+		
+    console.log("doList showColumns="+showColumns);
 
-    for (var stepNo in spa.steps) {
-        var step = spa.steps[stepNo];	//grab the current step
+    ////////////////// NOW DO HEADING ROWS ////////////////////
+
+    var thead = $('<thead></thead>');
+
+    //HEADER ROW 1
+    var row = $('<tr bgcolor="lightblue" align="center" id="header_row1" title="drag to rearrange or remove"></tr>'); //create a row
+    for (var i in showColumns) {
+        partNo = showColumns[i];
+        var part = parts[partNo];
+        var no = partNo>0?partNo+': ':"";
+        row.append('<td id="part'+partNo+'" colspan="'+part.columns+'">'
+
+        +'<input type="hidden" id="p'
+        +partNo
+        +'"/>'
+
+        +'<span onClick="firstColumn(this);" style="float: left; cursor: pointer;" class="ui-icon ui-icon-arrowthickstop-1-w" title="move this column left"></span>'
+//			+'<input type="checkbox" id="p'
+//			+partNo
+//			+'" onClick="cssParts();" /><span onClick="$(\'#p'
+//			+partNo
+//			+'\').prop(\'checked\',true);cssParts();" title="click to show" >'
+        +no
+        +part.title
+        +'<span onClick="hideColumn(this);" style="float: right; cursor: pointer;" class="ui-icon ui-icon-close" title="remove this column"></span>'
+
+        +'</span></td>');
+    }
+    //MAYBE DELETE THE FOLLOWING - ALWAYS SHOW ALL HEADERS
+    //headings for not shown parts (so that can be shown later)
+    if (false)
+    {
+        for (var partNo=1;partNo<columnCount;partNo++) {
+            if (showColumns.indexOf(partNo) == -1) //not shown
+            {
+                var part = parts[partNo];
+				
+                row.append('<td onClick="firstColumn('+partNo+');" colspan="'+part.columns+'">'
+                +'<input type="checkbox" id="show_part'
+                +partNo
+                +'" onClick="if(this.checked){firstColumn('
+                +partNo
+                +')}else{hideColumn('
+                +partNo
+                +')}" />'
+                +partNo
+                +': '
+                +part.title+'</td>');
+            }
+        }
+    }
+
+    //$('#mytable') 
+    thead.append(row);
+    //HEADER ROW 2
+    row = $('<tr style="font-size:small" align="center" valign="bottom"></tr>'); //create a row
+    for (var i in showColumns) {
+        partNo = showColumns[i];
+        row.append(parts[partNo].header);
+    }
+    thead.append(row);
+    $('#mytable').append(thead);
+		
+    //		$('#mytable').append(tableHeading);
+    var tbody = $('<tbody></tbody>');
+
+    ////////////////// NOW DO STEP ROWS ////////////////////
+
+    for (var stepNo in spa.steps)
+    {
+
+
+
+
+
 
         spa.steps[stepNo]._index = stepNo;
-        spa.steps[stepNo].number = numberFrom(stepNo) + 1; //stepNo*1+1;	//set number
-
+        spa.steps[stepNo].number = numberFrom(stepNo)+1; //stepNo*1+1;	//set number
+        //			if (! spa.steps[stepNo].follows || ! spa.steps[stepNo].follows.match(/^\d/))
+        //			{
+        //				spa.steps[stepNo].follows = "prior"; //default to the prior step
+        //			}
         if (spa.steps[stepNo].follows == "prior") delete spa.steps[stepNo].follows; //nothing
+			
+        var step = spa.steps[stepNo];	//grab the current step
 
-        var row = $('<tr id="' + stepNo + '" align="center" style="font-size:small" onClick="refreshPCN();" ></tr>');
+        //			alert(item);
+        //			$('#mylist').append('<li>'+step+'</li>');
+
+        //now show whatever we want to show
+
+        var row = $('<tr id="'+stepNo+'" align="center" style="font-size:small" onClick="refreshPCN();" ></tr>');
         for (var i in showColumns) {
-
-            /////////////// Not sure what all this is for -Brian /////////////////////////////////////////////////////////////////
             partNo = showColumns[i];
             var item = parts[partNo].item;
             //plug as necessary
@@ -662,102 +758,125 @@ function doList() {
                 //					alert('replacing {'+plugs[plugNo]+'}');
                 //replaceAll from http://stackoverflow.com/questions/1144783/replacing-all-occurrences-of-a-string-in-javascript
                 if (typeof step[plugs[plugNo]] == "undefined") {
-                    item = item.replace(new RegExp('{' + plugs[plugNo] + '}', 'g'), '');
+                    item = item.replace(new RegExp('{'+plugs[plugNo]+'}', 'g'),'');
                 } else {
-                    item = item.replace(new RegExp('{' + plugs[plugNo] + '}', 'g'), step[plugs[plugNo]]);
+                    item = item.replace(new RegExp('{'+plugs[plugNo]+'}', 'g'),step[plugs[plugNo]]);
                 }
             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            var selectorPrefix = '#rowStep' + (+stepNo + 1) + ' > '
-
-            switch (partNo) {
-                case 0:
-                    $(selectorPrefix + 'div.tableColumnStepName > input').val(step.step)
-                    break;
-                case 1:
-                    var type = step.type || "regular";
-                    console.log("Step " + stepNo + " type=" + type);
-                    $(selectorPrefix + 'div.tableColumnStepType > select').val(type.capitalize())
-
-                    if (type && type.length > 0) {
-                        console.log("Replacing: " + item);
-                        item = item.replace(type + ' value"', type + ' value" CHECKED');
-                    }
-                    var other = step.other;
-                    if (other && other.length > 0) {
-                        item = item.replace('_other"', type + '" CHECKED');
-                    }
-                    break;
-                case 2:
-                    var region = step.region;
-
-                    var regionNum = region.substring(1, 2);
-
-                    //this will work when I get Grant's code
-                    $(selectorPrefix + 'div.tableColumnProcessRegion > div > div:nth-child(2) > div:nth-child(' + regionNum + ') > input[type="radio"]').prop("checked", true)
 
 
-                    if (region && region.length > 0) {
-                        item = item.replace(region + ' value', region + ' value" fill="#0000FF');
-                    }
-                    break;
-                case 3:
-                    var value = valueLevels[step.value];
 
-                    $(selectorPrefix + 'div.tableColumnCustomerValue > select').val(value)
+            //row.append('<td><span title="delete step" onClick="removeStep(this);">&times;</span><span title="move up" onClick="upstep(this);">&uArr;</span><span title="move down" onClick="downstep(this);">&dArr;</span><span title="insert step" onClick="insertstepat(this);">&rArr;</span></td><td>'+no+'.<input type="text" size="40" value="'+step+'" onKeyUp="updatestep(this);"/></td>');
 
-                    if (value && value.length > 0) {
-                        item = item.replace(value + ' value"', value + ' value" CHECKED');
-                    }
-                case 4:
-                    //this one is kind of broken because of the UI...there are supposed to be multiple you can leave selected
-                    var problems = ["inconvenient", "confusing", "difficult", "likely_to_fail"];
-                    for (var p in problems) {
-                        var problem = problems[p];
-                        if (what = step["problem_" + problem]) {
-                            //							console.log("Step "+stepNo+" problem_"+problem+"="+what);
-                            //							console.log("ITEM:"+item);
 
-                            item = item.replace(problem + ' valuelink"', problem + ' valuelink" CHECKED title="' + what + '"');
-                        }
-                    }
-                case 5:
-                    //still need to figure this part out.  -Brian
-                    var value = step.follows || 'prior';
-                    //					console.log("Step "+stepNo+" follows="+value);
-                    if (value && value.length > 0) {
-                        //						console.log("item:"+item);
-                        if (/\d/.test(value)) {
-                            item = item.replace(' valuelink"', ' valuelink" CHECKED');
-                            item = item.replace('valueinput"', 'valueinput" value="' + value + '"');
-                        } else {
-                            item = item.replace(value + ' value"', value + ' value" CHECKED');
-                        }
-                    }
-                case 6:
-                    //this part will require setting the value in the popup box
-                    if (step.box_dash) {
-                        item = item.replace('dash value"', 'dash value" CHECKED');
-                    }
-                    if (step.box_thick) {
-                        item = item.replace('thick value"', 'thick value" CHECKED');
-                    }
-                    if (step.skip_rows) {
-                        item = item.replace('valueinput"', 'valueinput" value="' + step.skip_rows + '"');
-                    }
+            ///Brian
+            if (partNo == 0) {
+                var step = step.step;
+                var str = '#rowStep' + (+stepNo + 1) + ' > div.tableColumnStepName > input'
+                $(str).val(step)
+            }   
+            ///
+
+            if (partNo == 1) {
+
+                ////Brian addition
+                var type = step.type || "regular";
+                console.log("Step " + stepNo + " type=" + type);
+                $('#rowStep' + (+stepNo + 1) + ' > div.tableColumnStepType > select').val(type.toUpperCase())
+                ////end addition
+
+                if (type && type.length > 0) {
+                    console.log("Replacing: "+item);
+                    item = item.replace(type+' value"',type+' value" CHECKED');
+                }
+                var other = step.other;
+                if (other && other.length > 0) {
+                    item = item.replace('_other"',type+'" CHECKED');
+                }
             }
+
+            if (partNo==2) {
+                var region = step.region;
+                if (region && region.length > 0) {
+                    item = item.replace(region+' value',region+' value" fill="#0000FF');
+                }
+            }
+
+            if (partNo==3) {
+                var value = step.value;
+                if (value && value.length > 0) {
+                    item = item.replace(value+' value"',value+' value" CHECKED');
+                }
+            }
+
+            if (partNo==4) {
+                var problems = ["inconvenient","confusing","difficult","likely_to_fail"];
+                for (var p in problems)
+                {
+                    var problem = problems[p];
+                    if (what = step["problem_"+problem])
+                    {
+                        //							console.log("Step "+stepNo+" problem_"+problem+"="+what);
+                        //							console.log("ITEM:"+item);
+
+                        item = item.replace(problem+' valuelink"',problem+' valuelink" CHECKED title="'+what+'"');
+                    }
+                }
+            }
+
+            if (partNo==5) {
+                var value = step.follows || 'prior';
+                //					console.log("Step "+stepNo+" follows="+value);
+                if (value && value.length > 0) {
+                    //						console.log("item:"+item);
+                    if (/\d/.test(value))
+                    {
+                        item = item.replace(' valuelink"',' valuelink" CHECKED');
+                        item = item.replace('valueinput"','valueinput" value="'+value+'"');
+                    } else {
+                        item = item.replace(value+' value"',value+' value" CHECKED');
+                    }
+                }
+            }
+
+            if (partNo==6) {
+                //					console.log("Step "+stepNo+" follows="+value);
+                if (step.box_dash) {
+                    item = item.replace('dash value"','dash value" CHECKED');
+                }
+                if (step.box_thick) {
+                    item = item.replace('thick value"','thick value" CHECKED');
+                }
+                if (step.skip_rows) {
+                    item = item.replace('valueinput"','valueinput" value="'+step.skip_rows+'"');
+                }
+            }
+
+
+            //			alert($(".r3",row));
+            //			$(".r3",row).style.fill="#00FF00";
+
+            row.append(item);
         }
 
+        //$('#mytable')
+        tbody.append(row);
+
+        ///// Brians addition //////
+
         addStepRow();
+
+
+
+        ///////////////////////////
     };
 
     $('#mytable').append(tbody);
 
-    $("#mytable tbody").sortable({
+    $( "#mytable tbody" ).sortable({
         stop: function (event, ui) {
-            console.log("ITEM " + ui.item.attr("id") + "...");
-            reorderSteps($(this), ui.item.attr("id"));
+            console.log("ITEM "+ui.item.attr("id")+"...");
+            reorderSteps($(this),ui.item.attr("id"));
 
         }
     });	//looks like need to redo this every time
@@ -765,63 +884,64 @@ function doList() {
     //from http://stackoverflow.com/questions/9403422/jquery-sortable-how-to-remove-an-item-that-is-pulled-away-from-its-list
     //from http://jsfiddle.net/drewP/m7VJq/1/
 
-    $("#header_row1").sortable({
+    $( "#header_row1" ).sortable({
         placeholder: "ui-state-highlight",
         //			connectWith: "#hiddenParts", out: and over: do not work if connected :-/
-        update: function (event, ui) {
+        update: function( event, ui ) {
             setColumns("#header_row1");
         },
         over: function (event, ui) {
             removeIntent = false;
             console.log("sort over");
-            $(this).css("cursor", "ew-resize");
+            $(this).css("cursor","ew-resize");
         },
         out: function (event, ui) {
             removeIntent = true;
             console.log("sort out");
-            $(this).css("cursor", "alias");
+            $(this).css("cursor","alias");
         },
         beforeStop: function (event, ui) {
-            console.log("beforeStop removeIntent=" + removeIntent);
-            if (removeIntent == true) {
+            console.log("beforeStop removeIntent="+removeIntent);
+            if(removeIntent == true){
                 ui.item.remove();
                 //						setColumns("#header_row1");
             }
         },
         stop: function (event, ui) {
-            console.log("stop removeIntent=" + removeIntent);
-            if (removeIntent == true) {
+            console.log("stop removeIntent="+removeIntent);
+            if(removeIntent == true){
                 //						ui.item.remove();
                 setColumns("#header_row1");
             }
         }
     }).disableSelection();	//keeps the words from being selected inadvertantly
 
-    $(".value,.valuelink").click(function () { store(this) });
-    $(".valueinput").keyup(function () { store(this) });
+    $(".value,.valuelink").click(function(){store(this)});
+    $(".valueinput").keyup(function(){store(this)});
 
 }
 
 //http://stackoverflow.com/questions/14911157/renumbering-input-tag-name-fields-after-using-jqueuy-sortable
-function reorderSteps($list, number) {
+function reorderSteps($list,number) {
     //reorders spa.steps after a drag and drop
 
     //from upstep()...
     var movedstep = spa.steps[number]; //save it
-    spa.steps.splice(number, 1);	//remove it
+    spa.steps.splice(number,1);	//remove it
 
 
     $list.find('tr').each(function (idx) {
-        console.log("->element " + idx + " was element " + $(this).attr('id')); //indexes 0..7 of table rows
-        if ($(this).attr('id') == number) {
+        console.log("->element "+idx+" was element "+$(this).attr('id')); //indexes 0..7 of table rows
+        if ($(this).attr('id') == number)
+        {
             //TODO: The following could be replaced with one line...
             if (number < idx) //moving an item down the list
             {
                 console.log("  MOVED DOWN");
-                spa.steps.splice(idx, 0, movedstep); //restore it
+                spa.steps.splice(idx,0,movedstep); //restore it
             } else {
                 console.log("  MOVED UP (or stayed the same)");
-                spa.steps.splice(idx, 0, movedstep); //restore it
+                spa.steps.splice(idx,0,movedstep); //restore it
             }
             doList();
             //might as well break out of this each loop!
@@ -840,39 +960,43 @@ function updatestep(stepinput) {
     var typingID = stepinput.id; //save the id since doList will change the DOM
     spa.steps[number].step = stepinput.value;
     //check if we still need a new one at the end
-    if (spa.steps[spa.steps.length - 1].step != "") {
+    if (spa.steps[spa.steps.length-1].step != "")
+    {
         doList();	//force add a new item at the end and redraw
         //of course, that wipes out the DOM, so need to find the one
         //			alert(typingID);
         var typingat = document.getElementById(typingID);
         //			alert(typingat);
-        if (typingat != null) {
+        if (typingat != null)
+        {
             //				alert(typingat.value.length);
             typingat.focus();
             typingat.selectionStart = typingat.value.length;
             typingat.selectionEnd = typingat.value.length;
         }
     }
-    if (always_showPCN) {
+    if (always_showPCN)
+    {
         showPCN();
     }
 }
 function setPropertyDialog(stepNumber) {
     //sets the property Dialog for spa.step[stepNumber]
 
-    console.log("setPropertyDialog(" + stepNumber + ")");
+    console.log("setPropertyDialog("+stepNumber+")");
 
     //clear highlight in list table if showing
     //		$(".stepdata.property .step > .valueinput").css('background-color','white');	//set them in mass
 
     var prior_stepNumber = numberFrom($(".dialog_step_div").attr('id'));
     //$("#dialog_stepno").val();
-    if (prior_stepNumber >= 0) {
-        $("#input_" + (1 * prior_stepNumber + 1)).css('background-color', 'white');
-        console.log("Left (and whitened) " + "#input_" + prior_stepNumber);
+    if (prior_stepNumber >= 0)
+    {
+        $("#input_"+(1*prior_stepNumber+1)).css('background-color','white');
+        console.log("Left (and whitened) "+"#input_"+prior_stepNumber);
     }
 
-    $("#input_" + (1 * stepNumber + 1)).css('background-color', 'yellow');
+    $("#input_"+(1*stepNumber+1)).css('background-color','yellow');
 
     //		var oldtitle = $("#dialog").dialog("option","title");
     var newtitle = spa.steps[stepNumber].step;
@@ -888,25 +1012,26 @@ function setPropertyDialog(stepNumber) {
     //show new
     var step = spa.steps[stepNumber];
     $("#dialog_stepno").val(stepNumber); //tells which it is
-    $(".dialog_step_div").attr('id', 'showing' + stepNumber); //for benefit of store()
+    $(".dialog_step_div").attr('id','showing'+stepNumber); //for benefit of store()
     //		$('#dialog :radio').prop('checked',false);
 
-    $("#dialog").dialog({ title: step.step });
+    $("#dialog").dialog({ title: step.step } );
 
     if (/(regular|wait|decision)/.test(step.type)) //valid step.type
     {
-        $('#dialog #type_' + step.type).prop('checked', true);
+        $('#dialog #type_' + step.type).prop('checked',true);
     } else {
-        $('#dialog #type_regular').prop('checked', true); //default
+        $('#dialog #type_regular').prop('checked',true); //default
     }
 }
 function showPropertyDialog(stepNumber) {
-    if (!$("#dialog").dialog("isOpen")) {
-        $("#dialog").dialog("open").dialog("moveToTop");
+    if (! $("#dialog").dialog("isOpen"))
+    {
+        $("#dialog").dialog("open").dialog( "moveToTop" );
         console.log("REOPEN");
 
     }
-    $("#dialog").dialog("moveToTop");
+    $("#dialog").dialog( "moveToTop" );
 }
 function show_properties(stepChild) {
     var stepNo = numberFrom(stepChild.parentElement.parentElement.id);
@@ -916,32 +1041,33 @@ function show_properties(stepChild) {
 function OLD_show_properties(stepChild) {
     //		if (! $('#always_showPCN').is(":checked")) { return; } //HUH???TK
 
-    stepinput = $('input:text', stepChild.parentElement).get(0);	//get the input field
+    stepinput = $('input:text',stepChild.parentElement).get(0);	//get the input field
 
     //		$(".step_step").css('background-color','white');	//set them in mass
 
-    stepinput.style.backgroundColor = 'yellow';
+    stepinput.style.backgroundColor='yellow';
     //		$('input:text',stepinput.parentElement).css("background-color","yellow");
 
     var number = stepinput.parentElement.parentElement.id;
     var old_stepno = $("#dialog_stepno").val();
-    if (old_stepno >= 0) {
-        $("#input_" + (1 * old_stepno + 1)).css('background-color', 'white');
-        console.log("Left (and whitened) " + "#input_" + old_stepno);
+    if (old_stepno >= 0)
+    {
+        $("#input_"+(1*old_stepno+1)).css('background-color','white');
+        console.log("Left (and whitened) "+"#input_"+old_stepno);
     }
 
     var typingID = stepinput.id; //save the id since doList will change the DOM
     //		console.log("Showing properties for step "+number);
     //		console.log($("#dialog").dialog("isOpen"));
 
-    var oldtitle = $("#dialog").dialog("option", "title");
+    var oldtitle = $("#dialog").dialog("option","title");
     var newtitle = stepinput.value;
     //		console.log("Oldtitle="+oldtitle);
     //		console.log("Newtitle="+newtitle);
 
     //		var old_stepno = $("#dialog_stepno").val();
     var new_stepno = number;
-    console.log("Dialog changing from step " + old_stepno + " to step " + new_stepno);
+    console.log("Dialog changing from step "+old_stepno+" to step "+new_stepno);
 
     //		//save old
     //		if (old_stepno >= 0)
@@ -959,37 +1085,42 @@ function OLD_show_properties(stepChild) {
     var newstep = spa.steps[number];
     $("#dialog_stepno").val(new_stepno);
     //		$('#dialog :radio').prop('checked',false);
-    if (/(regular|wait|decision)/.test(newstep.type)) {
-        $('#dialog #type_' + newstep.type).prop('checked', true);
+    if (/(regular|wait|decision)/.test(newstep.type))
+    {
+        $('#dialog #type_' + newstep.type).prop('checked',true);
     } else {
-        $('#dialog #type_regular').prop('checked', true);
+        $('#dialog #type_regular').prop('checked',true);
     }
 
 
-    if (!$("#dialog").dialog("isOpen")) {
-        $("#dialog").dialog("open").dialog("moveToTop");
+    if (! $("#dialog").dialog("isOpen"))
+    {
+        $("#dialog").dialog("open").dialog( "moveToTop" );
         console.log("REOPEN");
 
     }
-
-    if (newtitle != oldtitle) {
-        $("#dialog").dialog({ title: newtitle });
+		
+    if (newtitle != oldtitle)
+    {
+        $("#dialog").dialog({ title: newtitle } );
         console.log("Changed title.");
     }
-    $("#dialog").dialog("moveToTop");
-    $("#dialog").dialog({ title: stepinput.value });
+    $("#dialog").dialog( "moveToTop" );
+    $("#dialog").dialog({ title: stepinput.value } );
 }
 function blankstepatend() {
     //		alert(spa.steps.length);
-    if (spa.steps[spa.steps.length - 1].step != "") {
-        spa.steps.push({ "step": "", "domain": "patient" });
+    if (spa.steps[spa.steps.length-1].step != "")
+    {
+        spa.steps.push({"step" : "", "domain": "patient"});
     }
 }
 function removeStep(item) {
     var number = item.parentElement.parentElement.id;
     //get confirmation unless blank
-    if (spa.steps[number].step == "" || !$("#confirm_delete").is(':checked') || window.confirm("Delete the '" + spa.steps[number].step + "' step?")) {
-        spa.steps.splice(number, 1);
+    if (spa.steps[number].step=="" || ! $("#confirm_delete").is(':checked') || window.confirm("Delete the '"+spa.steps[number].step+"' step?"))
+    {
+        spa.steps.splice(number,1);
         doList();
     }
 }
@@ -998,37 +1129,39 @@ function removeStep(item) {
 //TODO: no longer need the following two functions (have drag and drop)...
 function upstep(item) {
     var number = item.parentElement.parentElement.id;
-    if (number < 1) {
+    if (number < 1)
+    {
         alert('already at top');
     } else {
         var movedstep = spa.steps[number]; //save it
-        spa.steps.splice(number, 1);	//remove it
-        spa.steps.splice(number - 1, 0, movedstep); //restore it
+        spa.steps.splice(number,1);	//remove it
+        spa.steps.splice(number-1,0,movedstep); //restore it
         doList();
     }
 }
 function downstep(item) {
-    var number = item.parentElement.parentElement.id * 1;	//must convert to number so can add 1 below
-    if (number > spa.steps.length - 1) {
+    var number = item.parentElement.parentElement.id*1;	//must convert to number so can add 1 below
+    if (number > spa.steps.length-1)
+    {
         alert('already at bottom');
     } else {
         var movedstep = spa.steps[number]; //save it
-        spa.steps.splice(number, 1);	//remove it
-        spa.steps.splice(number + 1, 0, movedstep); //restore it
+        spa.steps.splice(number,1);	//remove it
+        spa.steps.splice(number+1,0,movedstep); //restore it
         doList();
     }
 }
 function insertstepat(item) {
     var number = item.parentElement.parentElement.id;
     var movedstep = spa.steps[number]; //save it
-    spa.steps.splice(number, 0, { "step": "", "domain": "patient" });
+    spa.steps.splice(number,0,{"step" : "", "domain": "patient"});
     doList();
 }
 function stepfollows(item) {
     //determine what step follows this item
     var number = item.parentElement.parentElement.id;
     var follows = spa.steps[number].follows; //save it
-    follows = window.prompt("What step(s) does this step directly follow?\nEnter 0 for none (a starting step)\nEnter " + follows + ":yes or " + follows + ":no for arrow label", follows);
+    follows = window.prompt("What step(s) does this step directly follow?\nEnter 0 for none (a starting step)\nEnter "+follows+":yes or "+follows+":no for arrow label",follows);
     spa.steps[number].follows = follows;
     doList();
 }
@@ -1041,28 +1174,28 @@ function generateDiagram() { //returns an SVG diagram jquery object
     var region_width = 180;
     var diagram_width = region_width * 6;
 
-    region_height = spa.steps.length * 100 - 100;	//subtract 100 for the blank one
+    region_height = spa.steps.length*100-100;	//subtract 100 for the blank one
     //		console.log("region_height="+region_height);
 
     //		var diagram = $('#diagram');
-    var diagram = $(svgStart.replace("1120", (region_height + 120)) + svgEnd);
+    var diagram = $(svgStart.replace("1120",(region_height+120))+svgEnd);
 
     //		diagram.empty();
-    diagram.append(pcnbackground.replace(/444/g, region_height));
+    diagram.append(pcnbackground.replace(/444/g,region_height));
 
     var row = "";
 
     //PCN HEADERS
-    row = '<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="st_process" y="40" x="540" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">' + setup.process + '</text>';
+    row = '<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="st_process" y="40" x="540" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">'+setup.process+'</text>';
     diagram.append(row);
 
     row = '<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="st_process" y="80" x="540" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">PCN Diagram</text>';
     diagram.append(row);
 
-    row = '<text xml:space="preserve" text-anchor="start" font-family="serif" font-size="24" id="st_provider" y="100" x="10" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">' + setup.provider + ' process domain</text>';
+    row = '<text xml:space="preserve" text-anchor="start" font-family="serif" font-size="24" id="st_provider" y="100" x="10" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">'+setup.provider+' process domain</text>';
     diagram.append(row);
 
-    row = '<text xml:space="preserve" text-anchor="end" font-family="serif" font-size="24" id="st_provider" y="100" x="' + (diagram_width - 10) + '" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">' + setup.customer + ' process domain</text>';
+    row = '<text xml:space="preserve" text-anchor="end" font-family="serif" font-size="24" id="st_provider" y="100" x="'+(diagram_width-10)+'" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#00007f" fill="#000000">'+setup.customer+' process domain</text>';
     diagram.append(row);
 
 
@@ -1071,19 +1204,21 @@ function generateDiagram() { //returns an SVG diagram jquery object
     var last_step_number = 999; //should not use 999
     var step_box = false;	//always delays steps for layers over lines
 
-    for (var stepNo in spa.steps) {
-        spa.steps[stepNo].number = stepNo * 1 + 1;	//set number
-        if (!spa.steps[stepNo].diagram) {
+    for (var stepNo in spa.steps)
+    {
+        spa.steps[stepNo].number = stepNo*1+1;	//set number
+        if (! spa.steps[stepNo].diagram)
+        {
             spa.steps[stepNo].diagram = {}; //prevent errors below
         }
 
         var step = spa.steps[stepNo];	//grab the current step
 
-        if (typeof step.step == "undefined" || step.step.length == 0) continue; //skip blank steps
+        if (typeof step.step == "undefined" || step.step.length ==0) continue; //skip blank steps
 
         var x = 1;
         if (step.region && regions[step.region] > 0) {
-            x = (regions[step.region] - 1) * region_width + 10;
+            x = (regions[step.region] - 1)*region_width+10;
         } else {
             x = 1;
         }
@@ -1092,20 +1227,24 @@ function generateDiagram() { //returns an SVG diagram jquery object
         //			var y = top_height + 25 + 100 * stepNo;
         var y = y1 + 100;
 
-        if (!follows) {
+        if (! follows)
+        {
             y = y1 + 60;
         }
-        else if (follows == 0 || follows == "start") {
-            y = top_height + 25;	//top
+        else if (follows == 0 || follows == "start")
+        {
+            y = top_height + 25 ;	//top
         }
-        else if (follows && follows > 0 && spa.steps[follows] && spa.steps[follows].diagram.y) {
+        else if (follows && follows > 0 && spa.steps[follows] && spa.steps[follows].diagram.y)
+        {
             y = spa.steps[follows].diagram.y + 100;	//just below what it follows
         } else {
             y = y1 + 60;
         }
         //			console.log("Step "+step.number+" checking "+step.skip_rows+" skip_rows");
-        if (step.skip_rows && (no = numberFrom(step.skip_rows))) {
-            y += 100 * no;	//if skipping rows
+        if (step.skip_rows && (no = numberFrom(step.skip_rows)))
+        {
+            y += 100*no;	//if skipping rows
             //				console.log("Step "+step.number+" Skipping "+step.skip_rows+" rows which is "+no);
         }
 
@@ -1119,26 +1258,29 @@ function generateDiagram() { //returns an SVG diagram jquery object
         var x2 = x + 90; //coordinates of end point
         var y2 = y + 40;
         //			alert("x2="+x2+" y2="+y2);
-        if (follows == 0 || follows == "start") {
+        if (follows == 0 || follows == "start")
+        {
             //				console.log("NO ARROW");
         } else
             if (x1 > 0) {
                 //				diagram.append('<line id="svg_5" y2="'+y2+'" x2="'+x2+'" y1="'+y1+'" x1="'+x1+'" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" marker-mid="url(#markerArrow)" stroke-width="2" stroke="#00007f" fill="none"/>');
 
-                var x1a = (x1 * 1 + x2 * 1) / 2;
-                var y1a = (y1 * 1 + y2 * 1) / 2;
-
+                var x1a = (x1*1+x2*1)/2;
+                var y1a = (y1*1+y2*1)/2;
+				
                 //did not work... var linegroup = $('<g></g>');
                 var marker = "markerArrow";
                 var follows = step.follows || '';
-                if (/yes/.test(follows)) {
+                if (/yes/.test(follows))
+                {
                     //					console.log("marker:yes");
                     marker = 'markerYes';
-                } else if (/no/.test(follows)) {
+                } else if (/no/.test(follows))
+                {
                     marker = 'markerNo';
                 }
 
-                diagram.append('<polyline stroke="#00007f" marker-mid="url(#' + marker + ')" id="svg_line' + step.number + '" fill="none" stroke-width="2" points="' + x1 + ' ' + y1 + ' ' + x1a + ' ' + y1a + ' ' + x2 + ' ' + y2 + '" se:connector="svg_' + last_step_number + ' svg_' + step.number + '" />');
+                diagram.append('<polyline stroke="#00007f" marker-mid="url(#'+marker+')" id="svg_line'+step.number+'" fill="none" stroke-width="2" points="'+x1+' '+y1+' '+x1a+' '+y1a+' '+x2+' '+y2+'" se:connector="svg_'+last_step_number+' svg_'+step.number+'" />');
 
             }
         x1 = x2;
@@ -1153,38 +1295,43 @@ function generateDiagram() { //returns an SVG diagram jquery object
         if (step.box_thick) stroke_width = 4;
         var stroke_dash = 'null';
         if (step.box_dash) stroke_dash = '5,5';
-        var clickPopup = ' onclick="setPropertyDialog(' + stepNo + ');" style="cursor:help;"';
+        var clickPopup = ' onclick="setPropertyDialog('+stepNo+');" style="cursor:help;"';
         //new step box
         step_box = $('<g></g>');	//always delays steps for layers over lines
-        if (step.type == "wait") {
-            step_box.append('<path id="svg_' + step.number + '" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="' + stroke_dash + '" stroke-width="' + stroke_width + '" stroke="#00007f" fill="#fffff0" d="m'
-            + x + ',' + y +
+        if (step.type == "wait")
+        {
+            step_box.append('<path id="svg_'+step.number+'" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="'+stroke_dash+'" stroke-width="'+stroke_width+'" stroke="#00007f" fill="#fffff0" d="m'
+            +x+','+y+
             ' m-5,0 l170,0 l-10,60 l-150,0 z" />');
-        } else if (step.type == "decision") {
-            step_box.append('<path id="svg_' + step.number + '" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="' + stroke_dash + '" stroke-width="' + stroke_width + '" stroke="#00007f" fill="#fffff0" d="m'
-            + x + ',' + y +
+        } else if (step.type == "decision")
+        {
+            step_box.append('<path id="svg_'+step.number+'" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="'+stroke_dash+'" stroke-width="'+stroke_width+'" stroke="#00007f" fill="#fffff0" d="m'
+            +x+','+y+
             ' m10,0 l140,0 l10,10 l0,40 l-10,10 l-140,0 l-10,-10 l0,-40 z" />');
-        } else {
-            step_box.append('<rect id="svg_' + step.number + '" height="60" width="' + (region_width - 20) + '" y="' + y + '" x="' + x + '" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="' + stroke_dash + '" stroke-width="' + stroke_width + '" stroke="#00007f" fill="#fffff0"' + clickPopup + ' />');
+        } else
+        {
+            step_box.append('<rect id="svg_'+step.number+'" height="60" width="'+(region_width-20)+'" y="'+y+'" x="'+x+'" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="'+stroke_dash+'" stroke-width="'+stroke_width+'" stroke="#00007f" fill="#fffff0"'+clickPopup+' />');
         }
 
-        var textx = x * 1 + 5;
-        var texty = y * 1 + 5 + 10;
+        var textx = x*1 + 5;
+        var texty = y*1 + 5+10;
 
         //put text in the box
         //old			step_box.append('<foreignObject x="'+textx+'" y="'+texty+'" width="'+(region_width-30)+'" height="80"><p style="font-size:large; text-align:center" xmlns="http://www.w3.org/1999/xhtml">'+step.step+'</p></foreignObject>');
 
-        step_box.append(textWrapSVG(step.step, textx, texty, region_width - 30));
+        step_box.append(textWrapSVG(step.step,textx,texty,region_width-30));
 
-        var value_symbols = { 'very': '&#9786;&#9786;', 'somewhat': '&#9786;', 'not': '&#9785;' };
+        var value_symbols = { 'very':'&#9786;&#9786;','somewhat':'&#9786;','not':'&#9785;' };
 
         //the following PREVENTS svg-edit from loading data
-        if ($('#show_smileys').is(':checked') && step.value) {
+        if ($('#show_smileys').is(':checked') && step.value)
+        {
             var symbol = value_symbols[step.value];
-            if (typeof symbol != 'undefined') {
-                step_box.append('<text id="value_' + step.number + '" x="' + (x + region_width - 22) + '" y="' + (y + 56) + ' stroke="#007700" font-size="24" font-weight="normal" fill="#007f00" text-anchor="end">'
-                + symbol
-                + '</text>');
+            if (typeof symbol != 'undefined')
+            {
+                step_box.append('<text id="value_'+step.number+'" x="'+(x+region_width-22)+'" y="'+(y+56)+' stroke="#007700" font-size="24" font-weight="normal" fill="#007f00" text-anchor="end">'
+                +symbol
+                +'</text>');
             }
         }
 
@@ -1211,10 +1358,10 @@ function generateDiagram() { //returns an SVG diagram jquery object
 
     return diagram;
 };
-function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery object
+function textWrapSVG(text,textx,texty,width) { //returns SVG text jQuery object
     //		textx += width/2;	//for centering
 
-    var textObject = $('<text font-family="Serif" font-size="large" fill="#ff0000" text-anchor="left" x="' + textx + '" y="' + texty + '" width="' + width + '" height="80"></text>');
+    var textObject = $('<text font-family="Serif" font-size="large" fill="#ff0000" text-anchor="left" x="'+textx+'" y="'+texty+'" width="'+width+'" height="80"></text>');
 
     //TODO: This function has a lot of stuff that is never used, and should be removed
 
@@ -1238,7 +1385,8 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
 
     var linecount = 0;
 
-    for (var i = 0; i < allwords.length; i++) {
+    for(var i=0; i<allwords.length; i++)
+    {
         nextword = allwords[i];
         nextwordlen = nextword.length;
         // Add next word
@@ -1249,16 +1397,17 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
         //				console.log('  line='+line);
         //				console.log('  length='+tspan_element.getComputedTextLength());
 
-        if (tspan_element.getComputedTextLength() > width || nextword == '~DUMMY~') {
+        if (tspan_element.getComputedTextLength() > width || nextword == '~DUMMY~')
+        {
             tspan_element.innerHTML = line;
             linewidth = tspan_element.getComputedTextLength();
-            linehalf = -Math.round(linewidth / 2);
+            linehalf = -Math.round(linewidth/2);
             if (dx == 0) { //first line
                 //						textObject.append(('<tspan>'+line+'</tspan>')); //tack it on
-                textObject.append(('<tspan dx="' + (width / 2 + linehalf) + '">' + line + '</tspan>')); //tack it on
+                textObject.append(('<tspan dx="'+(width/2+linehalf)+'">'+line+'</tspan>')); //tack it on
             } else {
                 dx += linehalf; //subtract half of the current line
-                textObject.append(('<tspan dx="' + dx + '" dy="20">' + line + '</tspan>')); //tack it on
+                textObject.append(('<tspan dx="'+dx+'" dy="20">'+line+'</tspan>')); //tack it on
             }
             //					var tspan_line = $('<tspan dx="'+dx+'" dy="20">'+line+'</tspan>'); //make a generic tspan
             dx = linehalf;
@@ -1267,7 +1416,7 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
             line = nextword;	//start next line
             //						tspan_element.setAttributeNS(null, "x", 10);	//set next position
             //						tspan_element.setAttributeNS(null, "dy", 18);
-            linecount++;
+            linecount ++;
         } else {
             line += ' ' + nextword;
         }
@@ -1281,7 +1430,7 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
     //		textObject.append(tspan_line); //tack it on
 
     //set the vertical drop
-    textObject.attr('y', texty + 30 - (linecount * 10));
+    textObject.attr('y',texty+30-(linecount * 10));
 
     return textObject;
 
@@ -1289,17 +1438,17 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
 
 //googled "jquery force redraw svg"
 //THANK YOU http://jcubic.wordpress.com/2013/06/19/working-with-svg-in-jquery/
-$.fn.xml = function () {
+$.fn.xml = function() {
     return (new XMLSerializer()).serializeToString(this[0]);
 };
-$.fn.DOMRefresh = function () {
+$.fn.DOMRefresh = function() {
     return $($(this.xml()).replaceAll(this));
 };
 function showPCN() {
     var diag = generateDiagram();
 
     //		console.log("Counter="+(debug_i++)+" Steps="+spa.steps.length+" region_height="+region_height +" Diagram height = " +$("#diagram").height());
-
+		
     //done in generateDiagram()		$("#diagram").height(region_height+120);
     //		$("#dump").replaceWith("Counter="+(debug_i++)+" Steps="+spa.steps.length+" Diagram height = "+$("#diagram").height());
     //		console.log(" region_height="+region_height +" Diagram height = " +$("#diagram").height());
@@ -1312,7 +1461,7 @@ function showPCN() {
         //refresh... http://stackoverflow.com/questions/10333128/svg-update-through-jquery-works-in-ff-but-not-in-safari-any-ideas
         $(thewin.document.body).html(svgGuts);
         //			$(thewin.document.body).DOMRefresh();  //crash
-
+		
     }
 
     if ($("#show_pcn_below").is(":checked")) {
@@ -1334,25 +1483,28 @@ function refreshPCN() {
     if (true || $('#always_showPCN').is(":checked"))	//TK hard-coded always
     {
         clearTimeout(refreshTimer);	//stop prior one
-        refreshTimer = setTimeout(showPCN(), 1000);
+        refreshTimer = setTimeout(showPCN(),1000);
     }
 }
 function pcnBelow() {
     //toggle whether show the PCN below the steps table
-    if ($("#show_pcn_below").is(":checked")) {
+    if ($("#show_pcn_below").is(":checked"))
+    {
         showPCN(); //just refresh it
     }
-    else {
+    else
+    {
         //make it disappear by replacing it with a SVG DOM element (using a blank strick caused error)
         $("#diagram").replaceWith('<svg width="1080" height="100" xmlns="http://www.w3.org/2000/svg" id="diagram"></svg>');
     }
 }
 function popup() {
     var diag = generateDiagram();
-    console.log("thewin=" + thewin);
-    if (!thewin || !thewin.document) {
+    console.log("thewin="+thewin);
+    if (! thewin || ! thewin.document)
+    {
         console.log("opening thewin");
-        thewin = window.open('', 'popup', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=800,left=200,screenX=200');
+        thewin = window.open('','popup', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=800,left=200,screenX=200');
         //,'width=1100,height=900,left=100,top=20,menubar=1,status=0,resizable=yes');
         //		
     }
@@ -1376,7 +1528,7 @@ function popup() {
         //			thewin.document.write(svgStart+diag.html()+svgEnd);
         thewin.document.write("</textarea>");
         thewin.document.write("<br />JSON:<br /><textarea rows='10' cols='100'>");
-        thewin.document.write(JSON.stringify(spa, null, '\t'));
+        thewin.document.write(JSON.stringify(spa,null,'\t'));
         thewin.document.write("</textarea>");
     }
     thewin.document.close();
@@ -1396,49 +1548,53 @@ function svgEdit() {
         svgEditWindow.focus();
         //			var diag = generateDiagram();
         //replaces are necessary if svg-edit is to read the line markers
-        var diag = svgStart + generateDiagram().html()
-        .replace('markerheight=', 'markerHeight=')
-        .replace('markerwidth=', 'markerWidth=')
-        .replace('viewbox=', 'viewBox=')
-        .replace('refx=', 'refX=')
-        .replace('refy=', 'refY=') + svgEnd;
+        var diag = svgStart+generateDiagram().html()
+        .replace('markerheight=','markerHeight=')
+        .replace('markerwidth=','markerWidth=')
+        .replace('viewbox=','viewBox=')
+        .replace('refx=','refX=')
+        .replace('refy=','refY=')+svgEnd;
 
         var reply = svgEditWindow.svgCanvas.setSvgString(diag);
         //			alert(reply);
         svgEditWindow.svgCanvas.zoomChanged(svgEditWindow, 'canvas'); //zoop to canvas,selection,layer,content
     }
-    catch (e) {
+    catch (e)
+    {
         alert("This opens the diagram editor.\n\nClick the [Edit PCN Diagram] button again to\nload or reload your diagram in the editor.");
         //'http://services.byu.edu/svg/svg-editor.html'
-        svgEditWindow = window.open('../svg/svg-editor.html', 'svgedit', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=1200,left=200,screenX=200');
+        svgEditWindow = window.open('../svg/svg-editor.html','svgedit', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=1200,left=200,screenX=200');
         //,'width=1100,height=900,left=100,top=20,menubar=1,status=0,resizable=yes');
         svgEditWindow.focus();
     }
 }
 function loadPCN() {
     var temp;
-    try {
-        spa = JSON.parse($("#json2load").val());
+    try
+    {
+        spa = JSON.parse($("#json2load").val());		
         doList();
     }
-    catch (err) {
+    catch (err)
+    {
         alert("The Service Process Analsis data has errors so was NOT loaded.");	//+err.message
     }
 }
 function putSVG() {
     var diag = generateDiagram().html()
-    .replace('markerheight=', 'markerHeight=')
-    .replace('markerwidth=', 'markerWidth=')
-    .replace('viewbox=', 'viewBox=')
-    .replace('refx=', 'refX=')
-    .replace('refy=', 'refY=');
+    .replace('markerheight=','markerHeight=')
+    .replace('markerwidth=','markerWidth=')
+    .replace('viewbox=','viewBox=')
+    .replace('refx=','refX=')
+    .replace('refy=','refY=');
 
     //		console.log('load '+diag.html());
 
-    $("#svg2load").val(svgStart + diag + svgEnd);
+    $("#svg2load").val(svgStart+diag+svgEnd);
 }
 function new_spa() {
-    if (confirm("Clear all data and start anew?")) {
+    if (confirm("Clear all data and start anew?"))
+    {
         //did not work			spa = $(blank_spa).clone();
         spa = JSON.parse(JSON.stringify(blank_spa));
         doList();
@@ -1452,18 +1608,19 @@ function new_spa() {
     }
 }
 function numberFrom(idString) { //extracts number from an id string
-    if (/\d+/.test(idString)) {
+    if (/\d+/.test(idString))
+    {
         //			console.log("numberFrom("+idString+") returns "+parseFloat(1*(/[-+\d\.]+/.exec(idString)[0])));
-        return 1 * (/[-+\d\.]+/.exec(idString)[0]);	//TODO: add error checking
+        return 1*(/[-+\d\.]+/.exec(idString)[0]);	//TODO: add error checking
     } else {
-        console.log("numberFrom(" + idString + ") returned null");
+        console.log("numberFrom("+idString+") returned null");
         return null;
     }
 }
 function hideColumn(headingChild) {
     //		alert("DO NOT HIDE");
     var partNo = numberFrom(headingChild.parentElement.id);	//must convert to number so can add 1 below
-    setColumns("#header_row1", null, partNo);
+    setColumns("#header_row1",null,partNo);
 }
 function firstColumn(headingChild) {
     var partno = numberFrom(headingChild.parentElement.id);	//must convert to number so can add 1 below
@@ -1471,15 +1628,15 @@ function firstColumn(headingChild) {
     if (partno > 0 && partno < columnCount) {
         showColumns = [0];	//always show 0
         //bad, i is string!			for (var i in [0,1,2,3]) {
-        for (var i = 0; i < 4; i++) {
-            var part = ((partno - 1 + i) % 4) + 1;
+        for (var i=0;i<4;i++) {
+            var part = ((partno-1+i) % 4) + 1;
             showColumns.push(part);
         }
         doList();	//refresh
     }
 }
 function drSampsonsOldDocumentReady() {
-    $("#dialog").dialog({
+    $( "#dialog" ).dialog({
         autoOpen: false,
         show: {
             effect: "drop",
@@ -1491,19 +1648,19 @@ function drSampsonsOldDocumentReady() {
         }
     });
 
-    $("#help").dialog({ autoOpen: false });
+    $( "#help" ).dialog({autoOpen: false});
 
     // no need for ok because it saves as you make changes
     //		$( "#dialog" ).dialog(
     //		{ buttons: [
     //				{ text: "Ok", click: function() { $( this ).dialog( "close" ); } } ] }
     //		);
-
+ 
     //    $( "#opener" ).click(function() {
     //      $( "#dialog" ).dialog( "open" );
     //    });
 
-    $("#showcols").dialog({
+    $( "#showcols" ).dialog({
         autoOpen: false,
         show: {
             effect: "clip",
@@ -1515,36 +1672,36 @@ function drSampsonsOldDocumentReady() {
         }
     });
 
-    $("#cols2show").sortable({
+    $( "#cols2show" ).sortable({
         placeholder: "ui-state-highlight",
-        update: function (event, ui) { setColumns("#cols2show"); }
+        update: function( event, ui ) { setColumns("#cols2show"); }	
     }).disableSelection();
 
-    $("#hiddenParts").sortable({
+    $( "#hiddenParts" ).sortable({
         placeholder: "ui-state-highlight",
-        update: function (event, ui) { setColumns("#header_row1"); }
+        update: function( event, ui ) { setColumns("#header_row1"); }	
     }).disableSelection();
 
 
     //This line was in his "other" on document ready function.  I consolidated the two functions. --Brian
-    $("#mainMenu").menu({ position: { at: "left bottom" } });
+    $("#mainMenu").menu({position: {at: "left bottom"}});
 
-    setColumns("#header_row1", columnCount - 1); //has	doList();	//this needs to be at the bottom or in onLoad
+    setColumns("#header_row1",columnCount-1); //has	doList();	//this needs to be at the bottom or in onLoad
     $("#dataMenu").hide();
     $("#svgMenu").hide();
     $("#serverData").hide();
 
 };
-var cleanUp = function (a) {
+var cleanUp = function(a) {
     a.textContent = ''; //'Downloaded';
     a.dataset.disabled = true;
 
     // Need a small delay for the revokeObjectURL to work properly.
-    setTimeout(function () {
+    setTimeout(function() {
         window.URL.revokeObjectURL(a.href);
     }, 1500);
 };
-var downloadFile = function () {
+var downloadFile = function() {
     window.URL = window.webkitURL || window.URL;
 
     var prevLink = output.querySelector('a');
@@ -1556,22 +1713,26 @@ var downloadFile = function () {
     var a = document.createElement('a');
     //savename stuff added by SES...
     var savename = "";
-    if (container.querySelector('input[type="text"]')) {
+    if (container.querySelector('input[type="text"]'))
+    {
         savename = container.querySelector('input[type="text"]').value;
     }
-    if (!savename) {
-        var guess = spa.meta.savename || spa.process.process.toLowerCase().replace(/\s/g, "_");
-        savename = window.prompt("Save file name?", guess);
-        if (!savename) {
+    if (! savename)
+    {
+        var guess = spa.meta.savename || spa.process.process.toLowerCase().replace(/\s/g,"_");
+        savename = window.prompt("Save file name?",guess);
+        if (! savename)
+        {
             return;
         }
     }
-    if (! /.txt$/i.test(savename)) {
+    if (! /.txt$/i.test(savename))
+    {
         savename = savename + '.txt';
     }
     spa.meta.savename = savename;	//save it for later
     //moved from above so will reflect savename...
-    var bb = new Blob([JSON.stringify(spa, null, " ")], { type: MIME_TYPE });
+    var bb = new Blob([JSON.stringify(spa,null," ")], {type: MIME_TYPE});
 
     a.download = savename;
     a.href = window.URL.createObjectURL(bb);
@@ -1585,7 +1746,7 @@ var downloadFile = function () {
 
     output.appendChild(a);
 
-    a.onclick = function (e) {
+    a.onclick = function(e) {
         if ('disabled' in this.dataset) {
             return false;
         }
@@ -1596,24 +1757,27 @@ var downloadFile = function () {
 function loadSPAdata() {
     var temp;
     var filename = $("#server_data_files").val();
-    if (!filename || filename.length < 4) {
+    if (! filename || filename.length < 4)
+    {
         alert("You must select a file first");
         return;
     }
-    try {
-        $.getJSON("data/" + filename, function (json) {
+    try
+    {
+        $.getJSON("data/"+filename, function(json) {
             //		    console.log(json); // this will show the info it in firebug console
             spa = json;	//why not just get spa directly?  In case it is not a valid file.	
             doList();
 
             $("#serverData").slideUp();
 
-        }).fail(function () {
-            alert("Sorry, could not load " + filename);
+        }).fail(function() {
+            alert( "Sorry, could not load "+filename );
         })
         ;
     }
-    catch (err) {
+    catch (err)
+    {
         alert("The Service Process Analsis data has errors so was NOT loaded.");	//+err.message
     }
 }
@@ -1621,15 +1785,16 @@ function getDataFilenames() {
     //		console.log("About to ajax.");
     //NOTE that this assumes that the file list shows up as a bunch of hot links - Apache dependent
     $.ajax({
-        url: "data/", // this is just a url that is responsible to return files list 
-        success: function (data) {
+        url : "data/", // this is just a url that is responsible to return files list 
+        success : function(data){
             //							console.log("ajax success:"+data);
             $("#server_data_files").empty();
-            $(data).find("a").each(function () {
+            $(data).find("a").each(function(){
                 // will loop through
                 var filename = $(this).attr("href");
-                if (filename.match(/[-\w].txt/i)) {
-                    $("<option>" + filename + "</option>").appendTo("#server_data_files");
+                if (filename.match(/[-\w].txt/i))
+                {
+                    $("<option>"+filename+"</option>").appendTo("#server_data_files");  
                     console.log("Found a file: " + filename);
                 } else {
                     //									console.log("NOT a data file: " + filename);
@@ -1638,7 +1803,4 @@ function getDataFilenames() {
         }
     });
     //		console.log("Done ajax.");
-}
-String.prototype.capitalize = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1);
 }
