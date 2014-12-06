@@ -85,7 +85,7 @@ var newStartingSpa = {
     },
     "steps": [{
                  "order": "1",
-                 "step": "step 1",
+                 "step": "Step 1",
                  "type": "",
                  "domain": "patient",
                  "region": "r7",
@@ -97,7 +97,7 @@ var newStartingSpa = {
     },
     {
         "order": "1",
-        "step": "step 2",
+        "step": "Step 2",
         "type": "",
         "domain": "patient",
         "region": "r1",
@@ -394,6 +394,21 @@ $(document).ready(function () {
         $("#importModal").show("fast");
     });
 
+    $('#importModal > div.modalFooter > div:nth-child(1)').on('click', function () {
+        console.log('fsdfsdf')
+
+        var jsonString = $('#importModal > div.modalContent > textarea').val()
+        var json = jQuery.parseJSON(jsonString)
+
+        console.log(json.created)
+
+        popup()
+
+        closeModals();
+
+        showPCN(json);
+    });
+
     $("#buttonEditDiagram").click(function () {
         var processName = document.getElementById('Text1').value;
         var provider = document.getElementById('Text2').value;
@@ -406,6 +421,8 @@ $(document).ready(function () {
             document.getElementById('Text3').value = customer;
             closeModals();
         });
+
+
     });
 
     $("#buttonSettings").click(function () {
@@ -427,10 +444,21 @@ $(document).ready(function () {
         closeModals();
     });
 
-    $(".saveButtonEdit").click(function() {
+    $(".saveButtonEdit").click(function () {
+        var processName = document.getElementById('Text1').value;
+        var provider = document.getElementById('Text2').value;
+        var customer = document.getElementById('Text3').value;
+
         document.getElementById('PCNTitle').innerHTML  = document.getElementById('Text1').value;
-        document.getElementById('PCNSubTitle').innerHTML  = "Provider: " + document.getElementById('Text2').value + " Customer: " + document.getElementById('Text3').value;
+        document.getElementById('PCNSubTitle').innerHTML = "Provider: " + document.getElementById('Text2').value + " Customer: " + document.getElementById('Text3').value;
+
+        spa.process.provider = provider;
+        spa.process.customer = customer;
+        spa.process.process = processName;
+
         closeModals();
+
+        showPCN();
     });
 
     $(document).on('click', '.editButton', function () {
@@ -484,6 +512,19 @@ $(document).ready(function () {
         updatestep(this);
     });
 
+    $('body').on('change','input[type=radio]', function () {
+        var rowNum = $(this).parents('.tableRow').index();
+        var radioNum = $(this).parents('.sliderCell').index();
+
+        console.log('Row: ' + parseInt(rowNum))
+        console.log('Radio: ' + parseInt(radioNum))
+
+        spa.steps[rowNum - 1].region = 'r' + parseInt(radioNum + 1)
+
+        showPCN();
+
+    })
+
     drSampsonsOldDocumentReady();
 });
 
@@ -527,7 +568,8 @@ function addStepRow() {
     var x = document.getElementById("rowStep"+stepNum).getElementsByTagName("*");
     for (var i = 0; i < x.length; ++i) {
         if (x[i].type == 'radio') {
-            x[i].setAttribute("name","tableColumnProcessingRegionRadio" + stepNum);
+            x[i].setAttribute("name", "tableColumnProcessingRegionRadio" + stepNum);
+
         }
     }
     $("#addStepButton").data('id', stepNum + 1);
@@ -1413,9 +1455,9 @@ $.fn.xml = function () {
 $.fn.DOMRefresh = function () {
     return $($(this.xml()).replaceAll(this));
 };
-function showPCN() {
+function showPCN(tommysJson) {
     //var diag = generateDiagram();
-    var json = convertSpaToTommysJson(spa);
+    var json = tommysJson || convertSpaToTommysJson(spa);
     var diag = getPcnChart(json);
 
     //		//console.log("Counter="+(debug_i++)+" Steps="+spa.steps.length+" region_height="+region_height +" Diagram height = " +$("#diagram").height());
@@ -1471,19 +1513,19 @@ function pcnBelow() {
 }
 function popup() {
 
-
     var json = convertSpaToTommysJson(spa);
 
     // append svg to page with jQuery or vanilla JS.
-//    document.getElementById('dump').appendChild(svg);
+    //    document.getElementById('dump').appendChild(svg);
 
     //var diag = generateDiagram();
     var diag = pcnchart(json);
 
     //console.log("thewin=" + thewin);
-    if (!thewin || !thewin.document) {
+    if (!thewin || !thewin.document || !thewin.window) {
         //console.log("opening thewin");
         thewin = window.open('', 'popup', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=800,left=200,screenX=200');
+        
         //,'width=1100,height=900,left=100,top=20,menubar=1,status=0,resizable=yes');
         //		
     }
@@ -1499,6 +1541,10 @@ function popup() {
     var svgGuts = $(thewin.document.body).html();	//get it in HTML format
     //refresh... http://stackoverflow.com/questions/10333128/svg-update-through-jquery-works-in-ff-but-not-in-safari-any-ideas
     $(thewin.document.body).html(svgGuts);
+
+    thewin.document.body.classList.add('popup')
+
+    $(thewin.document.head).append('<link rel="stylesheet" href="include/css/style.css">')
     //		alert($(thewin.document.body).html());
     if (false)	//interesting and works
     {
@@ -1782,9 +1828,9 @@ String.prototype.capitalize = function () {
 var regionTable = {
     'r1':'independent',
     'r2':'surrogate',
-    'r3':'direct_shared',
-    'r4':'direct_leading',
-    'r5': 'direct_shared',
+    'r3': 'direct_leading',
+    'r4': 'direct_shared',
+    'r5': 'direct_leading',
     'r6': 'surrogate',
     'r7': 'independent'
 }
@@ -1823,7 +1869,7 @@ function convertSpaToTommysJson(spa) {
             "predecessors": [
             ],
             "domain": {
-                "id": customerId,
+                "id": '',
                 "region": {
                     "type": regionTable[currentSpaStep.region],
                     "with_domain": "fdsfdsf"
@@ -1840,22 +1886,28 @@ function convertSpaToTommysJson(spa) {
             "title":""
         });
 
+        var regionNum = parseInt(currentSpaStep.region.slice(-1))
+        if (regionNum < 4) {
+            step.domain.id = providerId;
+        } else {
+            step.domain.id = customerId;
+        }
+
         json.steps.push(step);
     }
-
 
     //add the domains in
     //provider
     json.domains[0] = {
         'id': providerId,
-        'title': 'sfjdkslfjkdlsjfkdls;',
+        'title': spa.process.provider,
         'subtitle':'Provider'
     }
 
     //customer
     json.domains[1] = {
         'id': customerId,
-        'title': 'ruiewoqruipeowqu',
+        'title': spa.process.customer,
         'subtitle': 'Customer'
     }
 

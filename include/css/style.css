@@ -28,6 +28,8 @@ body {
 	line-height: 1;
     font-family: 'Open Sans', sans-serif;
     color:#fff;
+    background:url(../../images/pcnBook.jpg) center center fixed;
+    background-size:cover;
 }
 ol, ul {
 	list-style: none;
@@ -46,8 +48,8 @@ table {
 	border-spacing: 0;
 }
 
-body {
-    background:url(../../images/pcnBook.jpg) center center fixed;
+body.popup {
+    background:url(../../images/transperentBackround.PNG) center center fixed;
     background-size:cover;
 }
 
