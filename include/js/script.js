@@ -395,6 +395,10 @@ $(document).ready(function () {
         addStepRow();
     });
 
+    $('.tableColumnStepNameInput').keyup(function(){
+        updatestep(this);
+    });
+
     drSampsonsOldDocumentReady();
 });
 
@@ -457,7 +461,7 @@ function XXsetValue(item) {
         number = $("#dialog_stepno").val();
     }
     var value = item.classList[0];
-    console.log("setValue(" + number + ") to " + value);
+    //console.log("setValue(" + number + ") to " + value);
     spa.steps[number].value = value;
     //		alert("set "+number+" to "+spa.steps[number].type);
 }
@@ -491,7 +495,7 @@ function store(item) {
         property = property + value;	//tack value on the end, eg box_thick = thick
     }
     if (/^_/.test(value)) {
-        //			console.log($('#'+value,item.parentElement).length);
+        //			//console.log($('#'+value,item.parentElement).length);
         if ($('#' + value, item.parentElement).length > 0) // if that other field exists
         {
             $('#' + value, item.parentElement).focus();	//set focus on other item
@@ -503,7 +507,7 @@ function store(item) {
                 value = ans;
                 if (!item.title) {
                     item.title = ans;
-                    //						console.log("Set title="+ans);
+                    //						//console.log("Set title="+ans);
                 }
             }
         }
@@ -514,7 +518,7 @@ function store(item) {
         property = property.replace('__', '_');
     }
 
-    console.log('For step ' + number + ' [' + Object.prototype.toString.call(item).slice(8, -1) + '] storing ' + property + ' = ' + value);
+    //console.log('For step ' + number + ' [' + Object.prototype.toString.call(item).slice(8, -1) + '] storing ' + property + ' = ' + value);
     //		var itemIsA = Object.prototype.toString.call(item).slice(8,-1); //HTMLInputElement or SVGTSpanElement
 
     if (property == "region")			//need to change highlighting
@@ -534,17 +538,17 @@ function store(item) {
         //clear property, http://stackoverflow.com/questions/3455405/how-to-remove-a-key-from-a-javascript-object
         //was			spa.steps[number][property] = "";
         delete spa.steps[number][property];	//actually delete it
-        console.log('Removed ' + property + ' for step ' + number);
+        //console.log('Removed ' + property + ' for step ' + number);
     } else if (item.type == 'text') {
         if (item.value) {
             value = item.value;
         }
         //keep what have			else {}
         spa.steps[number][property] = value;
-        console.log('Stored step ' + number + ' ' + property + '=' + value);
+        //console.log('Stored step ' + number + ' ' + property + '=' + value);
     } else {
         spa.steps[number][property] = value;
-        console.log('Stored step ' + number + ' ' + property + '=' + value);
+        //console.log('Stored step ' + number + ' ' + property + '=' + value);
     }
 }
 function setOther(item) {
@@ -594,7 +598,7 @@ function setColumns(based_on, part2add, part2remove) {
         } else {
             showColumns.push(part * 1);
         }
-        //			console.log(based_on+" child "+index+" has parts "+showColumns);
+        //			//console.log(based_on+" child "+index+" has parts "+showColumns);
 
     });
 
@@ -612,7 +616,7 @@ function setColumns(based_on, part2add, part2remove) {
         }
     }
 
-    console.log(based_on + " has parts " + showColumns);
+    //console.log(based_on + " has parts " + showColumns);
 
     //populate hidden parts
     $("#hiddenParts").empty().append("<td>Columns:</td>");
@@ -683,11 +687,11 @@ function doList() {
                     break;
                 case 1:
                     var type = step.type || "regular";
-                    console.log("Step " + stepNo + " type=" + type);
+                    //console.log("Step " + stepNo + " type=" + type);
                     $(selectorPrefix + 'div.tableColumnStepType > select').val(type.capitalize())
 
                     if (type && type.length > 0) {
-                        console.log("Replacing: " + item);
+                        //console.log("Replacing: " + item);
                         item = item.replace(type + ' value"', type + ' value" CHECKED');
                     }
                     var other = step.other;
@@ -722,8 +726,8 @@ function doList() {
                     for (var p in problems) {
                         var problem = problems[p];
                         if (what = step["problem_" + problem]) {
-                            //							console.log("Step "+stepNo+" problem_"+problem+"="+what);
-                            //							console.log("ITEM:"+item);
+                            //							//console.log("Step "+stepNo+" problem_"+problem+"="+what);
+                            //							//console.log("ITEM:"+item);
 
                             item = item.replace(problem + ' valuelink"', problem + ' valuelink" CHECKED title="' + what + '"');
                         }
@@ -731,9 +735,9 @@ function doList() {
                 case 5:
                     //still need to figure this part out.  -Brian
                     var value = step.follows || 'prior';
-                    //					console.log("Step "+stepNo+" follows="+value);
+                    //					//console.log("Step "+stepNo+" follows="+value);
                     if (value && value.length > 0) {
-                        //						console.log("item:"+item);
+                        //						//console.log("item:"+item);
                         if (/\d/.test(value)) {
                             item = item.replace(' valuelink"', ' valuelink" CHECKED');
                             item = item.replace('valueinput"', 'valueinput" value="' + value + '"');
@@ -762,7 +766,7 @@ function doList() {
 
     $("#mytable tbody").sortable({
         stop: function (event, ui) {
-            console.log("ITEM " + ui.item.attr("id") + "...");
+            //console.log("ITEM " + ui.item.attr("id") + "...");
             reorderSteps($(this), ui.item.attr("id"));
 
         }
@@ -779,23 +783,23 @@ function doList() {
         },
         over: function (event, ui) {
             removeIntent = false;
-            console.log("sort over");
+            //console.log("sort over");
             $(this).css("cursor", "ew-resize");
         },
         out: function (event, ui) {
             removeIntent = true;
-            console.log("sort out");
+            //console.log("sort out");
             $(this).css("cursor", "alias");
         },
         beforeStop: function (event, ui) {
-            console.log("beforeStop removeIntent=" + removeIntent);
+            //console.log("beforeStop removeIntent=" + removeIntent);
             if (removeIntent == true) {
                 ui.item.remove();
                 //						setColumns("#header_row1");
             }
         },
         stop: function (event, ui) {
-            console.log("stop removeIntent=" + removeIntent);
+            //console.log("stop removeIntent=" + removeIntent);
             if (removeIntent == true) {
                 //						ui.item.remove();
                 setColumns("#header_row1");
@@ -818,15 +822,15 @@ function reorderSteps($list, number) {
 
 
     $list.find('tr').each(function (idx) {
-        console.log("->element " + idx + " was element " + $(this).attr('id')); //indexes 0..7 of table rows
+        //console.log("->element " + idx + " was element " + $(this).attr('id')); //indexes 0..7 of table rows
         if ($(this).attr('id') == number) {
             //TODO: The following could be replaced with one line...
             if (number < idx) //moving an item down the list
             {
-                console.log("  MOVED DOWN");
+                //console.log("  MOVED DOWN");
                 spa.steps.splice(idx, 0, movedstep); //restore it
             } else {
-                console.log("  MOVED UP (or stayed the same)");
+                //console.log("  MOVED UP (or stayed the same)");
                 spa.steps.splice(idx, 0, movedstep); //restore it
             }
             doList();
@@ -842,9 +846,10 @@ function reorderSteps($list, number) {
 
 //TODO: is it better to do this with store()...
 function updatestep(stepinput) {
-    var number = stepinput.parentElement.parentElement.id;
+    var rowNumber = stepinput.parentElement.parentElement.id;
+    var number = parseInt(rowNumber.substring(rowNumber.length - 1))
     var typingID = stepinput.id; //save the id since doList will change the DOM
-    spa.steps[number].step = stepinput.value;
+    spa.steps[number-1].step = stepinput.value;
     //check if we still need a new one at the end
     if (spa.steps[spa.steps.length - 1].step != "") {
         doList();	//force add a new item at the end and redraw
@@ -866,7 +871,7 @@ function updatestep(stepinput) {
 function setPropertyDialog(stepNumber) {
     //sets the property Dialog for spa.step[stepNumber]
 
-    console.log("setPropertyDialog(" + stepNumber + ")");
+    //console.log("setPropertyDialog(" + stepNumber + ")");
 
     //clear highlight in list table if showing
     //		$(".stepdata.property .step > .valueinput").css('background-color','white');	//set them in mass
@@ -875,19 +880,19 @@ function setPropertyDialog(stepNumber) {
     //$("#dialog_stepno").val();
     if (prior_stepNumber >= 0) {
         $("#input_" + (1 * prior_stepNumber + 1)).css('background-color', 'white');
-        console.log("Left (and whitened) " + "#input_" + prior_stepNumber);
+        //console.log("Left (and whitened) " + "#input_" + prior_stepNumber);
     }
 
     $("#input_" + (1 * stepNumber + 1)).css('background-color', 'yellow');
 
     //		var oldtitle = $("#dialog").dialog("option","title");
     var newtitle = spa.steps[stepNumber].step;
-    //		console.log("Oldtitle="+oldtitle);
-    //		console.log("Newtitle="+newtitle);
+    //		//console.log("Oldtitle="+oldtitle);
+    //		//console.log("Newtitle="+newtitle);
 
     //		var old_stepno = $("#dialog_stepno").val();
     //		var new_stepno = stepNumber;
-    //		console.log("Dialog changing from step "+old_stepno+" to step "+new_stepno);
+    //		//console.log("Dialog changing from step "+old_stepno+" to step "+new_stepno);
 
     //		//save old - no saves as it goes!
 
@@ -909,7 +914,7 @@ function setPropertyDialog(stepNumber) {
 function showPropertyDialog(stepNumber) {
     if (!$("#dialog").dialog("isOpen")) {
         $("#dialog").dialog("open").dialog("moveToTop");
-        console.log("REOPEN");
+        //console.log("REOPEN");
 
     }
     $("#dialog").dialog("moveToTop");
@@ -933,21 +938,21 @@ function OLD_show_properties(stepChild) {
     var old_stepno = $("#dialog_stepno").val();
     if (old_stepno >= 0) {
         $("#input_" + (1 * old_stepno + 1)).css('background-color', 'white');
-        console.log("Left (and whitened) " + "#input_" + old_stepno);
+        //console.log("Left (and whitened) " + "#input_" + old_stepno);
     }
 
     var typingID = stepinput.id; //save the id since doList will change the DOM
-    //		console.log("Showing properties for step "+number);
-    //		console.log($("#dialog").dialog("isOpen"));
+    //		//console.log("Showing properties for step "+number);
+    //		//console.log($("#dialog").dialog("isOpen"));
 
     var oldtitle = $("#dialog").dialog("option", "title");
     var newtitle = stepinput.value;
-    //		console.log("Oldtitle="+oldtitle);
-    //		console.log("Newtitle="+newtitle);
+    //		//console.log("Oldtitle="+oldtitle);
+    //		//console.log("Newtitle="+newtitle);
 
     //		var old_stepno = $("#dialog_stepno").val();
     var new_stepno = number;
-    console.log("Dialog changing from step " + old_stepno + " to step " + new_stepno);
+    //console.log("Dialog changing from step " + old_stepno + " to step " + new_stepno);
 
     //		//save old
     //		if (old_stepno >= 0)
@@ -956,7 +961,7 @@ function OLD_show_properties(stepChild) {
     //			var set_type = $( "#dialog input:radio[name=step_type]:checked" ).val();
     //			if (set_type && step_type != oldstep.type)
     //			{
-    //				console.log("Type changed from "+oldstep.type+" to "+set_type);
+    //				//console.log("Type changed from "+oldstep.type+" to "+set_type);
     //				oldstep.type = set_type;
     //			}
     //		}
@@ -974,13 +979,13 @@ function OLD_show_properties(stepChild) {
 
     if (!$("#dialog").dialog("isOpen")) {
         $("#dialog").dialog("open").dialog("moveToTop");
-        console.log("REOPEN");
+        //console.log("REOPEN");
 
     }
 
     if (newtitle != oldtitle) {
         $("#dialog").dialog({ title: newtitle });
-        console.log("Changed title.");
+        //console.log("Changed title.");
     }
     $("#dialog").dialog("moveToTop");
     $("#dialog").dialog({ title: stepinput.value });
@@ -1048,7 +1053,7 @@ function generateDiagram() { //returns an SVG diagram jquery object
     var diagram_width = region_width * 6;
 
     region_height = spa.steps.length * 100 - 100;	//subtract 100 for the blank one
-    //		console.log("region_height="+region_height);
+    //		//console.log("region_height="+region_height);
 
     //		var diagram = $('#diagram');
     var diagram = $(svgStart.replace("1120", (region_height + 120)) + svgEnd);
@@ -1109,15 +1114,15 @@ function generateDiagram() { //returns an SVG diagram jquery object
         } else {
             y = y1 + 60;
         }
-        //			console.log("Step "+step.number+" checking "+step.skip_rows+" skip_rows");
+        //			//console.log("Step "+step.number+" checking "+step.skip_rows+" skip_rows");
         if (step.skip_rows && (no = numberFrom(step.skip_rows))) {
             y += 100 * no;	//if skipping rows
-            //				console.log("Step "+step.number+" Skipping "+step.skip_rows+" rows which is "+no);
+            //				//console.log("Step "+step.number+" Skipping "+step.skip_rows+" rows which is "+no);
         }
 
         spa.steps[stepNo].diagram.y = y;	//save it so can use later
 
-        //			console.log("y="+y+" for step:"+step.step);
+        //			//console.log("y="+y+" for step:"+step.step);
 
         //			alert(step.region+"="+regions[step.region]+" gives x="+x+" y="+y);
 
@@ -1126,7 +1131,7 @@ function generateDiagram() { //returns an SVG diagram jquery object
         var y2 = y + 40;
         //			alert("x2="+x2+" y2="+y2);
         if (follows == 0 || follows == "start") {
-            //				console.log("NO ARROW");
+            //				//console.log("NO ARROW");
         } else
             if (x1 > 0) {
                 //				diagram.append('<line id="svg_5" y2="'+y2+'" x2="'+x2+'" y1="'+y1+'" x1="'+x1+'" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" marker-mid="url(#markerArrow)" stroke-width="2" stroke="#00007f" fill="none"/>');
@@ -1138,7 +1143,7 @@ function generateDiagram() { //returns an SVG diagram jquery object
                 var marker = "markerArrow";
                 var follows = step.follows || '';
                 if (/yes/.test(follows)) {
-                    //					console.log("marker:yes");
+                    //					//console.log("marker:yes");
                     marker = 'markerYes';
                 } else if (/no/.test(follows)) {
                     marker = 'markerNo';
@@ -1240,7 +1245,7 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
     tspan_element.innerHTML = line;
     var dx = 0;
 
-    //		console.log('Wrapping '+text+' (width='+width+')');
+    //		//console.log('Wrapping '+text+' (width='+width+')');
 
     var linecount = 0;
 
@@ -1252,8 +1257,8 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
         tspan_element.innerHTML = line + " " + nextword;
         //				tspan_element.innerHTML += " " + tspan_element.style.fontSize + tspan_element.getComputedTextLength();
 
-        //				console.log('  line='+line);
-        //				console.log('  length='+tspan_element.getComputedTextLength());
+        //				//console.log('  line='+line);
+        //				//console.log('  length='+tspan_element.getComputedTextLength());
 
         if (tspan_element.getComputedTextLength() > width || nextword == '~DUMMY~') {
             tspan_element.innerHTML = line;
@@ -1268,7 +1273,7 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
             }
             //					var tspan_line = $('<tspan dx="'+dx+'" dy="20">'+line+'</tspan>'); //make a generic tspan
             dx = linehalf;
-            //					console.log('  spit='+line);
+            //					//console.log('  spit='+line);
             tspan_element.innerHTML = nextword;    // use leftover word
             line = nextword;	//start next line
             //						tspan_element.setAttributeNS(null, "x", 10);	//set next position
@@ -1278,7 +1283,7 @@ function textWrapSVG(text, textx, texty, width) { //returns SVG text jQuery obje
             line += ' ' + nextword;
         }
     }
-    //		console.log('  leftover='+line);
+    //		//console.log('  leftover='+line);
     //		tspan_element.innerHTML = line;
     //		linewidth = tspan_element.getComputedTextLength();
     //		linehalf = -Math.round(linewidth/2);
@@ -1302,16 +1307,18 @@ $.fn.DOMRefresh = function () {
     return $($(this.xml()).replaceAll(this));
 };
 function showPCN() {
-    var diag = generateDiagram();
+    //var diag = generateDiagram();
+    var json = convertSpaToTommysJson(spa);
+    var diag = getPcnChart(json);
 
-    //		console.log("Counter="+(debug_i++)+" Steps="+spa.steps.length+" region_height="+region_height +" Diagram height = " +$("#diagram").height());
+    //		//console.log("Counter="+(debug_i++)+" Steps="+spa.steps.length+" region_height="+region_height +" Diagram height = " +$("#diagram").height());
 
     //done in generateDiagram()		$("#diagram").height(region_height+120);
     //		$("#dump").replaceWith("Counter="+(debug_i++)+" Steps="+spa.steps.length+" Diagram height = "+$("#diagram").height());
-    //		console.log(" region_height="+region_height +" Diagram height = " +$("#diagram").height());
+    //		//console.log(" region_height="+region_height +" Diagram height = " +$("#diagram").height());
 
     if (thewin && thewin.document) {
-        console.log("updating popup");
+        //console.log("updating popup");
         //			thewin.document.write('<br>GREETINGS');
         $(thewin.document.body).html(diag); //this REPLACES whatever was there before
         var svgGuts = $(thewin.document.body).html();	//get it in HTML format
@@ -1321,13 +1328,15 @@ function showPCN() {
 
     }
 
-    if ($("#show_pcn_below").is(":checked")) {
+
+    //Brian commented out the if statement below
+    //if ($("#show_pcn_below").is(":checked")) {
         //also show it below
-        console.log("updating diagram below");
+        //console.log("updating diagram below");
         $("#diagram").replaceWith(diag);
         //refresh... 
         $("#diagram").DOMRefresh(); //works - function declared above
-    }
+    //}
 
     //http://stackoverflow.com/questions/10333128/svg-update-through-jquery-works-in-ff-but-not-in-safari-any-ideas
     //		$("#diagram").html($("#diagram").html());		//works with Chrome, but not Firefox
@@ -1358,17 +1367,15 @@ function popup() {
 
     var json = convertSpaToTommysJson(spa);
 
-
     // append svg to page with jQuery or vanilla JS.
 //    document.getElementById('dump').appendChild(svg);
-
 
     //var diag = generateDiagram();
     var diag = pcnchart(json);
 
-    console.log("thewin=" + thewin);
+    //console.log("thewin=" + thewin);
     if (!thewin || !thewin.document) {
-        console.log("opening thewin");
+        //console.log("opening thewin");
         thewin = window.open('', 'popup', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=800,left=200,screenX=200');
         //,'width=1100,height=900,left=100,top=20,menubar=1,status=0,resizable=yes');
         //		
@@ -1450,7 +1457,7 @@ function putSVG() {
     .replace('refx=', 'refX=')
     .replace('refy=', 'refY=');
 
-    //		console.log('load '+diag.html());
+    //		//console.log('load '+diag.html());
 
     $("#svg2load").val(svgStart + diag + svgEnd);
 }
@@ -1470,10 +1477,10 @@ function new_spa() {
 }
 function numberFrom(idString) { //extracts number from an id string
     if (/\d+/.test(idString)) {
-        //			console.log("numberFrom("+idString+") returns "+parseFloat(1*(/[-+\d\.]+/.exec(idString)[0])));
+        //			//console.log("numberFrom("+idString+") returns "+parseFloat(1*(/[-+\d\.]+/.exec(idString)[0])));
         return 1 * (/[-+\d\.]+/.exec(idString)[0]);	//TODO: add error checking
     } else {
-        console.log("numberFrom(" + idString + ") returned null");
+        //console.log("numberFrom(" + idString + ") returned null");
         return null;
     }
 }
@@ -1619,7 +1626,7 @@ function loadSPAdata() {
     }
     try {
         $.getJSON("data/" + filename, function (json) {
-            //		    console.log(json); // this will show the info it in firebug console
+            //		    //console.log(json); // this will show the info it in firebug console
             spa = json;	//why not just get spa directly?  In case it is not a valid file.	
             doList();
 
@@ -1635,26 +1642,26 @@ function loadSPAdata() {
     }
 }
 function getDataFilenames() {
-    //		console.log("About to ajax.");
+    //		//console.log("About to ajax.");
     //NOTE that this assumes that the file list shows up as a bunch of hot links - Apache dependent
     $.ajax({
         url: "data/", // this is just a url that is responsible to return files list 
         success: function (data) {
-            //							console.log("ajax success:"+data);
+            //							//console.log("ajax success:"+data);
             $("#server_data_files").empty();
             $(data).find("a").each(function () {
                 // will loop through
                 var filename = $(this).attr("href");
                 if (filename.match(/[-\w].txt/i)) {
                     $("<option>" + filename + "</option>").appendTo("#server_data_files");
-                    console.log("Found a file: " + filename);
+                    //console.log("Found a file: " + filename);
                 } else {
-                    //									console.log("NOT a data file: " + filename);
+                    //									//console.log("NOT a data file: " + filename);
                 }
             });
         }
     });
-    //		console.log("Done ajax.");
+    //		//console.log("Done ajax.");
 }
 String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
@@ -1749,3 +1756,12 @@ function convertSpaToTommysJson(spa) {
 }
 
 
+function getPcnChart(json) {
+
+    var diag = pcnchart(json);
+
+    //add this to be compatible with most of his code
+    diag.id = 'diagram';
+
+    return diag;
+}
