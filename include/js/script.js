@@ -66,105 +66,148 @@ var blank_spa = {
     ]
 };
 
-var spa = {
+var newStartingSpa = {
     "meta": {
         "author": "Sampson",
         "savename": ""
     },
     "process": {
-        "provider": "health clinic",
-        "customer": "patient",
-        "process": "Make an appointment",
-        "initial_step": "needs an appointment",
-        "final_step": "has an appointment"
+        "provider": "Some Provider",
+        "customer": "Some Customer",
+        "process": "Some Process",
+        "initial_step": "First step",
+        "final_step": ""
     },
     "subject": {
         "name": "John Doe",
         "date": "today",
         "entity": "patient"
     },
-    "steps": [
-     {
-         "order": "1",
-         "step": "need an appointment",
-         "type": "",
-         "domain": "patient",
-         "region": "r7",
-         "value": "somewhat",
-         "inconvenient": "headache",
-         "problem_inconvenient": "real pain to get to",
-         "problem_likely_to_fail": "forget to show up",
-         "number": 1
-     },
-     {
-         "order": "1",
-         "step": "look up the clinic phone number",
-         "type": "",
-         "other": "411",
-         "domain": "patient",
-         "region": "r6",
-         "value": "necessary",
-         "problem_difficult": "hard to do",
-         "problem_confusing": "strange language",
-         "number": 2,
-         "follows": "1:yes",
-         'box_dash': 'dash'
-     },
-     {
-         "order": "1",
-         "step": "call the clinic",
-         "type": "",
-         "domain": "patient",
-         "region": "r6",
-         "value": "",
-         "number": 3,
-         'box_thick': 'thick'
-     },
-     {
-         "order": "1",
-         "step": "wait for someone to answer",
-         "type": "wait",
-         "domain": "patient",
-         "region": "r6",
-         "value": "not",
-         "number": 4,
-         "follows": "start"
-     },
-     {
-         "order": "1",
-         "step": "ask about available appointment times",
-         "type": "",
-         "domain": "patient",
-         "region": "r5",
-         "value": "necessary",
-         "number": 5,
-         "skip_rows": 1.5
-     },
-     {
-         "order": "1",
-         "step": "select an appointment time",
-         "type": "decision",
-         "domain": "patient",
-         "region": "r4",
-         "value": "very",
-         "number": 6
-     },
-     {
-         "order": "1",
-         "step": "have an appointment",
-         "type": "",
-         "domain": "patient",
-         "region": "r7",
-         "value": "very",
-         "number": 7
-     },
-     {
-         "step": "",
-         "domain": "patient",
-         "number": 8
-     }
-    ]
+    "steps": [{
+                 "order": "1",
+                 "step": "step 1",
+                 "type": "",
+                 "domain": "patient",
+                 "region": "r7",
+                 "value": "somewhat",
+                 "inconvenient": "headache",
+                 "problem_inconvenient": "real pain to get to",
+                 "problem_likely_to_fail": "forget to show up",
+                 "number": 1
+    },
+    {
+        "order": "1",
+        "step": "step 2",
+        "type": "",
+        "domain": "patient",
+        "region": "r1",
+        "value": "somewhat",
+        "inconvenient": "headache",
+        "problem_inconvenient": "real pain to get to",
+        "problem_likely_to_fail": "forget to show up",
+        "number": 2
+    }]
 };
+
+var spa = newStartingSpa;//{
+//    "meta": {
+//        "author": "Sampson",
+//        "savename": ""
+//    },
+//    "process": {
+//        "provider": "health clinic",
+//        "customer": "patient",
+//        "process": "Make an appointment",
+//        "initial_step": "needs an appointment",
+//        "final_step": "has an appointment"
+//    },
+//    "subject": {
+//        "name": "John Doe",
+//        "date": "today",
+//        "entity": "patient"
+//    },
+//    "steps": [
+//     {
+//         "order": "1",
+//         "step": "need an appointment",
+//         "type": "",
+//         "domain": "patient",
+//         "region": "r7",
+//         "value": "somewhat",
+//         "inconvenient": "headache",
+//         "problem_inconvenient": "real pain to get to",
+//         "problem_likely_to_fail": "forget to show up",
+//         "number": 1
+//     },
+//     {
+//         "order": "1",
+//         "step": "look up the clinic phone number",
+//         "type": "",
+//         "other": "411",
+//         "domain": "patient",
+//         "region": "r6",
+//         "value": "necessary",
+//         "problem_difficult": "hard to do",
+//         "problem_confusing": "strange language",
+//         "number": 2,
+//         "follows": "1:yes",
+//         'box_dash': 'dash'
+//     },
+//     {
+//         "order": "1",
+//         "step": "call the clinic",
+//         "type": "",
+//         "domain": "patient",
+//         "region": "r6",
+//         "value": "",
+//         "number": 3,
+//         'box_thick': 'thick'
+//     },
+//     {
+//         "order": "1",
+//         "step": "wait for someone to answer",
+//         "type": "wait",
+//         "domain": "patient",
+//         "region": "r6",
+//         "value": "not",
+//         "number": 4,
+//         "follows": "start"
+//     },
+//     {
+//         "order": "1",
+//         "step": "ask about available appointment times",
+//         "type": "",
+//         "domain": "patient",
+//         "region": "r5",
+//         "value": "necessary",
+//         "number": 5,
+//         "skip_rows": 1.5
+//     },
+//     {
+//         "order": "1",
+//         "step": "select an appointment time",
+//         "type": "decision",
+//         "domain": "patient",
+//         "region": "r4",
+//         "value": "very",
+//         "number": 6
+//     },
+//     {
+//         "order": "1",
+//         "step": "have an appointment",
+//         "type": "",
+//         "domain": "patient",
+//         "region": "r7",
+//         "value": "very",
+//         "number": 7
+//     },
+//     {
+//         "step": "",
+//         "domain": "patient",
+//         "number": 8
+//     }
+//    ]
+//};
 
 
 var valueLevels = {
@@ -419,9 +462,25 @@ $(document).ready(function () {
 
     $("#addStepButton").click(function () {
         addStepRow();
+        spa.steps.push({
+            "order": "1",
+            "step": "",
+            "type": "",
+            "other": "",
+            "domain": "",
+            "region": "r1",
+            "value": "",
+            "problem_difficult": "",
+            "problem_confusing": "",
+            "number": spa.steps.length,
+            "follows": "",
+            'box_dash': 'dash'
+        });
+
+        showPCN();
     });
 
-    $('.tableColumnStepNameInput').keyup(function(){
+    $('body').on('keyup', '.tableColumnStepNameInput', function () {
         updatestep(this);
     });
 
@@ -801,7 +860,10 @@ function doList() {
             }
         }
 
-        addStepRow();
+        var rowCount = $('.tableRow').length
+        if (rowCount != spa.steps.length) {
+            addStepRow();
+        }
     };
 
     $('#mytable').append(tbody);
@@ -888,13 +950,13 @@ function reorderSteps($list, number) {
 
 //TODO: is it better to do this with store()...
 function updatestep(stepinput) {
-    var rowId = stepinput.parentElement.parentElement.id;
-    var number = getNumberFromRowId(rowId);
+    var rowIndex = $(stepinput.parentElement.parentElement).index();
+    var number = rowIndex - 1;
     var typingID = stepinput.id; //save the id since doList will change the DOM
     spa.steps[number].step = stepinput.value;
     //check if we still need a new one at the end
     if (spa.steps[spa.steps.length - 1].step != "") {
-        doList();	//force add a new item at the end and redraw
+        //doList();	//force add a new item at the end and redraw
         //of course, that wipes out the DOM, so need to find the one
         //			alert(typingID);
         var typingat = document.getElementById(typingID);
@@ -1743,7 +1805,7 @@ function convertSpaToTommysJson(spa) {
     json.steps = [];
 
     //add all the steps in
-    for (var i = 0; i < spa.steps.length - 1; i++) {
+    for (var i = 0; i < spa.steps.length; i++) {
         var currentJsonStep = json.steps[i];
         var currentSpaStep = spa.steps[i];
 
