@@ -1,4 +1,5 @@
-/////// Sampson's huge amount of global vars
+
+//#region Sampson's huge amount of global vars
 ///////////////////////////////////// GLOBAL VARS
 
 var svgEditWindow = false;
@@ -17,6 +18,10 @@ var container = document.querySelector('#container');
 //var typer = container.querySelector('[contenteditable]');
 //var output = container.querySelector('output');
 //const MIME_TYPE = 'text/plain';
+
+
+
+
 
 
 var pcnbackground = '<defs>'
@@ -305,18 +310,7 @@ var regions = {
     'r7': 6
 };
 
-//////////////// END GLOBAL VARS
-
-function deleteStep(id) {
-    $('#' + id)
-    .children('div')
-    .animate({ padding: 0 })
-    .wrapInner('<div />')
-    .children()
-    .slideUp("slow", function () {
-        $("#rowStep" + id).remove();
-    });
-}
+//#endregion
 
 $(document).ready(function () {
 
@@ -333,10 +327,10 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.deleteButton', function () {
-        var confirmChoice = confirm("Are you sure you want to delete this step?");
-        if (confirmChoice == true) {
+        //var confirmChoice = confirm("Are you sure you want to delete this step?");
+        //if (confirmChoice == true) {
             deleteStep($(this).parent().parent().attr("id"));
-        }
+        //}
     });
 
     $("#sidebarWrapper").mouseleave(function () {
@@ -433,6 +427,22 @@ $(document).ready(function () {
 
     drSampsonsOldDocumentReady();
 });
+
+function deleteStep(id) {
+
+    removeStep($('#' + id).index());
+
+    $('#' + id)
+    .children('div')
+    .animate({ padding: 0 })
+    .wrapInner('<div />')
+    .children()
+    .slideUp("slow", function () {
+        $('#' + id).remove();
+    });
+
+    
+}
 
 function toggleSidebar() {
     $("#sidebar").toggleClass('sidebarShrunk');
@@ -878,10 +888,10 @@ function reorderSteps($list, number) {
 
 //TODO: is it better to do this with store()...
 function updatestep(stepinput) {
-    var rowNumber = stepinput.parentElement.parentElement.id;
-    var number = parseInt(rowNumber.substring(rowNumber.length - 1))
+    var rowId = stepinput.parentElement.parentElement.id;
+    var number = getNumberFromRowId(rowId);
     var typingID = stepinput.id; //save the id since doList will change the DOM
-    spa.steps[number-1].step = stepinput.value;
+    spa.steps[number].step = stepinput.value;
     //check if we still need a new one at the end
     if (spa.steps[spa.steps.length - 1].step != "") {
         doList();	//force add a new item at the end and redraw
@@ -1028,12 +1038,15 @@ function blankstepatend() {
         spa.steps.push({ "step": "", "domain": "patient" });
     }
 }
-function removeStep(item) {
-    var number = item.parentElement.parentElement.id;
+function removeStep(rowIndex) {
+    console.log(rowIndex)
+    var number = rowIndex - 1;//getNumberFromRowId(rowId);
     //get confirmation unless blank
     if (spa.steps[number].step == "" || !$("#confirm_delete").is(':checked') || window.confirm("Delete the '" + spa.steps[number].step + "' step?")) {
         spa.steps.splice(number, 1);
-        doList();
+        //doList();
+        showPCN();
+        
     }
 }
 
@@ -1796,4 +1809,19 @@ function getPcnChart(json) {
     diag.id = 'diagram';
 
     return diag;
+}
+
+
+//returns the zero-based number of the row to be modified
+function getNumberFromRowId(rowId) {
+    return parseInt(rowId.substring(rowId.length - 1)) - 1;
+}
+
+
+function reassignRowIds() {
+    var counter = 1;
+    $('.tableRow').each(function () {
+        this.id = 'rowStep' + counter;
+        counter++;
+    })
 }
