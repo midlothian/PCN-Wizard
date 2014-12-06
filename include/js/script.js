@@ -1649,6 +1649,20 @@ String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
+
+
+//Brian's global vars
+var regionTable = {
+    'r1':'independent',
+    'r2':'surrogate',
+    'r3':'direct_shared',
+    'r4':'direct_leading',
+    'r5': 'direct_shared',
+    'r6': 'surrogate',
+    'r7': 'independent'
+}
+
+
 function convertSpaToTommysJson(spa) {
 
     //just a dummy json that has most of the other values the script needs, we will change the ones we need
@@ -1678,7 +1692,8 @@ function convertSpaToTommysJson(spa) {
             "domain": {
                 "id": "cbf432a4-49dd-404d-8757-f2c478b02794",
                 "region": {
-                    "type": "independent"
+                    "type": regionTable[currentSpaStep.region],
+                    "with_domain": "fdsfdsf"
                 }
             },
             "problems": [
