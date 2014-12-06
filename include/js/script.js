@@ -1648,3 +1648,61 @@ function getDataFilenames() {
 String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
+
+function convertSpaToTommysJson(spa) {
+
+    //just a dummy json that has most of the other values the script needs, we will change the ones we need
+    var json = { "_id": "54829d220423c00800bee2e2", "group": { "_id": "547f72412c404308007d30e0", "user": "547f72042c404308007d30d5", "__v": 0, "members": [{ "firstName": "Brian", "lastName": "Farnsworth", "email": "fakeemail@fake.com", "username": "bkfarns", "displayName": "Brian Farnsworth", "_id": "547f72042c404308007d30d5" }], "created": "2014-12-03T20:27:45.658Z", "name": "Awesome Group" }, "__v": 0, "steps": [{ "id": "91dd9275-4bb5-44f1-eddf-c875c740a26b", "title": "needs pizza", "type": "process", "emphasized": false, "value_specific": 0, "value_generic": 0, "predecessors": [], "domain": { "id": "cbf432a4-49dd-404d-8757-f2c478b02794", "region": { "type": "independent" } }, "problems": [] }, { "id": "6d749563-ba33-4d30-f83b-7dbb923c6bf7", "title": "has pizza", "type": "process", "emphasized": false, "value_specific": 0, "value_generic": 0, "predecessors": [{ "id": "91dd9275-4bb5-44f1-eddf-c875c740a26b", "type": "normal_relationship", "title": "" }], "domain": { "id": "cbf432a4-49dd-404d-8757-f2c478b02794", "region": { "type": "independent" } }, "problems": [] }, { "id": "90cb8795-8c6c-4a17-9392-941a10c06de6", "title": "has to do something", "type": "process", "emphasized": false, "value_specific": 0, "value_generic": 0, "predecessors": [{ "id": "6d749563-ba33-4d30-f83b-7dbb923c6bf7", "type": "normal_relationship", "title": "" }], "domain": { "id": "f145e636-5618-4efc-d7af-effad5952afe", "region": { "type": "independent" } }, "problems": [] }], "created": "2014-12-06T06:07:30.477Z", "domains": [{ "id": "f145e636-5618-4efc-d7af-effad5952afe", "title": "PRovider name", "subtitle": "Provider" }, { "id": "cbf432a4-49dd-404d-8757-f2c478b02794", "title": "customer name", "subtitle": "Customer" }], "metadata": { "author": "Brian Farnsworth", "description": "Some description", "title": "PcnTitle" } }
+
+    //add enough steps to 
+
+    json.steps = [];
+
+    //add all the steps in
+    for (var i = 0; i < spa.steps.length - 1; i++) {
+        var currentJsonStep = json.steps[i];
+        var currentSpaStep = spa.steps[i];
+
+        //things you have to change so far:
+        //the title
+        //the id needs to be unique between each one, so I add i to it.  
+        var step = {
+            "id": "91dd9275-4bb5-44f1-eddf-c875c740a26b" + i,
+            "title": currentSpaStep.step,
+            "type": "process",
+            "emphasized": false,
+            "value_specific": 0,
+            "value_generic": 0,
+            "predecessors": [
+            ],
+            "domain": {
+                "id": "cbf432a4-49dd-404d-8757-f2c478b02794",
+                "region": {
+                    "type": "independent"
+                }
+            },
+            "problems": [
+
+            ]
+        }
+
+        //add in the predecessors with a relationship type.
+        if (i > 0) step.predecessors.push({
+            "id": json.steps[i - 1].id,
+            "type": "normal_relationship",
+            "title":""
+        });
+
+        json.steps.push(step);
+    }
+
+
+    //add the domains in
+    //json.domains = []
+
+
+    return json;
+
+}
+
+
