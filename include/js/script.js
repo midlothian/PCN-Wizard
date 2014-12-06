@@ -358,8 +358,17 @@ $(document).ready(function () {
     });
 
     $("#buttonEditDiagram").click(function () {
+        var processName = document.getElementById('Text1').value;
+        var provider = document.getElementById('Text2').value;
+        var customer = document.getElementById('Text3').value;
         $("#modalBackground").show("fast");
         $("#editDiagramModal").show("fast");
+        $(".closeButtonEditDiagram").click(function () {
+            document.getElementById('Text1').value = processName;
+            document.getElementById('Text2').value = provider;
+            document.getElementById('Text3').value = customer;
+            closeModals();
+        });
     });
 
     $("#buttonSettings").click(function () {
@@ -377,13 +386,36 @@ $(document).ready(function () {
         closeModals();
     });
 
-    $("#modalBackground").click(function () {
+    $(".saveButton").click(function() {
+        closeModals();
+    });
+
+    $(".saveButtonEdit").click(function() {
+        document.getElementById('PCNTitle').innerHTML  = document.getElementById('Text1').value;
+        document.getElementById('PCNSubTitle').innerHTML  = "Provider: " + document.getElementById('Text2').value + " Customer: " + document.getElementById('Text3').value;
         closeModals();
     });
 
     $(document).on('click', '.editButton', function () {
+        var dashVar = document.getElementById('dash').checked;
+        var thickVar = document.getElementById('thick').checked;
+        var yesVar = document.getElementById('yes').checked;
+        var noVar = document.getElementById('no').checked;
+        var numberRows = document.getElementById('numberRows').value;
         $("#modalBackground").show("fast");
         $("#editOnDiagramModal").show("fast");
+        $(".closeButtonEditOnDiagram").click(function () {
+            document.getElementById('dash').checked = dashVar;
+            document.getElementById('thick').checked = thickVar;
+            document.getElementById('yes').checked = yesVar;
+            document.getElementById('no').checked = noVar;
+            document.getElementById('numberRows').value = numberRows;
+            closeModals();
+        });
+    });
+
+    $("#modalBackground").click(function () {
+        closeModals();
     });
 
     $("#processStepHeader").click(function () {
