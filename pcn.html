@@ -6,8 +6,14 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
+
+
+<!--  
+The following HTML is for the sidebar that pops in and out
+-->
     <div id="sidebarWrapper">
         <div id="sidebar" class="sidebar sidebarShrunk">
+            <!-- HTML for the radio buttons that control which columns are visible on the page.-->
             <h1>Visible Categories</h1>
             <div id="sidebarColumnSelect">
                 <div id="sidebarColumnSelectStepType" class="sidebarColumnSelectItem">
@@ -35,6 +41,7 @@
                     <label for="sidebarColumnSelectOnDiagramCheckbox">On Diagram</label>
                 </div>
             </div>
+            <!-- HTML for the large buttons on the sidebar-->
             <h1>Diagram</h1>
             <div>
                 <div id="sidebarButtons">
@@ -89,6 +96,8 @@
         </div>
     </div>
 
+
+<!-- The main content of the page goes here -->    
     <div class="mainContent">
         <div id="processStepHeader">
             <h1 id="PCNTitle">Go to the Dentist: Process Steps</h1>
@@ -190,7 +199,16 @@
         </div>
         <div class="button" id="addStepButton" data-id="2">Add Step</div>
     </div>
+
+
+
+
+    <!-- Displays to user when they first load the page to explain where to find the sidebar and controls-->
     <div id="sidebarHint">&lt;-- Hover over the bar to show the menu</div>
+    
+
+
+    <!-- Export data modal -->
     <div id="modalBackground"></div>
     <div class="modal" id="exportModal">
         <div class="modalHeader">
@@ -206,6 +224,10 @@
             <div class="button closeButton">Close</div>
         </div>
     </div>
+    
+
+
+    <!-- Import data modal -->
     <div class="modal" id="importModal">
         <div class="modalHeader">
             <h1>Import Data</h1>
@@ -219,6 +241,10 @@
             <div class="button closeButton">Cancel</div>
         </div>
     </div>
+    
+
+
+    <!-- The modal that displays when you click the "Edit button on a row" -->
     <div class="modal" id="editOnDiagramModal">
         <div class="modalHeader">
             <h1>On-Diagram Option</h1>
@@ -252,6 +278,10 @@
             <div class="button closeButtonEditOnDiagram">Cancel</div>
         </div>
     </div>
+    
+
+
+    <!-- this modal is not currently being used anywhere -->
     <div class="modal" id="settingsModal">
         <div class="modalHeader">
             <h1>Diagram Settings</h1>
@@ -269,6 +299,10 @@
             <div class="button closeButton">Close</div>
         </div>
     </div>
+    
+
+
+    <!-- Modal that displays when you click on the Header or "Edit Process Details" button so you can edit the name of the PCN Diagram, provider, or customer-->
     <div class="modal" id="editDiagramModal">
         <div class="modalHeader">
             <h1>Diagram Settings</h1>
@@ -293,6 +327,10 @@
             <div class="button closeButtonEditDiagram">Cancel</div>
         </div>
     </div>
+    
+
+
+<!-- This is the dynamic content that is added and removed when you add and remove rown -->
     <div id="appendContent">
         <div class="tableColumnDelete">
             <div class="roundButton deleteButton">X</div>
