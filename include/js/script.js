@@ -541,7 +541,7 @@ function deleteStep(id) {
         $('#' + id).remove();
     });
 
-    
+    showPCN();
 }
 
 function toggleSidebar() {
@@ -1149,7 +1149,7 @@ function removeStep(rowIndex) {
     if (spa.steps[number].step == "" || !$("#confirm_delete").is(':checked') || window.confirm("Delete the '" + spa.steps[number].step + "' step?")) {
         spa.steps.splice(number, 1);
         //doList();
-        showPCN();
+        
         
     }
 }
