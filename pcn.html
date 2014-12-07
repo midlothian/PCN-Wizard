@@ -213,14 +213,14 @@ The following HTML is for the sidebar that pops in and out
     <div class="modal" id="exportModal">
         <div class="modalHeader">
             <h1>Export Data</h1>
-            <p><em>Copy PCN data from the text area below and paste into your chosen text editor, or click "Download File"</em></p>
+            <p><em>Copy PCN data from the text area below and paste into your chosen text editor</em></p>
         </div>
         <div class="modalContent">
 
             <textarea></textarea>
         </div>
         <div class="modalFooter">
-            <div class="button">Download File</div>
+            <!--<div class="button">Download File</div>-->
             <div class="button closeButton">Close</div>
         </div>
     </div>
@@ -232,6 +232,7 @@ The following HTML is for the sidebar that pops in and out
         <div class="modalHeader">
             <h1>Import Data</h1>
             <p><em>Paste PCN data from your saved PCN file into the text area below and click "Import"</em></p>
+            <div id="supportMsg"><b>Supports SPA and PcnSpec json formats</b></div>
         </div>
         <div class="modalContent">
             <textarea></textarea>
@@ -427,15 +428,4 @@ The following HTML is for the sidebar that pops in and out
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="include/js/script.js"></script>
 <script src="include/js/pcnchart-0.10.min.js"></script>
-<script>
-
-    var json = convertSpaToTommysJson(spa);
-
-    var svg = pcnchart(json);
-
-    // append svg to page with jQuery or vanilla JS.
-    document.getElementById('dump').appendChild(svg);
-
-    // REJOICE!
-</script>
 </html>

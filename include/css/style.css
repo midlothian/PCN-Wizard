@@ -635,3 +635,9 @@ input[type="radio"] {
 .subtitleItemLabel {
     font-weight: 600;
 }
+
+#supportMsg {
+    margin-top: 12px;
+    margin-bottom: -17px;
+    font-size: 14px;
+}

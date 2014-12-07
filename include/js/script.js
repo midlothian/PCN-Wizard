@@ -1,7 +1,9 @@
-
+﻿
 //#region Sampson's huge amount of global vars
 ///////////////////////////////////// GLOBAL VARS
 
+var smileyFace = "\u263A"
+var frownyFace = "☹"
 var svgEditWindow = false;
 var svg_diagram = null;
 var refreshTimer;
@@ -84,16 +86,16 @@ var newStartingSpa = {
         "entity": "patient"
     },
     "steps": [{
-                 "order": "1",
-                 "step": "Step 1",
-                 "type": "",
-                 "domain": "patient",
-                 "region": "r7",
-                 "value": "somewhat",
-                 "inconvenient": "headache",
-                 "problem_inconvenient": "real pain to get to",
-                 "problem_likely_to_fail": "forget to show up",
-                 "number": 1
+        "order": "1",
+        "step": "Step 1",
+        "type": "",
+        "domain": "patient",
+        "region": "r7",
+        "value": "somewhat",
+        "inconvenient": "headache",
+        "problem_inconvenient": "real pain to get to",
+        "problem_likely_to_fail": "forget to show up",
+        "number": 1
     },
     {
         "order": "1",
@@ -109,105 +111,102 @@ var newStartingSpa = {
     }]
 };
 
-var spa = newStartingSpa;//{
-//    "meta": {
-//        "author": "Sampson",
-//        "savename": ""
-//    },
-//    "process": {
-//        "provider": "health clinic",
-//        "customer": "patient",
-//        "process": "Make an appointment",
-//        "initial_step": "needs an appointment",
-//        "final_step": "has an appointment"
-//    },
-//    "subject": {
-//        "name": "John Doe",
-//        "date": "today",
-//        "entity": "patient"
-//    },
-//    "steps": [
-//     {
-//         "order": "1",
-//         "step": "need an appointment",
-//         "type": "",
-//         "domain": "patient",
-//         "region": "r7",
-//         "value": "somewhat",
-//         "inconvenient": "headache",
-//         "problem_inconvenient": "real pain to get to",
-//         "problem_likely_to_fail": "forget to show up",
-//         "number": 1
-//     },
-//     {
-//         "order": "1",
-//         "step": "look up the clinic phone number",
-//         "type": "",
-//         "other": "411",
-//         "domain": "patient",
-//         "region": "r6",
-//         "value": "necessary",
-//         "problem_difficult": "hard to do",
-//         "problem_confusing": "strange language",
-//         "number": 2,
-//         "follows": "1:yes",
-//         'box_dash': 'dash'
-//     },
-//     {
-//         "order": "1",
-//         "step": "call the clinic",
-//         "type": "",
-//         "domain": "patient",
-//         "region": "r6",
-//         "value": "",
-//         "number": 3,
-//         'box_thick': 'thick'
-//     },
-//     {
-//         "order": "1",
-//         "step": "wait for someone to answer",
-//         "type": "wait",
-//         "domain": "patient",
-//         "region": "r6",
-//         "value": "not",
-//         "number": 4,
-//         "follows": "start"
-//     },
-//     {
-//         "order": "1",
-//         "step": "ask about available appointment times",
-//         "type": "",
-//         "domain": "patient",
-//         "region": "r5",
-//         "value": "necessary",
-//         "number": 5,
-//         "skip_rows": 1.5
-//     },
-//     {
-//         "order": "1",
-//         "step": "select an appointment time",
-//         "type": "decision",
-//         "domain": "patient",
-//         "region": "r4",
-//         "value": "very",
-//         "number": 6
-//     },
-//     {
-//         "order": "1",
-//         "step": "have an appointment",
-//         "type": "",
-//         "domain": "patient",
-//         "region": "r7",
-//         "value": "very",
-//         "number": 7
-//     },
-//     {
-//         "step": "",
-//         "domain": "patient",
-//         "number": 8
-//     }
-//    ]
-//};
+var spa = newStartingSpa;
+
+var oldStartingSpa = {
+    "meta": {
+        "author": "Sampson",
+        "savename": ""
+    },
+    "process": {
+        "provider": "health clinic",
+        "customer": "patient",
+        "process": "Make an appointment",
+        "initial_step": "needs an appointment",
+        "final_step": "has an appointment"
+    },
+    "subject": {
+        "name": "John Doe",
+        "date": "today",
+        "entity": "patient"
+    },
+    "steps": [
+     {
+         "order": "1",
+         "step": "need an appointment",
+         "type": "",
+         "domain": "patient",
+         "region": "r7",
+         "value": "somewhat",
+         "inconvenient": "headache",
+         "problem_inconvenient": "real pain to get to",
+         "problem_likely_to_fail": "forget to show up",
+         "number": 1
+     },
+     {
+         "order": "1",
+         "step": "look up the clinic phone number",
+         "type": "",
+         "other": "411",
+         "domain": "patient",
+         "region": "r6",
+         "value": "necessary",
+         "problem_difficult": "hard to do",
+         "problem_confusing": "strange language",
+         "number": 2,
+         "follows": "1:yes",
+         'box_dash': 'dash'
+     },
+     {
+         "order": "1",
+         "step": "call the clinic",
+         "type": "",
+         "domain": "patient",
+         "region": "r6",
+         "value": "",
+         "number": 3,
+         'box_thick': 'thick'
+     },
+     {
+         "order": "1",
+         "step": "wait for someone to answer",
+         "type": "wait",
+         "domain": "patient",
+         "region": "r6",
+         "value": "not",
+         "number": 4,
+         "follows": "start"
+     },
+     {
+         "order": "1",
+         "step": "ask about available appointment times",
+         "type": "",
+         "domain": "patient",
+         "region": "r5",
+         "value": "necessary",
+         "number": 5,
+         "skip_rows": 1.5
+     },
+     {
+         "order": "1",
+         "step": "select an appointment time",
+         "type": "decision",
+         "domain": "patient",
+         "region": "r4",
+         "value": "very",
+         "number": 6
+     },
+     {
+         "order": "1",
+         "step": "have an appointment",
+         "type": "",
+         "domain": "patient",
+         "region": "r7",
+         "value": "very",
+         "number": 7
+     }
+    ]
+};
 
 
 var valueLevels = {
@@ -372,7 +371,7 @@ $(document).ready(function () {
     $(document).on('click', '.deleteButton', function () {
         //var confirmChoice = confirm("Are you sure you want to delete this step?");
         //if (confirmChoice == true) {
-            deleteStep($(this).parent().parent().attr("id"));
+        deleteStep($(this).parent().parent().attr("id"));
         //}
     });
 
@@ -387,6 +386,8 @@ $(document).ready(function () {
     $("#buttonExport").click(function () {
         $("#modalBackground").show("fast");
         $("#exportModal").show("fast");
+
+        $('#exportModal > div.modalContent > textarea').val(JSON.stringify(spa, null, 2));
     });
 
     $("#buttonImport").click(function () {
@@ -400,12 +401,18 @@ $(document).ready(function () {
         var jsonString = $('#importModal > div.modalContent > textarea').val()
         var json = jQuery.parseJSON(jsonString)
 
-        console.log(json.created)
+        if (isPCNSpec(json)) {
+            console.log('PCNSpec')
+            spa = convertPcnSpecToSpa(json)
+        } else {
+            console.log('!PCNSpec')
+            spa = json
+            json = convertSpaToTommysJson(json)
+        }
 
-        popup()
-
+        popup(json)
         closeModals();
-
+        doList()
         showPCN(json);
     });
 
@@ -430,6 +437,8 @@ $(document).ready(function () {
         $("#settingsModal").show("fast");
     });
 
+
+
     $("#buttonShowPopup").click(function () {
         //$("#modalBackground").show("fast");
         //$("#settingsModal").show("fast");
@@ -440,7 +449,7 @@ $(document).ready(function () {
         closeModals();
     });
 
-    $(".saveButton").click(function() {
+    $(".saveButton").click(function () {
         closeModals();
     });
 
@@ -449,7 +458,7 @@ $(document).ready(function () {
         var provider = document.getElementById('Text2').value;
         var customer = document.getElementById('Text3').value;
 
-        document.getElementById('PCNTitle').innerHTML  = document.getElementById('Text1').value;
+        document.getElementById('PCNTitle').innerHTML = document.getElementById('Text1').value;
         document.getElementById('PCNSubTitle').innerHTML = '<span class="subtitleItemLabel">Provider:</span> ' + document.getElementById('Text2').value + ' <span class="subtitleItemLabel">Customer:</span> ' + document.getElementById('Text3').value;
 
         spa.process.provider = provider;
@@ -512,7 +521,7 @@ $(document).ready(function () {
         updatestep(this);
     });
 
-    $('body').on('change','input[type=radio]', function () {
+    $('body').on('change', 'input[type=radio]', function () {
         var rowNum = $(this).parents('.tableRow').index();
         var radioNum = $(this).parents('.sliderCell').index();
 
@@ -524,6 +533,20 @@ $(document).ready(function () {
         showPCN();
 
     })
+
+    $('body').on('change', '.tableColumnCustomerValueSelect', function () {
+        var rowNum = $(this).parents('.tableRow').index();
+
+        console.log('Row: ' + parseInt(rowNum))
+
+        var stepName = spa.steps[rowNum - 1].step
+        spa.steps[rowNum - 1].step = stepName + " " + frownyFace
+
+        showPCN();
+
+    })
+
+
 
     drSampsonsOldDocumentReady();
 });
@@ -564,8 +587,8 @@ function closeModals() {
 function addStepRow() {
     var stepNum = $("#addStepButton").data('id');
     $("#table").append('<div class="tableRow" id="rowStep' + stepNum + '"></div>');
-    $("#rowStep"+stepNum).append($("#appendContent").html());
-    var x = document.getElementById("rowStep"+stepNum).getElementsByTagName("*");
+    $("#rowStep" + stepNum).append($("#appendContent").html());
+    var x = document.getElementById("rowStep" + stepNum).getElementsByTagName("*");
     for (var i = 0; i < x.length; ++i) {
         if (x[i].type == 'radio') {
             x[i].setAttribute("name", "tableColumnProcessingRegionRadio" + stepNum);
@@ -803,10 +826,9 @@ function doList() {
 
         if (spa.steps[stepNo].follows == "prior") delete spa.steps[stepNo].follows; //nothing
 
-        var row = $('<tr id="' + stepNo + '" align="center" style="font-size:small" onClick="refreshPCN();" ></tr>');
         for (var i in showColumns) {
 
-            /////////////// Not sure what all this is for -Brian /////////////////////////////////////////////////////////////////
+            //#region not sure what all this is for -Brian 
             partNo = showColumns[i];
             var item = parts[partNo].item;
             //plug as necessary
@@ -820,7 +842,7 @@ function doList() {
                     item = item.replace(new RegExp('{' + plugs[plugNo] + '}', 'g'), step[plugs[plugNo]]);
                 }
             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //#endregion
 
             var selectorPrefix = '#rowStep' + (+stepNo + 1) + ' > '
 
@@ -845,7 +867,9 @@ function doList() {
                 case 2:
                     var region = step.region;
 
-                    var regionNum = region.substring(1, 2);
+                    if (region) {
+                        var regionNum = region.substring(1, 2);
+                    }
 
                     //this will work when I get Grant's code
                     $(selectorPrefix + 'div.tableColumnProcessRegion > div > div:nth-child(2) > div:nth-child(' + regionNum + ') > input[type="radio"]').prop("checked", true)
@@ -907,54 +931,6 @@ function doList() {
             addStepRow();
         }
     };
-
-    $('#mytable').append(tbody);
-
-    $("#mytable tbody").sortable({
-        stop: function (event, ui) {
-            //console.log("ITEM " + ui.item.attr("id") + "...");
-            reorderSteps($(this), ui.item.attr("id"));
-
-        }
-    });	//looks like need to redo this every time
-
-    //from http://stackoverflow.com/questions/9403422/jquery-sortable-how-to-remove-an-item-that-is-pulled-away-from-its-list
-    //from http://jsfiddle.net/drewP/m7VJq/1/
-
-    $("#header_row1").sortable({
-        placeholder: "ui-state-highlight",
-        //			connectWith: "#hiddenParts", out: and over: do not work if connected :-/
-        update: function (event, ui) {
-            setColumns("#header_row1");
-        },
-        over: function (event, ui) {
-            removeIntent = false;
-            //console.log("sort over");
-            $(this).css("cursor", "ew-resize");
-        },
-        out: function (event, ui) {
-            removeIntent = true;
-            //console.log("sort out");
-            $(this).css("cursor", "alias");
-        },
-        beforeStop: function (event, ui) {
-            //console.log("beforeStop removeIntent=" + removeIntent);
-            if (removeIntent == true) {
-                ui.item.remove();
-                //						setColumns("#header_row1");
-            }
-        },
-        stop: function (event, ui) {
-            //console.log("stop removeIntent=" + removeIntent);
-            if (removeIntent == true) {
-                //						ui.item.remove();
-                setColumns("#header_row1");
-            }
-        }
-    }).disableSelection();	//keeps the words from being selected inadvertantly
-
-    $(".value,.valuelink").click(function () { store(this) });
-    $(".valueinput").keyup(function () { store(this) });
 
 }
 
@@ -1149,8 +1125,8 @@ function removeStep(rowIndex) {
     if (spa.steps[number].step == "" || !$("#confirm_delete").is(':checked') || window.confirm("Delete the '" + spa.steps[number].step + "' step?")) {
         spa.steps.splice(number, 1);
         //doList();
-        
-        
+
+
     }
 }
 
@@ -1480,11 +1456,11 @@ function showPCN(tommysJson) {
 
     //Brian commented out the if statement below
     //if ($("#show_pcn_below").is(":checked")) {
-        //also show it below
-        //console.log("updating diagram below");
-        $("#diagram").replaceWith(diag);
-        //refresh... 
-        $("#diagram").DOMRefresh(); //works - function declared above
+    //also show it below
+    //console.log("updating diagram below");
+    $("#diagram").replaceWith(diag);
+    //refresh... 
+    $("#diagram").DOMRefresh(); //works - function declared above
     //}
 
     //http://stackoverflow.com/questions/10333128/svg-update-through-jquery-works-in-ff-but-not-in-safari-any-ideas
@@ -1511,21 +1487,19 @@ function pcnBelow() {
         $("#diagram").replaceWith('<svg width="1080" height="100" xmlns="http://www.w3.org/2000/svg" id="diagram"></svg>');
     }
 }
-function popup() {
+function popup(json) {
 
-    var json = convertSpaToTommysJson(spa);
+    if (!json) {
+        json = convertSpaToTommysJson(spa);
+    }
 
-    // append svg to page with jQuery or vanilla JS.
-    //    document.getElementById('dump').appendChild(svg);
-
-    //var diag = generateDiagram();
     var diag = pcnchart(json);
 
     //console.log("thewin=" + thewin);
     if (!thewin || !thewin.document || !thewin.window) {
         //console.log("opening thewin");
         thewin = window.open('', 'popup', 'toolbar=yes,location=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=1100,height=800,left=200,screenX=200');
-        
+
         //,'width=1100,height=900,left=100,top=20,menubar=1,status=0,resizable=yes');
         //		
     }
@@ -1826,13 +1800,30 @@ String.prototype.capitalize = function () {
 
 //for converting between sampson's regions and tommys
 var regionTable = {
-    'r1':'independent',
-    'r2':'surrogate',
+    'r1': 'independent',
+    'r2': 'surrogate',
     'r3': 'direct_leading',
     'r4': 'direct_shared',
     'r5': 'direct_leading',
     'r6': 'surrogate',
-    'r7': 'independent'
+    'r7': 'independent',
+    'undefined': 'independent'
+}
+
+var providerRegionTable = {
+    'independent': 'r1',
+    'surrogate': 'r2',
+    'direct_leading': 'r3',
+    'direct_shared': 'r4',
+    'undefined': 'independent'
+}
+
+var customerRegionTable = {
+    'independent': 'r7',
+    'surrogate': 'r6',
+    'direct_leading': 'r5',
+    'direct_shared': 'r4',
+    'undefined': 'independent'
 }
 
 function convertSpaToTommysJson(spa) {
@@ -1883,14 +1874,19 @@ function convertSpaToTommysJson(spa) {
         if (i > 0) step.predecessors.push({
             "id": json.steps[i - 1].id,
             "type": "normal_relationship",
-            "title":""
+            "title": ""
         });
 
-        var regionNum = parseInt(currentSpaStep.region.slice(-1))
-        if (regionNum < 4) {
-            step.domain.id = providerId;
+        if (currentSpaStep.region) {
+            var regionNum = parseInt(currentSpaStep.region.slice(-1))
+            if (regionNum < 4) {
+                step.domain.id = providerId;
+            } else {
+                step.domain.id = customerId;
+            }
         } else {
-            step.domain.id = customerId;
+            //just set it to something, doesn't matter what
+            step.domain.id = providerId
         }
 
         json.steps.push(step);
@@ -1901,7 +1897,7 @@ function convertSpaToTommysJson(spa) {
     json.domains[0] = {
         'id': providerId,
         'title': spa.process.provider,
-        'subtitle':'Provider'
+        'subtitle': 'Provider'
     }
 
     //customer
@@ -1938,4 +1934,73 @@ function reassignRowIds() {
         this.id = 'rowStep' + counter;
         counter++;
     })
+}
+
+function isPCNSpec(json) {
+    if (json._id) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function convertPcnSpecToSpa(json) {
+
+    //just a dummy json that has most of the other values the script needs, we will change the ones we need
+    var spaData = { "meta": { "author": "Sampson", "savename": "" }, "process": { "provider": "health clinic", "customer": "patient", "process": "Make an appointment", "initial_step": "needs an appointment", "final_step": "has an appointment" }, "subject": { "name": "John Doe", "date": "today", "entity": "patient" }, "steps": [{ "order": "1", "step": "need an appointment", "type": "", "domain": "patient", "region": "r7", "value": "somewhat", "inconvenient": "headache", "problem_inconvenient": "real pain to get to", "problem_likely_to_fail": "forget to show up", "number": 1 }, { "order": "1", "step": "look up the clinic phone number", "type": "", "other": "411", "domain": "patient", "region": "r6", "value": "necessary", "problem_difficult": "hard to do", "problem_confusing": "strange language", "number": 2, "follows": "1:yes", 'box_dash': 'dash' }, { "order": "1", "step": "call the clinic", "type": "", "domain": "patient", "region": "r6", "value": "", "number": 3, 'box_thick': 'thick' }, { "order": "1", "step": "wait for someone to answer", "type": "wait", "domain": "patient", "region": "r6", "value": "not", "number": 4, "follows": "start" }, { "order": "1", "step": "ask about available appointment times", "type": "", "domain": "patient", "region": "r5", "value": "necessary", "number": 5, "skip_rows": 1.5 }, { "order": "1", "step": "select an appointment time", "type": "decision", "domain": "patient", "region": "r4", "value": "very", "number": 6 }, { "order": "1", "step": "have an appointment", "type": "", "domain": "patient", "region": "r7", "value": "very", "number": 7 }, { "step": "", "domain": "patient", "number": 8 }] };
+
+    //get the domain ids
+    var providerId = '1'
+    var customerId = '2'
+
+    //set the chart title
+    spaData.process.process = json.metadata.title;
+
+
+
+
+    //add enough steps to 
+    spaData.steps = [];
+
+    //add all the steps in
+    for (var i = 0; i < json.steps.length; i++) {
+        var currentJsonStep = json.steps[i];
+        var currentSpaStep = spaData.steps[i];
+
+
+
+        var step = {
+            "order": "1",
+            "step": currentJsonStep.title,
+            "type": "",
+            "domain": "patient",
+            "region": "",
+            "value": "somewhat",
+            "inconvenient": "headache",
+            "problem_inconvenient": "real pain to get to",
+            "problem_likely_to_fail": "forget to show up",
+            "number": i + 1
+        }
+
+        //figure out the region
+        if (currentJsonStep.domain.id == json.domains[0].id) {
+            //this is a provider, so r1 through ...
+            step.region = providerRegionTable[currentJsonStep.domain.region.type]
+        } else {
+            //thisi s a customer
+            step.region = customerRegionTable[currentJsonStep.domain.region.type]
+        }
+
+        spaData.steps.push(step);
+    }
+
+    //add the domains in
+    //provider
+    spaData.process.provider = json.domains[0];
+
+    //customer
+    spaData.process.customer = json.domains[1];
+
+    return spaData;
 }
