@@ -631,3 +631,7 @@ input[type="radio"] {
 #appendContent {
     display:none;
 }
+
+.subtitleItemLabel {
+    font-weight: 600;
+}

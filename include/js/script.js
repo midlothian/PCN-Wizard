@@ -450,7 +450,7 @@ $(document).ready(function () {
         var customer = document.getElementById('Text3').value;
 
         document.getElementById('PCNTitle').innerHTML  = document.getElementById('Text1').value;
-        document.getElementById('PCNSubTitle').innerHTML = "Provider: " + document.getElementById('Text2').value + " Customer: " + document.getElementById('Text3').value;
+        document.getElementById('PCNSubTitle').innerHTML = '<span class="subtitleItemLabel">Provider:</span> ' + document.getElementById('Text2').value + ' <span class="subtitleItemLabel">Customer:</span> ' + document.getElementById('Text3').value;
 
         spa.process.provider = provider;
         spa.process.customer = customer;
