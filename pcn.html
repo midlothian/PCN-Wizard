@@ -4,11 +4,12 @@
     <title>PCN Wizard</title>
     <link rel="stylesheet" href="include/css/style.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="include/css/joyride-2.1.css">
 </head>
 <body>
 
 
-<!--  
+    <!--  
 The following HTML is for the sidebar that pops in and out
 -->
     <div id="sidebarWrapper">
@@ -36,10 +37,10 @@ The following HTML is for the sidebar that pops in and out
                     <input type="checkbox" id="sidebarColumnSelectFollowsCheckbox" data-column="tableColumnFollows">
                     <label for="sidebarColumnSelectFollowsCheckbox">Follows</label>
                 </div>
-                <div id="sidebarColumnSelectOnDiagram" class="sidebarColumnSelectItem">
+<!--                <div id="sidebarColumnSelectOnDiagram" class="sidebarColumnSelectItem">
                     <input type="checkbox" id="sidebarColumnSelectOnDiagramCheckbox" data-column="tableColumnOnDiagram">
                     <label for="sidebarColumnSelectOnDiagramCheckbox">On Diagram</label>
-                </div>
+                </div>-->
             </div>
             <!-- HTML for the large buttons on the sidebar-->
             <h1>Diagram</h1>
@@ -51,7 +52,7 @@ The following HTML is for the sidebar that pops in and out
                         </div>
                         <div class="buttonLabel">Edit process details</div>
                     </div>
-                    <div class="buttonContainer" onClick="window.location.reload()">
+                    <div class="buttonContainer" onclick="window.location.reload()">
                         <div class="buttonImage">
                             <img src="images/buttonNew.png" width="80">
                         </div>
@@ -75,13 +76,13 @@ The following HTML is for the sidebar that pops in and out
                         </div>
                         <div class="buttonLabel">Show diagram (popout)</div>
                     </div>
-                    <div class="buttonContainer" onClick="window.location.reload()">
+                    <div class="buttonContainer" onclick="window.location.reload()">
                         <div class="buttonImage">
                             <img src="images/buttonReset.png" width="80">
                         </div>
                         <div class="buttonLabel">Reset process steps</div>
                     </div>
-<!--                    <div class="buttonContainer" id="buttonSettings">
+                    <!--                    <div class="buttonContainer" id="buttonSettings">
                         <div class="buttonImage">
                             <img src="images/buttonEdit.png" width="80">
                         </div>
@@ -97,7 +98,7 @@ The following HTML is for the sidebar that pops in and out
     </div>
 
 
-<!-- The main content of the page goes here -->    
+    <!-- The main content of the page goes here -->
     <div class="mainContent">
         <div id="processStepHeader">
             <h1 id="PCNTitle">Go to the Dentist: Process Steps</h1>
@@ -112,7 +113,7 @@ The following HTML is for the sidebar that pops in and out
                 <div class="tableColumnCustomerValue" id="tableHeaderCustomerValue">Customer Value</div>
                 <div class="tableColumnPotentialProblems" id="tableHeaderPotentialProblems">Potential Problems</div>
                 <div class="tableColumnFollows" id="tableHeaderFollows">Follows</div>
-                <div class="tableColumnOnDiagram" id="tableHeaderOnDiagram">On Diagram</div>
+                <!--<div class="tableColumnOnDiagram" id="tableHeaderOnDiagram">On Diagram</div>-->
             </div>
 
             <div class="tableRow" id="rowStep1">
@@ -181,7 +182,7 @@ The following HTML is for the sidebar that pops in and out
                         <option>(F) Likely to fail</option>
                     </select>
                 </div>
-                <div class="tableColumnFollows">
+                <div  id="joyrideStop" class="tableColumnFollows">
                     <select class="tableColumnFollowsSelect" id="">
                         <option>Previous step</option>
                         <option>Yes in step #:</option>
@@ -190,11 +191,11 @@ The following HTML is for the sidebar that pops in and out
                     </select>
                     <input class="tableColumnFollowsInput" size="3" type="text" maxlength="3">
                 </div>
-                <div class="tableColumnOnDiagram">
+<!--                <div class="tableColumnOnDiagram">
                     <div class="tableColumnOnDiagramButton">
                         <input type="button" class="editButton" value="Edit">
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
         <div class="button" id="addStepButton" data-id="2">Add Step</div>
@@ -205,7 +206,7 @@ The following HTML is for the sidebar that pops in and out
 
     <!-- Displays to user when they first load the page to explain where to find the sidebar and controls-->
     <div id="sidebarHint">&lt;-- Hover over the bar to show the menu</div>
-    
+
 
 
     <!-- Export data modal -->
@@ -224,7 +225,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButton">Close</div>
         </div>
     </div>
-    
+
 
 
     <!-- Import data modal -->
@@ -242,7 +243,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButton">Cancel</div>
         </div>
     </div>
-    
+
 
 
     <!-- The modal that displays when you click the "Edit button on a row" -->
@@ -279,7 +280,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButtonEditOnDiagram">Cancel</div>
         </div>
     </div>
-    
+
 
 
     <!-- this modal is not currently being used anywhere -->
@@ -300,7 +301,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButton">Close</div>
         </div>
     </div>
-    
+
 
 
     <!-- Modal that displays when you click on the Header or "Edit Process Details" button so you can edit the name of the PCN Diagram, provider, or customer-->
@@ -328,10 +329,10 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButtonEditDiagram">Cancel</div>
         </div>
     </div>
-    
 
 
-<!-- This is the dynamic content that is added and removed when you add and remove rown -->
+
+    <!-- This is the dynamic content that is added and removed when you add and remove rown -->
     <div id="appendContent">
         <div class="tableColumnDelete">
             <div class="roundButton deleteButton">X</div>
@@ -407,13 +408,13 @@ The following HTML is for the sidebar that pops in and out
             </select>
             <input class="tableColumnFollowsInput" size="3" type="text" maxlength="3">
         </div>
-        <div class="tableColumnOnDiagram">
+<!--        <div class="tableColumnOnDiagram">
             <div class="tableColumnOnDiagramButton">
                 <input type="button" class="editButton" value="Edit">
             </div>
-        </div>
+        </div>-->
     </div>
-<!--    <hr>
+    <!--    <hr>
     <svg width="1080" height="100" xmlns="http://www.w3.org/2000/svg" id="diagram"></svg>
     <svg height="20" width="1000" xmlns="http://www.w3.org/2000/svg" id="textMeasurer">
         <text font-size="large" style="fill: yellow;" x="0" y="18">
@@ -422,10 +423,87 @@ The following HTML is for the sidebar that pops in and out
     </svg>
     <hr>
     <span id="dump"></span>-->
+    <!--/* Each tip is set within this <ol>. */-->
+    <!--/* This creates the order the tips are displayed */-->
+    <ol id="chooseID" hidden="true">
+
+        <li data-class="tableColumnStepNameInput">
+            <h2>Step Name</h2>
+            <p>Start by describing the step ie, "Needs pizza".</p>
+        </li>
+        <li data-class="tableColumnStepTypeSelect">
+            <h2>Step Type</h2>
+            <p>What kind of step is this? Is there "Wait" or "Decision" involved?</p>
+        </li>
+        <li data-class="sliderTable">
+            <h2>Process Region</h2>
+            <p>Choose what region the step falls under.  See "Essentials of Service Design & Innovation" by Scott Sampson for a great explanation of each region.</p>
+        </li>
+        <li data-class="tableColumnCustomerValueSelect">
+            <h2>Customer Value</h2>
+            <p>How much value does this step provide to the customer?</p>
+        </li>
+        <li data-class="tableColumnPotentialProblemsSelect">
+            <h2>Potential Problems</h2>
+            <p>What problems might the customer run into while completing this step?</p>
+        </li>
+        <li data-id="joyrideStop" data-options="tipLocation:left;">
+            <h2>Follow</h2>
+            <p>If this step follows a decision, designate that here.</p>
+        </li>
+        <li data-id="addStepButton">
+            <h2>And Repeat!</h2>
+            <p>Click here to add another step to your process.</p>
+        </li>
+        <li data-id="sidebarHint">
+            <h2>Settings</h2>
+            <p>Hover here to show your diagram and edit diagram settings.</p>
+        </li>
+        <!--<li data-id="sidebarHideShowLabelBottom"></li>-->
+        <!--<li data-id="buttonShowPopup"></li>-->
+
+        <!--/* This tip will be display as a modal */-->
+        <!--<li>Tip content...</li>-->
+
+        <!--/* using 'data-button' lets you have custom button text */-->
+        <!--<li data-class="tableColumnProcessRegion" data-options="tipLocation:top;tipAnimation:fade" data-button="Second Button">Content...</li>-->
+
+        <!--/* you can put a class for custom styling */-->
+        <!--<li data-id="parentElementID" class="custom-class">Content...</li>-->
+    </ol>
 
 </body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="include/js/script.js"></script>
 <script src="include/js/pcnchart-0.10.min.js"></script>
+<script src="include/js/jquery.joyride-2.1.js"></script>
+<script src="include/js/jquery.cookie.js"></script>
+<script>
+    $(window).load(function () {
+        $("#chooseID").joyride({
+            'tipLocation': 'bottom',         // 'top' or 'bottom' in relation to parent
+            'nubPosition': 'auto',           // override on a per tooltip bases
+            'scrollSpeed': 300,              // Page scrolling speed in ms
+            'timer': 1000,                   // 0 = off, all other numbers = time(ms) 
+            //'startTimerOnClick': true,       // true/false to start timer on first click
+            'nextButton': true,              // true/false for next button visibility
+            'tipAnimation': 'fade',           // 'pop' or 'fade' in each tip
+            'pauseAfter': [],                // array of indexes where to pause the tour after
+            'tipAnimationFadeSpeed': 300,    // if 'fade'- speed in ms of transition
+            'cookieMonster': true,           // true/false for whether cookies are used
+            'cookieName': 'JoyRide',         // choose your own cookie name
+            'cookieDomain': true,           // set to false or yoursite.com
+            //'tipContainer': body,            // Where the tip be attached if not inline
+            'postRideCallback': function () {
+
+            },       // a method to call once the tour closes
+            'postStepCallback': function (index) {
+                //if (index == 1) {
+                //    toggleSidebar();
+                //}
+            }// A method to call after each step
+        });
+    });
+</script>
 </html>

@@ -546,7 +546,15 @@ $(document).ready(function () {
 
     })
 
+    $('body').on('change', '.tableColumnStepTypeSelect', function () {
+        var rowNum = $(this).parents('.tableRow').index();
 
+        console.log('Row: ' + parseInt(rowNum))
+
+        spa.steps[rowNum - 1].type = $(this).val().toLowerCase();
+
+        showPCN()
+    });
 
     drSampsonsOldDocumentReady();
 });
@@ -1850,10 +1858,13 @@ function convertSpaToTommysJson(spa) {
         //the title
         //the id needs to be unique between each one, so I add i to it. 
         //will need to fix things witht he domain, right now it is always in customer
+
+        if(currentSpaStep.type == "regular") currentSpaStep.type = "process"
+
         var step = {
             "id": "91dd9275-4bb5-44f1-eddf-c875c740a26b" + i,
             "title": currentSpaStep.step,
-            "type": "process",
+            "type": currentSpaStep.type || "process",
             "emphasized": false,
             "value_specific": 0,
             "value_generic": 0,
