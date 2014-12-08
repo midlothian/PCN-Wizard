@@ -607,14 +607,23 @@ function closeModals() {
 function addStepRow() {
     var stepNum = $("#addStepButton").data('id');
     $("#table").append('<div class="tableRow" id="rowStep' + stepNum + '"></div>');
-    $("#rowStep" + stepNum).append($("#appendContent").html());
-    var x = document.getElementById("rowStep" + stepNum).getElementsByTagName("*");
+
+    //$("#rowStep" + stepNum).append($("#appendContent").html());
+    $(".tableRow").last().append($("#appendContent").html());
+    //var x = document.getElementById("rowStep" + stepNum).getElementsByTagName("*");
+    var x = $(".tableRow").last().getElementsByTagName("*");
     for (var i = 0; i < x.length; ++i) {
         if (x[i].type == 'radio') {
             x[i].setAttribute("name", "tableColumnProcessingRegionRadio" + stepNum);
-
         }
     }
+    //tableColumnProcessRegion
+    //$('.tableColumnPotentialProblems').css('display','none')
+    //tableColumnCustomerValue
+    //$('.tableColumnCustomerValue').css('display', 'none')
+    //tableColumnPotentialProblems
+    //$('.tableColumnFollows').css('display', 'none')
+
     $("#addStepButton").data('id', stepNum + 1);
 }
 
