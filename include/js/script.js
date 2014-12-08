@@ -521,7 +521,7 @@ $(document).ready(function () {
         updatestep(this);
     });
 
-    $('body').on('change', 'input[type=radio]', function () {
+    $('body').on('change', '.sliderCell > input[type=radio]', function () {
         var rowNum = $(this).parents('.tableRow').index();
         var radioNum = $(this).parents('.sliderCell').index();
 
@@ -546,6 +546,17 @@ $(document).ready(function () {
 
     })
 
+    $('body').on('change', '.segmented-control > input', function () {
+
+        console.log($(this).val())
+
+        if ($(this).val() == 'PCN Wizard SPA Data') {
+            $('#exportModal > div.modalContent > textarea').val(JSON.stringify(spa, null, 2))
+        } else {
+            $('#exportModal > div.modalContent > textarea').val(JSON.stringify(convertSpaToTommysJson(spa), null, 2))
+        }
+
+    })
 
 
     drSampsonsOldDocumentReady();
