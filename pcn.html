@@ -82,13 +82,13 @@ The following HTML is for the sidebar that pops in and out
                         </div>
                         <div class="buttonLabel">Reset process steps</div>
                     </div>
-                    <div class="buttonContainer" onclick="helpSection()">
+                    <!-- <div class="buttonContainer" onclick="helpSection()">
                         <div class="buttonImage">
                             <img src="images/help_image.png" width="80">
                         </div>
                         <div class="buttonLabel">Help</div>
                     </div>
-                    <!--                    <div class="buttonContainer" id="buttonSettings">
+                                       <div class="buttonContainer" id="buttonSettings">
                         <div class="buttonImage">
                             <img src="images/buttonEdit.png" width="80">
                         </div>
@@ -400,10 +400,10 @@ The following HTML is for the sidebar that pops in and out
         <div class="tableColumnDelete">
             <div class="roundButton deleteButton">X</div>
         </div>
-        <div class="tableColumnStepName">
+        <div class="tableColumnStepName" style="display:table-cell">
             <input class="tableColumnStepNameInput" id="">
         </div>
-        <div class="tableColumnStepType">
+        <div class="tableColumnStepType" style="display:table-cell">
             <select class="tableColumnStepTypeSelect" id="">
                 <option>Regular</option>
                 <option>Wait</option>
@@ -411,7 +411,7 @@ The following HTML is for the sidebar that pops in and out
             </select>
         </div>
         <div class="tableColumnProcessRegion">
-            <div class="sliderTable">
+            <div class="sliderTable" style="display:table">
                 <div class="sliderRow">
                     <div class="sliderCell">IP</div>
                     <div class="sliderCell">SI</div>
@@ -421,7 +421,7 @@ The following HTML is for the sidebar that pops in and out
                     <div class="sliderCell">SI</div>
                     <div class="sliderCell">IP</div>
                 </div>
-                <div class="sliderRow">
+                <div class="sliderRow" >
                     <div class="sliderCell">
                         <input type="radio" name="tableColumnProcessingRegionRadio1">
                     </div>
@@ -446,7 +446,7 @@ The following HTML is for the sidebar that pops in and out
                 </div>
             </div>
         </div>
-        <div class="tableColumnCustomerValue">
+        <div class="tableColumnCustomerValue" style="display:table-cell">
             <select class="tableColumnCustomerValueSelect" id="">
                 <option>:) :) Very valuable</option>
                 <option>:) Somewhat Valuable</option>
@@ -454,7 +454,7 @@ The following HTML is for the sidebar that pops in and out
                 <option>:( Not necessary nor valuable</option>
             </select>
         </div>
-        <div class="tableColumnPotentialProblems">
+        <div class="tableColumnPotentialProblems" style="display:table-cell">
             <select class="tableColumnPotentialProblemsSelect" id="">
                 <option>:( Inconvenient</option>
                 <option>:( Confusing</option>
@@ -462,7 +462,7 @@ The following HTML is for the sidebar that pops in and out
                 <option>(F) Likely to fail</option>
             </select>
         </div>
-        <div class="tableColumnFollows">
+        <div class="tableColumnFollows" style="display:table-cell">
             <select class="tableColumnFollowsSelect" id="">
                 <option>Previous step</option>
                 <option>Yes in step #:</option>
