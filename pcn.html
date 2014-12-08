@@ -217,12 +217,11 @@ The following HTML is for the sidebar that pops in and out
 
     <!-- Help Section modal -->
     <div id="modalBackground"></div>
-    <div class="modal" id="helpModal">
+    <div class="modal" id="helpModal" style="overflow:auto">
         <div class="modalHeader">
             <h1>Wizard Instructions</h1>
         </div>
-        <div class="modalContent" style="overflow:hidden">
-        	<div style="overflow:scroll;box-sizing:content-box!important">
+        <div class="modalContent" style="box-sizing:content-box!important">
         	<h1>The Process</h1>
         	<p>Welcome to PCN Wizard! If you're new to the diagramming process, feel free to follow the steps below. 
         		Otherwise, feel free to look up the instructions for specific steps under the other headings in 
@@ -252,15 +251,24 @@ The following HTML is for the sidebar that pops in and out
         	<br>
         	<p>(7) And Repeat! Click the "Add Step" button to add another step to your process.</p>
         	<br>
+        	<br>
+        	<br>
 			<h1>Adding Rows</h1>
 			<p>If you'd like to add another step to the process, just press the "Add Step" button!</p>
 			<br>
 			<h1>Removing Rows</h1>
 			<p>To remove a step from the process, just press the circled "X" icon on the left-hand side of the row.</p>
-        </div>
-        <div class="modalFooter">
-            <div class="button closeButton">Close</div>
-        </div>
+			<br>
+			<h1>Changing a Step Name</h1>
+			<p>To change a step name, just enter the name in the text box below "Step Name".</p>
+			<br>
+			<h1>Changing a Step Type</h1>
+			<p>To change from the default "Regular" choose one of the other options from the dropdown menu under 
+				"Step Type".</p>
+			<br>
+			<h1>Changing Process Region</h1>
+			<p>To change the operating region, just select its respective radio button under "Process Region".</p>
+		</div>
     </div>
     
     <!-- Export data modal -->
