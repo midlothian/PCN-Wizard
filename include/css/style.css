@@ -293,7 +293,6 @@ em {
 
 #tableHeaderPotentialProblems {
     background-color: #8fbeba;
-    width:250px;
 }
 
 #tableHeaderFollows {
@@ -501,6 +500,7 @@ input[type="radio"] {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width: 198px;
 }
 
 .buttonContainer:hover {
