@@ -534,17 +534,17 @@ $(document).ready(function () {
 
     })
 
-    $('body').on('change', '.tableColumnCustomerValueSelect', function () {
-        var rowNum = $(this).parents('.tableRow').index();
+    //$('body').on('change', '.tableColumnCustomerValueSelect', function () {
+    //    var rowNum = $(this).parents('.tableRow').index();
 
-        console.log('Row: ' + parseInt(rowNum))
+    //    console.log('Row: ' + parseInt(rowNum))
 
-        var stepName = spa.steps[rowNum - 1].step
-        spa.steps[rowNum - 1].step = stepName + " " + frownyFace
+    //    var stepName = spa.steps[rowNum - 1].step
+    //    spa.steps[rowNum - 1].step = stepName + " " + frownyFace
 
-        showPCN();
+    //    showPCN();
 
-    })
+    //})
 
     $('body').on('change', '.tableColumnStepTypeSelect', function () {
         var rowNum = $(this).parents('.tableRow').index();
@@ -608,10 +608,10 @@ function addStepRow() {
     var stepNum = $("#addStepButton").data('id');
     $("#table").append('<div class="tableRow" id="rowStep' + stepNum + '"></div>');
 
-    //$("#rowStep" + stepNum).append($("#appendContent").html());
-    $(".tableRow").last().append($("#appendContent").html());
-    //var x = document.getElementById("rowStep" + stepNum).getElementsByTagName("*");
-    var x = $(".tableRow").last().getElementsByTagName("*");
+    $("#rowStep" + stepNum).append($("#appendContent").html());
+    //$(".tableRow").last().append($("#appendContent").html());
+    var x = document.getElementById("rowStep" + stepNum).getElementsByTagName("*");
+    //var x = $(".tableRow").last().getElementsByTagName("*");
     for (var i = 0; i < x.length; ++i) {
         if (x[i].type == 'radio') {
             x[i].setAttribute("name", "tableColumnProcessingRegionRadio" + stepNum);
