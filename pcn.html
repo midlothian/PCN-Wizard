@@ -37,7 +37,7 @@ The following HTML is for the sidebar that pops in and out
                     <input type="checkbox" id="sidebarColumnSelectFollowsCheckbox" data-column="tableColumnFollows">
                     <label for="sidebarColumnSelectFollowsCheckbox">Follows</label>
                 </div>
-<!--                <div id="sidebarColumnSelectOnDiagram" class="sidebarColumnSelectItem">
+                <!--                <div id="sidebarColumnSelectOnDiagram" class="sidebarColumnSelectItem">
                     <input type="checkbox" id="sidebarColumnSelectOnDiagramCheckbox" data-column="tableColumnOnDiagram">
                     <label for="sidebarColumnSelectOnDiagramCheckbox">On Diagram</label>
                 </div>-->
@@ -182,7 +182,7 @@ The following HTML is for the sidebar that pops in and out
                         <option>(F) Likely to fail</option>
                     </select>
                 </div>
-                <div  id="joyrideStop" class="tableColumnFollows">
+                <div id="joyrideStop" class="tableColumnFollows">
                     <select class="tableColumnFollowsSelect" id="">
                         <option>Previous step</option>
                         <option>Yes in step #:</option>
@@ -191,7 +191,7 @@ The following HTML is for the sidebar that pops in and out
                     </select>
                     <input class="tableColumnFollowsInput" size="3" type="text" maxlength="3">
                 </div>
-<!--                <div class="tableColumnOnDiagram">
+                <!--                <div class="tableColumnOnDiagram">
                     <div class="tableColumnOnDiagramButton">
                         <input type="button" class="editButton" value="Edit">
                     </div>
@@ -223,6 +223,16 @@ The following HTML is for the sidebar that pops in and out
         <div class="modalFooter">
             <!--<div class="button">Download File</div>-->
             <div class="button closeButton">Close</div>
+            <nav class="segmented-control" style="width: 600px; color: #5FBAAC">
+                <input type="radio" name="sc-0" id="sc-0-1" checked="checked" value="PCN Wizard SPA Data" />
+                PCN Wizard SPA Data
+                <input type="radio" name="sc-0" id="sc-0-2" value="Pcn Spec" />
+                Matt Swenson's "Pcn Spec"
+
+                <!--                <label for="sc-0-1" data-value="Lorem Ipsum">Lorem Ipsum</label>
+                <label for="sc-0-2" data-value="Cras justo">Cras justo</label>-->
+
+            </nav>
         </div>
     </div>
 
@@ -408,7 +418,7 @@ The following HTML is for the sidebar that pops in and out
             </select>
             <input class="tableColumnFollowsInput" size="3" type="text" maxlength="3">
         </div>
-<!--        <div class="tableColumnOnDiagram">
+        <!--        <div class="tableColumnOnDiagram">
             <div class="tableColumnOnDiagramButton">
                 <input type="button" class="editButton" value="Edit">
             </div>
@@ -493,7 +503,7 @@ The following HTML is for the sidebar that pops in and out
             'tipAnimationFadeSpeed': 300,    // if 'fade'- speed in ms of transition
             'cookieMonster': true,           // true/false for whether cookies are used
             'cookieName': 'JoyRide',         // choose your own cookie name
-            'cookieDomain': true,           // set to false or yoursite.com
+            'cookieDomain': false,           // set to false or yoursite.com
             //'tipContainer': body,            // Where the tip be attached if not inline
             'postRideCallback': function () {
 
