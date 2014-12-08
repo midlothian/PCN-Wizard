@@ -1,4 +1,4 @@
-
+﻿
 //#region Sampson's huge amount of global vars
 ///////////////////////////////////// GLOBAL VARS
 
@@ -368,7 +368,36 @@ $(document).ready(function () {
         }
     });
     
-    $("#table").sortable();
+    $("#table").sortable({
+        change: function (event, ui) {
+            //alert('fsdfdsfds')
+
+            console.log($(ui.item).index())
+            //1,2
+
+            var val1;
+            var val2;
+            var val1_found = false
+
+            $('.tableRow').each(function () {
+                for (var i = 0; i < spa.steps.length; i++) {
+                    if (spa.steps[i].step == $(this).find('.tableColumnStepNameInput').val() && !val1_found) {
+                        val1 = i;
+                        val1_found = true;
+                    } else if (spa.steps[i].step == $(this).find('.tableColumnStepNameInput').val() && val1_found) {
+                        val2 = i
+                        val1_found = false;
+                    }
+                }
+            });
+
+            var temp = spa.steps[val1];
+            spa.steps[val1] = spa.steps[val2]
+            spa.steps[val2] = temp;
+
+            showPCN();
+        }
+    });
 
     $(document).on('click', '.deleteButton', function () {
         //var confirmChoice = confirm("Are you sure you want to delete this step?");
