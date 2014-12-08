@@ -1,4 +1,4 @@
-﻿
+
 //#region Sampson's huge amount of global vars
 ///////////////////////////////////// GLOBAL VARS
 
@@ -367,6 +367,8 @@ $(document).ready(function () {
             $("." + column).hide();
         }
     });
+    
+    $("#table").sortable();
 
     $(document).on('click', '.deleteButton', function () {
         //var confirmChoice = confirm("Are you sure you want to delete this step?");
