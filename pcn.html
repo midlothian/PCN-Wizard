@@ -82,6 +82,12 @@ The following HTML is for the sidebar that pops in and out
                         </div>
                         <div class="buttonLabel">Reset process steps</div>
                     </div>
+                    <div class="buttonContainer" onclick="helpSection()">
+                        <div class="buttonImage">
+                            <img src="images/help_image.png" width="80">
+                        </div>
+                        <div class="buttonLabel">Help</div>
+                    </div>
                     <!--                    <div class="buttonContainer" id="buttonSettings">
                         <div class="buttonImage">
                             <img src="images/buttonEdit.png" width="80">
@@ -209,8 +215,21 @@ The following HTML is for the sidebar that pops in and out
 
 
 
-    <!-- Export data modal -->
+    <!-- Help Section modal -->
     <div id="modalBackground"></div>
+    <div class="modal" id="helpModal">
+        <div class="modalHeader">
+            <h1>Wizard Instructions</h1>
+        </div>
+        <div class="modalContent">
+			<h2>Adding Rows</h2>
+        </div>
+        <div class="modalFooter">
+            <div class="button closeButton">Close</div>
+        </div>
+    </div>
+    
+    <!-- Export data modal -->
     <div class="modal" id="exportModal">
         <div class="modalHeader">
             <h1>Export Data</h1>

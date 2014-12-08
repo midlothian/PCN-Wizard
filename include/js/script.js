@@ -2027,3 +2027,8 @@ function convertPcnSpecToSpa(json) {
 
     return spaData;
 }
+
+function helpSection() {
+	$("#modalBackground").show("fast");
+    $("#helpModal").show("fast");
+}
