@@ -59,6 +59,11 @@ h1 {
     font-weight: 200;
 }
 
+h3 {
+    font-size: 1em;
+    font-weight: 700;
+}
+
 h2 {
     padding-top:0.35em;
     font-size: 0.9em;
