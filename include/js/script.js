@@ -70,20 +70,20 @@ var blank_spa = {
 
 var newStartingSpa = {
     "meta": {
-        "author": "Sampson",
+        "author": "Brian Farnsworth",
         "savename": ""
     },
     "process": {
-        "provider": "Some Provider",
-        "customer": "Some Customer",
-        "process": "Some Process",
+        "provider": "Dentist",
+        "customer": "Customer",
+        "process": "Go to the Dentist",
         "initial_step": "First step",
         "final_step": ""
     },
     "subject": {
-        "name": "John Doe",
-        "date": "today",
-        "entity": "patient"
+        "name": "",
+        "date": "",
+        "entity": ""
     },
     "steps": [{
         "order": "1",
@@ -1971,7 +1971,7 @@ function isPCNSpec(json) {
 function convertPcnSpecToSpa(json) {
 
     //just a dummy json that has most of the other values the script needs, we will change the ones we need
-    var spaData = { "meta": { "author": "Sampson", "savename": "" }, "process": { "provider": "health clinic", "customer": "patient", "process": "Make an appointment", "initial_step": "needs an appointment", "final_step": "has an appointment" }, "subject": { "name": "John Doe", "date": "today", "entity": "patient" }, "steps": [{ "order": "1", "step": "need an appointment", "type": "", "domain": "patient", "region": "r7", "value": "somewhat", "inconvenient": "headache", "problem_inconvenient": "real pain to get to", "problem_likely_to_fail": "forget to show up", "number": 1 }, { "order": "1", "step": "look up the clinic phone number", "type": "", "other": "411", "domain": "patient", "region": "r6", "value": "necessary", "problem_difficult": "hard to do", "problem_confusing": "strange language", "number": 2, "follows": "1:yes", 'box_dash': 'dash' }, { "order": "1", "step": "call the clinic", "type": "", "domain": "patient", "region": "r6", "value": "", "number": 3, 'box_thick': 'thick' }, { "order": "1", "step": "wait for someone to answer", "type": "wait", "domain": "patient", "region": "r6", "value": "not", "number": 4, "follows": "start" }, { "order": "1", "step": "ask about available appointment times", "type": "", "domain": "patient", "region": "r5", "value": "necessary", "number": 5, "skip_rows": 1.5 }, { "order": "1", "step": "select an appointment time", "type": "decision", "domain": "patient", "region": "r4", "value": "very", "number": 6 }, { "order": "1", "step": "have an appointment", "type": "", "domain": "patient", "region": "r7", "value": "very", "number": 7 }, { "step": "", "domain": "patient", "number": 8 }] };
+    var spaData = { "meta": { "author": "Brian Farnsworth", "savename": "" }, "process": { "provider": "health clinic", "customer": "patient", "process": "Make an appointment", "initial_step": "needs an appointment", "final_step": "has an appointment" }, "subject": { "name": "John Doe", "date": "today", "entity": "patient" }, "steps": [{ "order": "1", "step": "need an appointment", "type": "", "domain": "patient", "region": "r7", "value": "somewhat", "inconvenient": "headache", "problem_inconvenient": "real pain to get to", "problem_likely_to_fail": "forget to show up", "number": 1 }, { "order": "1", "step": "look up the clinic phone number", "type": "", "other": "411", "domain": "patient", "region": "r6", "value": "necessary", "problem_difficult": "hard to do", "problem_confusing": "strange language", "number": 2, "follows": "1:yes", 'box_dash': 'dash' }, { "order": "1", "step": "call the clinic", "type": "", "domain": "patient", "region": "r6", "value": "", "number": 3, 'box_thick': 'thick' }, { "order": "1", "step": "wait for someone to answer", "type": "wait", "domain": "patient", "region": "r6", "value": "not", "number": 4, "follows": "start" }, { "order": "1", "step": "ask about available appointment times", "type": "", "domain": "patient", "region": "r5", "value": "necessary", "number": 5, "skip_rows": 1.5 }, { "order": "1", "step": "select an appointment time", "type": "decision", "domain": "patient", "region": "r4", "value": "very", "number": 6 }, { "order": "1", "step": "have an appointment", "type": "", "domain": "patient", "region": "r7", "value": "very", "number": 7 }, { "step": "", "domain": "patient", "number": 8 }] };
 
     //get the domain ids
     var providerId = '1'
