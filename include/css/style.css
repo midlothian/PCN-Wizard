@@ -641,3 +641,10 @@ input[type="radio"] {
     margin-bottom: -17px;
     font-size: 14px;
 }
+
+
+.segmented-control{
+    display: inline;
+    font-size: 14px;
+    font-weight: bolder;
+}

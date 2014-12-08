@@ -8,7 +8,7 @@
 <body>
 
 
-<!--  
+    <!--  
 The following HTML is for the sidebar that pops in and out
 -->
     <div id="sidebarWrapper">
@@ -51,7 +51,7 @@ The following HTML is for the sidebar that pops in and out
                         </div>
                         <div class="buttonLabel">Edit process details</div>
                     </div>
-                    <div class="buttonContainer" onClick="window.location.reload()">
+                    <div class="buttonContainer" onclick="window.location.reload()">
                         <div class="buttonImage">
                             <img src="images/buttonNew.png" width="80">
                         </div>
@@ -75,13 +75,13 @@ The following HTML is for the sidebar that pops in and out
                         </div>
                         <div class="buttonLabel">Show diagram (popout)</div>
                     </div>
-                    <div class="buttonContainer" onClick="window.location.reload()">
+                    <div class="buttonContainer" onclick="window.location.reload()">
                         <div class="buttonImage">
                             <img src="images/buttonReset.png" width="80">
                         </div>
                         <div class="buttonLabel">Reset process steps</div>
                     </div>
-<!--                    <div class="buttonContainer" id="buttonSettings">
+                    <!--                    <div class="buttonContainer" id="buttonSettings">
                         <div class="buttonImage">
                             <img src="images/buttonEdit.png" width="80">
                         </div>
@@ -97,7 +97,7 @@ The following HTML is for the sidebar that pops in and out
     </div>
 
 
-<!-- The main content of the page goes here -->    
+    <!-- The main content of the page goes here -->
     <div class="mainContent">
         <div id="processStepHeader">
             <h1 id="PCNTitle">Go to the Dentist: Process Steps</h1>
@@ -205,7 +205,7 @@ The following HTML is for the sidebar that pops in and out
 
     <!-- Displays to user when they first load the page to explain where to find the sidebar and controls-->
     <div id="sidebarHint">&lt;-- Hover over the bar to show the menu</div>
-    
+
 
 
     <!-- Export data modal -->
@@ -222,9 +222,19 @@ The following HTML is for the sidebar that pops in and out
         <div class="modalFooter">
             <!--<div class="button">Download File</div>-->
             <div class="button closeButton">Close</div>
+            <nav class="segmented-control" style="width: 600px; color: #5FBAAC">
+                <input type="radio" name="sc-0" id="sc-0-1" checked="checked" value="PCN Wizard SPA Data"/>
+                PCN Wizard SPA Data
+                <input type="radio" name="sc-0" id="sc-0-2"  value="Pcn Spec" />
+                Matt Swenson's "Pcn Spec"
+
+<!--                <label for="sc-0-1" data-value="Lorem Ipsum">Lorem Ipsum</label>
+                <label for="sc-0-2" data-value="Cras justo">Cras justo</label>-->
+
+            </nav>
         </div>
     </div>
-    
+
 
 
     <!-- Import data modal -->
@@ -242,7 +252,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButton">Cancel</div>
         </div>
     </div>
-    
+
 
 
     <!-- The modal that displays when you click the "Edit button on a row" -->
@@ -279,7 +289,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButtonEditOnDiagram">Cancel</div>
         </div>
     </div>
-    
+
 
 
     <!-- this modal is not currently being used anywhere -->
@@ -300,7 +310,7 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButton">Close</div>
         </div>
     </div>
-    
+
 
 
     <!-- Modal that displays when you click on the Header or "Edit Process Details" button so you can edit the name of the PCN Diagram, provider, or customer-->
@@ -328,10 +338,10 @@ The following HTML is for the sidebar that pops in and out
             <div class="button closeButtonEditDiagram">Cancel</div>
         </div>
     </div>
-    
 
 
-<!-- This is the dynamic content that is added and removed when you add and remove rown -->
+
+    <!-- This is the dynamic content that is added and removed when you add and remove rown -->
     <div id="appendContent">
         <div class="tableColumnDelete">
             <div class="roundButton deleteButton">X</div>
@@ -413,7 +423,7 @@ The following HTML is for the sidebar that pops in and out
             </div>
         </div>
     </div>
-<!--    <hr>
+    <!--    <hr>
     <svg width="1080" height="100" xmlns="http://www.w3.org/2000/svg" id="diagram"></svg>
     <svg height="20" width="1000" xmlns="http://www.w3.org/2000/svg" id="textMeasurer">
         <text font-size="large" style="fill: yellow;" x="0" y="18">
